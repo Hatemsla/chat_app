@@ -1,27 +1,38 @@
-part of 'sign_in_bloc.dart';
+// // ignore_for_file: public_member_api_docs, sort_constructors_first
+// import 'package:equatable/equatable.dart';
 
-abstract class SignInState extends Equatable {}
+// part of 'sign_in_bloc.dart';
 
-class SignInInitial extends SignInState {
-  @override
-  List<Object?> get props => [];
-}
+// enum SignInStatus{
+//   success,
+//   failure,
+//   loading
+// }
 
-class SignInLoading extends SignInState {
-  @override
-  List<Object?> get props => [];
-}
+// class SignInState extends Equatable {
+//   const SignInState({required this.message, required this.status, required this.email, required this.password});
+  
+//   final String message;
+//   final SignInStatus status;
+//   final String email;
+//   final String password;
 
-class SignInLoadingFailure extends SignInState {
-  final Object? exception;
+//   SignInState copyWith({
+//     String? message,
+//     SignInStatus? status,
+//     String? email,
+//     String? password,
+//   }) {
+//     return SignInState(
+//       message: message ?? this.message,
+//       status: status ?? this.status,
+//       email: email ?? this.email,
+//       password: password ?? this.password,
+//     );
+//   }
 
-  SignInLoadingFailure({required this.exception});
+//   @override
+//   List<Object> get props => [message, status, email, password];
+// }
 
-  @override
-  List<Object?> get props => [exception];
-}
 
-class SignInLoaded extends SignInState {
-  @override
-  List<Object?> get props => [];
-}

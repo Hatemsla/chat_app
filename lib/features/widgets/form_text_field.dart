@@ -4,13 +4,13 @@ class FormTextField extends StatefulWidget {
   const FormTextField(
       {super.key,
       this.hint,
-      required this.label,
+      this.label,
       this.type,
       this.controller,
       this.validator});
 
   final String? hint;
-  final Text label;
+  final Text? label;
   final TextInputType? type;
   final TextEditingController? controller;
   final String? Function(String?)? validator;
