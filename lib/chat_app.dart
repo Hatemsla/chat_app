@@ -17,6 +17,7 @@ class _ChatAppState extends State<ChatApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
+        debugShowCheckedModeBanner: false,
         title: 'Chat app',
         theme: appTheme,
         routerConfig: _appRouter.config(

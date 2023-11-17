@@ -1,28 +1,28 @@
-import 'package:auto_route/auto_route.dart';
-import 'package:chat_app/router/router.dart';
 import 'package:flutter/material.dart';
 
-class UserCard extends StatelessWidget {
-  const UserCard({
+class AddUserCard extends StatelessWidget {
+  const AddUserCard({
     super.key,
     required this.userAvatar,
     required this.userName,
-    required this.userLastMessage,
-    required this.userLastMessageTime,
+    required this.userLastConnect,
+    this.margin = const EdgeInsets.all(2),
+    this.onTap,
   });
 
   final Widget userAvatar;
   final String userName;
-  final String userLastMessage;
-  final String userLastMessageTime;
+  final String userLastConnect;
+  final EdgeInsets? margin;
+  final Function()? onTap;
 
   @override
   Widget build(BuildContext context) {
     return Card(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(0)),
-      margin: const EdgeInsets.all(2),
+      margin: margin,
       child: InkWell(
-        onTap: () => AutoRouter.of(context).push(ChatRoute(isChat: true)),
+        onTap: onTap,
         child: ListTile(
           leading: CircleAvatar(
             child: userAvatar,
@@ -32,12 +32,8 @@ class UserCard extends StatelessWidget {
             style: const TextStyle(fontWeight: FontWeight.bold),
           ),
           subtitle: Text(
-            userLastMessage,
+            userLastConnect,
             maxLines: 1,
-          ),
-          trailing: Text(
-            userLastMessageTime,
-            style: const TextStyle(color: Colors.black54),
           ),
         ),
       ),

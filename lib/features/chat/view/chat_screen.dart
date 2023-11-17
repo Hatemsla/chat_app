@@ -1,12 +1,13 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:chat_app/features/chat/widgets/chat_bubble.dart';
-import 'package:chat_app/features/widgets/form_text_field.dart';
 import 'package:chat_app/router/router.dart';
 import 'package:flutter/material.dart';
 
 @RoutePage()
 class ChatScreen extends StatefulWidget {
-  const ChatScreen({super.key});
+  const ChatScreen({super.key, required this.isChat});
+
+  final bool isChat;
 
   @override
   State<ChatScreen> createState() => _ChatScreenState();
@@ -22,19 +23,19 @@ class _ChatScreenState extends State<ChatScreen> {
         appBar: AppBar(
           backgroundColor: theme.primaryColor,
           surfaceTintColor: theme.primaryColor,
-          title: const ListTile(
-            leading: CircleAvatar(
+          title: ListTile(
+            leading: const CircleAvatar(
               child: Icon(Icons.person),
             ),
             title: Text(
-              "Имя",
+              (widget.isChat) ? "Имя" : "Название чата",
               maxLines: 1,
-              style:
-                  TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
+              style: const TextStyle(
+                  color: Colors.white, fontWeight: FontWeight.w600),
             ),
             subtitle: Text(
-              "недавно",
-              style: TextStyle(color: Colors.white70),
+              (widget.isChat) ? "недавно" : "N участников",
+              style: const TextStyle(color: Colors.white70),
             ),
           ),
           leading: IconButton(
@@ -43,11 +44,12 @@ class _ChatScreenState extends State<ChatScreen> {
               },
               icon: const Icon(Icons.arrow_back)),
           actions: [
-            IconButton(
-                onPressed: () {},
-                icon: const Icon(
-                  Icons.phone,
-                )),
+            if (widget.isChat)
+              IconButton(
+                  onPressed: () {},
+                  icon: const Icon(
+                    Icons.phone,
+                  )),
             IconButton(
                 onPressed: () {},
                 icon: const Icon(

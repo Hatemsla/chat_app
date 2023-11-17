@@ -32,26 +32,30 @@ class UsersListDrawer extends StatelessWidget {
             ),
             decoration: BoxDecoration(color: theme.primaryColor),
           ),
-          const ListTile(
-            leading: Icon(Icons.people_alt_outlined),
-            title: Text(
+          ListTile(
+            leading: const Icon(Icons.people_alt_outlined),
+            title: const Text(
               "Создать группу",
               style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
             ),
+            onTap: () =>
+                AutoRouter.of(context).push(const AddUsersToGroupRoute()),
           ),
-          const ListTile(
-            leading: Icon(Icons.person_outline),
-            title: Text(
+          ListTile(
+            leading: const Icon(Icons.person_outline),
+            title: const Text(
               "Контакты",
               style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
             ),
+            onTap: () => AutoRouter.of(context).push(const ContactsRoute()),
           ),
-          const ListTile(
-            leading: Icon(Icons.settings_outlined),
-            title: Text(
+          ListTile(
+            leading: const Icon(Icons.settings_outlined),
+            title: const Text(
               "Настройки",
               style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
             ),
+            onTap: () => AutoRouter.of(context).push(const SettingsRoute()),
           ),
           ListTile(
             leading: const Icon(Icons.logout),

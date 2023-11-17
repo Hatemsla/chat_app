@@ -14,7 +14,11 @@ class UsersListScreen extends StatelessWidget {
         drawer: const UsersListDrawer(),
         drawerEdgeDragWidth: MediaQuery.of(context).size.width / 2,
         appBar: AppBar(
-          title: Text('Чаты', style: theme.textTheme.headlineSmall),
+          title: const Text('Чаты',
+              style: TextStyle(
+                  fontSize: 20,
+                  color: Colors.white,
+                  fontWeight: FontWeight.w600)),
           actions: [
             IconButton(
                 onPressed: () {},
