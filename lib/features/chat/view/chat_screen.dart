@@ -27,13 +27,13 @@ class _ChatScreenState extends State<ChatScreen> {
               child: Icon(Icons.person),
             ),
             title: Text(
-              "User name",
+              "Имя",
               maxLines: 1,
               style:
                   TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
             ),
             subtitle: Text(
-              "was recently",
+              "недавно",
               style: TextStyle(color: Colors.white70),
             ),
           ),
@@ -70,7 +70,7 @@ class _ChatScreenState extends State<ChatScreen> {
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
                           Text(
-                            "sender email",
+                            "почта",
                             style: TextStyle(
                                 fontWeight: FontWeight.normal,
                                 color: Colors.black38),
@@ -87,18 +87,36 @@ class _ChatScreenState extends State<ChatScreen> {
             ),
             Row(
               children: [
+                IconButton(
+                    onPressed: () {},
+                    icon: const Icon(
+                      Icons.emoji_emotions_outlined,
+                      color: Colors.black26,
+                      size: 30,
+                    )),
                 Expanded(
-                    child: FormTextField(
-                  controller: _messageController,
-                  hint: "Enter message",
-                  type: TextInputType.text,
-                )),
+                  child: TextFormField(
+                      keyboardType: TextInputType.text,
+                      controller: _messageController,
+                      style: TextStyle(
+                          fontSize: theme.textTheme.bodyMedium?.fontSize,
+                          color: Colors.black),
+                      decoration: const InputDecoration(
+                          hintText: "Сообщение",
+                          hintStyle: TextStyle(color: Colors.black38),
+                          enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.white),
+                              borderRadius: BorderRadius.zero),
+                          focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.white),
+                              borderRadius: BorderRadius.zero))),
+                ),
                 IconButton(
                     onPressed: () {},
                     icon: Icon(
                       Icons.send,
                       color: theme.primaryColor,
-                      size: 40,
+                      size: 30,
                     ))
               ],
             )

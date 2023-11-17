@@ -28,7 +28,8 @@ class _FormTextFieldState extends State<FormTextField> {
       controller: widget.controller,
       validator: widget.validator,
       style: theme.textTheme.bodyMedium,
-      decoration: InputDecoration(hintText: widget.hint, label: widget.label),
+      decoration: InputDecoration(
+          hintText: widget.hint, label: widget.label, border: InputBorder.none),
       obscureText: widget.type == null,
     );
   }

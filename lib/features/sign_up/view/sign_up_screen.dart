@@ -65,7 +65,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
         child: Column(
           children: [
             const SizedBox(
-              height: 30,
+              height: 40,
             ),
             Image.asset("assets/chat.png", height: 120),
             FormWidget(
@@ -113,7 +113,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     .copyWith(top: 16),
                 child: InkWell(
                     onTap: () =>
-                        AutoRouter.of(context).push(const UsersListRoute()),
+                        AutoRouter.of(context).replace(const UsersListRoute()),
                     child: Container(
                       padding: const EdgeInsets.symmetric(vertical: 16),
                       decoration: BoxDecoration(
@@ -160,7 +160,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 SquareTile(imagePath: 'assets/google.png'),
               ],
             ),
-            const SizedBox(height: 90),
+            const SizedBox(height: 80),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -174,7 +174,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       padding:
                           MaterialStatePropertyAll(theme.buttonTheme.padding)),
                   onPressed: () {
-                    AutoRouter.of(context).push(const SignInRoute());
+                    AutoRouter.of(context).replace(const SignInRoute());
                   },
                   child: Text(
                     'Log in now',

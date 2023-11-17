@@ -19,9 +19,8 @@ class UserCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-      elevation: 1,
-      margin: const EdgeInsets.all(4),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(0)),
+      margin: const EdgeInsets.all(2),
       child: InkWell(
         onTap: () => AutoRouter.of(context).push(const ChatRoute()),
         child: ListTile(

@@ -63,7 +63,7 @@ class _SignInScreenState extends State<SignInScreen> {
                     .copyWith(top: 16),
                 child: GestureDetector(
                   onTap: () {
-                    AutoRouter.of(context).push(const UsersListRoute());
+                    AutoRouter.of(context).replace(const UsersListRoute());
                   },
                   child: Container(
                     padding: const EdgeInsets.symmetric(vertical: 16),
@@ -126,7 +126,7 @@ class _SignInScreenState extends State<SignInScreen> {
                       padding:
                           MaterialStatePropertyAll(theme.buttonTheme.padding)),
                   onPressed: () {
-                    AutoRouter.of(context).push(const SignUpRoute());
+                    AutoRouter.of(context).replace(const SignUpRoute());
                   },
                   child: Text(
                     'Register now',
