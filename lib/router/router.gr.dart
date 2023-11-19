@@ -15,20 +15,34 @@ abstract class _$AppRouter extends RootStackRouter {
 
   @override
   final Map<String, PageFactory> pagesMap = {
+    AddUsersToChannelRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const AddUsersToChannelScreen(),
+      );
+    },
     AddUsersToGroupRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
         child: const AddUsersToGroupScreen(),
       );
     },
-    ChatRoute.name: (routeData) {
-      final args = routeData.argsAs<ChatRouteArgs>();
+    AnotherUserInfoRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: ChatScreen(
-          key: args.key,
-          isChat: args.isChat,
-        ),
+        child: const AnotherUserInfoScreen(),
+      );
+    },
+    ChatRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const ChatScreen(),
+      );
+    },
+    ChooseChannelTypeRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const ChooseChannelTypeScreen(),
       );
     },
     ContactsRoute.name: (routeData) {
@@ -37,10 +51,22 @@ abstract class _$AppRouter extends RootStackRouter {
         child: const ContactsScreen(),
       );
     },
+    CreateChannelRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const CreateChannelScreen(),
+      );
+    },
     CreateGroupRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
         child: const CreateGroupScreen(),
+      );
+    },
+    GroupChatRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const GroupChatScreen(),
       );
     },
     SettingsRoute.name: (routeData) {
@@ -61,6 +87,30 @@ abstract class _$AppRouter extends RootStackRouter {
         child: const SignUpScreen(),
       );
     },
+    UpdateUserDescriptionRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const UpdateUserDescriptionScreen(),
+      );
+    },
+    UpdateUserEmailRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const UpdateUserEmailScreen(),
+      );
+    },
+    UpdateUserNameRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const UpdateUserNameScreen(),
+      );
+    },
+    UpdateUserPhoneRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const UpdateUserPhoneScreen(),
+      );
+    },
     UsersListRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
@@ -74,6 +124,20 @@ abstract class _$AppRouter extends RootStackRouter {
       );
     },
   };
+}
+
+/// generated route for
+/// [AddUsersToChannelScreen]
+class AddUsersToChannelRoute extends PageRouteInfo<void> {
+  const AddUsersToChannelRoute({List<PageRouteInfo>? children})
+      : super(
+          AddUsersToChannelRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'AddUsersToChannelRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
 }
 
 /// generated route for
@@ -91,40 +155,45 @@ class AddUsersToGroupRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [AnotherUserInfoScreen]
+class AnotherUserInfoRoute extends PageRouteInfo<void> {
+  const AnotherUserInfoRoute({List<PageRouteInfo>? children})
+      : super(
+          AnotherUserInfoRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'AnotherUserInfoRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
 /// [ChatScreen]
-class ChatRoute extends PageRouteInfo<ChatRouteArgs> {
-  ChatRoute({
-    Key? key,
-    required bool isChat,
-    List<PageRouteInfo>? children,
-  }) : super(
+class ChatRoute extends PageRouteInfo<void> {
+  const ChatRoute({List<PageRouteInfo>? children})
+      : super(
           ChatRoute.name,
-          args: ChatRouteArgs(
-            key: key,
-            isChat: isChat,
-          ),
           initialChildren: children,
         );
 
   static const String name = 'ChatRoute';
 
-  static const PageInfo<ChatRouteArgs> page = PageInfo<ChatRouteArgs>(name);
+  static const PageInfo<void> page = PageInfo<void>(name);
 }
 
-class ChatRouteArgs {
-  const ChatRouteArgs({
-    this.key,
-    required this.isChat,
-  });
+/// generated route for
+/// [ChooseChannelTypeScreen]
+class ChooseChannelTypeRoute extends PageRouteInfo<void> {
+  const ChooseChannelTypeRoute({List<PageRouteInfo>? children})
+      : super(
+          ChooseChannelTypeRoute.name,
+          initialChildren: children,
+        );
 
-  final Key? key;
+  static const String name = 'ChooseChannelTypeRoute';
 
-  final bool isChat;
-
-  @override
-  String toString() {
-    return 'ChatRouteArgs{key: $key, isChat: $isChat}';
-  }
+  static const PageInfo<void> page = PageInfo<void>(name);
 }
 
 /// generated route for
@@ -142,6 +211,20 @@ class ContactsRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [CreateChannelScreen]
+class CreateChannelRoute extends PageRouteInfo<void> {
+  const CreateChannelRoute({List<PageRouteInfo>? children})
+      : super(
+          CreateChannelRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'CreateChannelRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
 /// [CreateGroupScreen]
 class CreateGroupRoute extends PageRouteInfo<void> {
   const CreateGroupRoute({List<PageRouteInfo>? children})
@@ -151,6 +234,20 @@ class CreateGroupRoute extends PageRouteInfo<void> {
         );
 
   static const String name = 'CreateGroupRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [GroupChatScreen]
+class GroupChatRoute extends PageRouteInfo<void> {
+  const GroupChatRoute({List<PageRouteInfo>? children})
+      : super(
+          GroupChatRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'GroupChatRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
 }
@@ -193,6 +290,62 @@ class SignUpRoute extends PageRouteInfo<void> {
         );
 
   static const String name = 'SignUpRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [UpdateUserDescriptionScreen]
+class UpdateUserDescriptionRoute extends PageRouteInfo<void> {
+  const UpdateUserDescriptionRoute({List<PageRouteInfo>? children})
+      : super(
+          UpdateUserDescriptionRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'UpdateUserDescriptionRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [UpdateUserEmailScreen]
+class UpdateUserEmailRoute extends PageRouteInfo<void> {
+  const UpdateUserEmailRoute({List<PageRouteInfo>? children})
+      : super(
+          UpdateUserEmailRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'UpdateUserEmailRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [UpdateUserNameScreen]
+class UpdateUserNameRoute extends PageRouteInfo<void> {
+  const UpdateUserNameRoute({List<PageRouteInfo>? children})
+      : super(
+          UpdateUserNameRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'UpdateUserNameRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [UpdateUserPhoneScreen]
+class UpdateUserPhoneRoute extends PageRouteInfo<void> {
+  const UpdateUserPhoneRoute({List<PageRouteInfo>? children})
+      : super(
+          UpdateUserPhoneRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'UpdateUserPhoneRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
 }

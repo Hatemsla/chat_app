@@ -1,19 +1,19 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:chat_app/features/add_users_to_group/add_users_to_group.dart';
 import 'package:chat_app/router/router.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../widgets/widgets.dart';
-
 @RoutePage()
-class AddUsersToGroupScreen extends StatefulWidget {
-  const AddUsersToGroupScreen({super.key});
+class AddUsersToChannelScreen extends StatefulWidget {
+  const AddUsersToChannelScreen({super.key});
 
   @override
-  State<AddUsersToGroupScreen> createState() => _AddUsersToGroupScreenState();
+  State<AddUsersToChannelScreen> createState() =>
+      _AddUsersToChannelScreenState();
 }
 
-class _AddUsersToGroupScreenState extends State<AddUsersToGroupScreen> {
+class _AddUsersToChannelScreenState extends State<AddUsersToChannelScreen> {
   final TextEditingController _findUserController = TextEditingController();
 
   @override
@@ -23,24 +23,19 @@ class _AddUsersToGroupScreenState extends State<AddUsersToGroupScreen> {
       appBar: AppBar(
         title: const ListTile(
           dense: true,
+          contentPadding: EdgeInsets.zero,
           title: Text(
-            "Создать группу",
+            "Добавить подписчиков",
+            softWrap: false,
             style: TextStyle(
                 fontSize: 20, color: Colors.white, fontWeight: FontWeight.w600),
           ),
           subtitle: Text(
-            "До 200 участников",
+            "0 участников",
             style:
                 TextStyle(color: Colors.white70, fontWeight: FontWeight.normal),
           ),
         ),
-        actions: [
-          IconButton(
-              onPressed: () {},
-              icon: const Icon(
-                Icons.search_outlined,
-              ))
-        ],
         backgroundColor: theme.primaryColor,
       ),
       floatingActionButton: CircleFloatingActionButton(

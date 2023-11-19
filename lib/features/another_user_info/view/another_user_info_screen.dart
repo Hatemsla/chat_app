@@ -1,17 +1,22 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:auto_route/auto_route.dart';
 import 'package:chat_app/features/settings/settings.dart';
 import 'package:chat_app/router/router.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 @RoutePage()
-class SettingsScreen extends StatefulWidget {
-  const SettingsScreen({super.key});
+class AnotherUserInfoScreen extends StatefulWidget {
+  const AnotherUserInfoScreen({super.key});
 
   @override
-  State<SettingsScreen> createState() => _SettingsScreenState();
+  State<AnotherUserInfoScreen> createState() => _AnotherUserInfoScreenState();
 }
 
-class _SettingsScreenState extends State<SettingsScreen> {
+class _AnotherUserInfoScreenState extends State<AnotherUserInfoScreen> {
+  bool _notifications = true;
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -24,8 +29,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
               child: Icon(Icons.person),
             ),
             title: Text(
-              "Ян Калашников",
-              maxLines: 1,
+              "Другой пользователь",
+              softWrap: false,
               style:
                   TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
             ),
@@ -35,6 +40,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             )),
         backgroundColor: theme.primaryColor,
         actions: [
+          IconButton(onPressed: () {}, icon: const Icon(Icons.phone)),
           PopupMenuButton(
               itemBuilder: (context) => [
                     PopupMenuItem(
@@ -45,14 +51,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
                             Padding(
                               padding: EdgeInsets.all(8.0),
                               child: Icon(
-                                Icons.edit_outlined,
+                                Icons.block,
                                 size: 28,
                               ),
                             ),
                             Padding(
                               padding: EdgeInsets.all(8.0),
                               child: Text(
-                                "Изменить имя",
+                                "Заблокировать",
                                 style: TextStyle(fontSize: 16),
                               ),
                             )
@@ -64,53 +70,35 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         Padding(
                           padding: EdgeInsets.all(8.0),
                           child: Icon(
-                            Icons.add_a_photo_outlined,
+                            Icons.delete_outline,
                             size: 28,
                           ),
                         ),
                         Padding(
                           padding: EdgeInsets.all(8.0),
                           child: Text(
-                            "Выбрать фотографию",
+                            "Удалить",
                             style: TextStyle(fontSize: 16),
                           ),
                         )
                       ],
                     )),
-                    PopupMenuItem(
-                        onTap: () =>
-                            AutoRouter.of(context).replace(const SignInRoute()),
-                        child: const Row(
-                          children: [
-                            Padding(
-                              padding: EdgeInsets.all(8.0),
-                              child: Icon(
-                                Icons.exit_to_app_outlined,
-                                size: 28,
-                              ),
-                            ),
-                            Padding(
-                              padding: EdgeInsets.all(8.0),
-                              child: Text(
-                                "Выход",
-                                style: TextStyle(fontSize: 16),
-                              ),
-                            )
-                          ],
-                        ))
                   ]),
         ],
         surfaceTintColor: Colors.transparent,
       ),
       body: ListView(children: [
         DetailInfo(
-          titleText: "Аккаунт",
-          containerHeight: 205,
+          titleText: "Информация",
+          containerHeight: 255,
           padding: const EdgeInsets.symmetric(horizontal: 20).copyWith(top: 16),
           listWidgets: [
             ListTile(
-              onTap: () =>
-                  AutoRouter.of(context).push(const UpdateUserPhoneRoute()),
+              onTap: () async {
+                await Clipboard.setData(
+                    const ClipboardData(text: "+7 (965) 582-08-60"));
+                _showSnackBar(context);
+              },
               visualDensity: VisualDensity.compact,
               dense: true,
               contentPadding: EdgeInsets.zero,
@@ -119,13 +107,34 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 style: TextStyle(fontSize: 14),
               ),
               subtitle: const Text(
-                "Нажмите, чтобы изменить номер телефона",
+                "Телефон",
                 style: TextStyle(color: Colors.black26, fontSize: 12),
               ),
             ),
             ListTile(
-              onTap: () =>
-                  AutoRouter.of(context).push(const UpdateUserEmailRoute()),
+              onTap: () async {
+                await Clipboard.setData(
+                    const ClipboardData(text: "Информация о пользователе"));
+                _showSnackBar(context);
+              },
+              visualDensity: VisualDensity.compact,
+              dense: true,
+              contentPadding: EdgeInsets.zero,
+              title: const Text(
+                "Информация о пользователе",
+                style: TextStyle(fontSize: 14),
+              ),
+              subtitle: const Text(
+                "О себе",
+                style: TextStyle(color: Colors.black26, fontSize: 12),
+              ),
+            ),
+            ListTile(
+              onTap: () async {
+                await Clipboard.setData(
+                    const ClipboardData(text: "kalashnikovjan@yandex.ru"));
+                _showSnackBar(context);
+              },
               visualDensity: VisualDensity.compact,
               dense: true,
               contentPadding: EdgeInsets.zero,
@@ -134,74 +143,60 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 style: TextStyle(fontSize: 14),
               ),
               subtitle: const Text(
-                "Нажмите, чтобы изменить почту",
+                "Почта пользователя",
                 style: TextStyle(color: Colors.black26, fontSize: 12),
               ),
             ),
             ListTile(
-              onTap: () => AutoRouter.of(context)
-                  .push(const UpdateUserDescriptionRoute()),
               visualDensity: VisualDensity.compact,
               dense: true,
               contentPadding: EdgeInsets.zero,
               title: const Text(
-                "Level up!",
+                "Уведомления",
                 style: TextStyle(fontSize: 14),
               ),
-              subtitle: const Text(
-                "О себе",
-                style: TextStyle(color: Colors.black26, fontSize: 12),
+              subtitle: Text(
+                (_notifications) ? "Включены" : "Выключены",
+                style: const TextStyle(color: Colors.black26, fontSize: 12),
               ),
+              trailing: Switch(
+                  activeColor: theme.primaryColor,
+                  value: _notifications,
+                  onChanged: (val) {
+                    setState(() {
+                      _notifications = val;
+                    });
+                  }),
             ),
           ],
         ),
-        const SizedBox(
-          height: 10,
-        ),
-        Container(
-          alignment: Alignment.centerLeft,
-          padding: const EdgeInsets.symmetric(horizontal: 20).copyWith(top: 16),
-          height: 80,
-          width: double.infinity,
-          color: Colors.white,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                "Настройки",
-                style: TextStyle(
-                    color: theme.primaryColor, fontWeight: FontWeight.w500),
-                textAlign: TextAlign.left,
-              ),
-              Expanded(
-                  child: Column(
-                children: [
-                  ListTile(
-                    visualDensity: VisualDensity.compact,
-                    dense: true,
-                    contentPadding: EdgeInsets.zero,
-                    title: const Text(
-                      "Язык",
-                      style: TextStyle(fontSize: 14),
-                    ),
-                    leading: const Icon(
-                      Icons.language_outlined,
-                      color: Colors.black38,
-                    ),
-                    trailing: Text(
-                      "Русский",
-                      style: TextStyle(
-                          color: theme.primaryColor,
-                          fontSize: 14,
-                          fontWeight: FontWeight.normal),
-                    ),
-                  ),
-                ],
-              ))
-            ],
-          ),
-        ),
       ]),
     );
+  }
+
+  void _showSnackBar(BuildContext context) {
+    ScaffoldMessenger.of(context).hideCurrentSnackBar();
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        backgroundColor: Colors.black.withOpacity(0.7),
+        behavior: SnackBarBehavior.floating,
+        duration: Durations.medium3,
+        elevation: 0,
+        shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(12))),
+        content: const Row(
+          children: [
+            Icon(
+              Icons.copy,
+              color: Colors.white,
+            ),
+            Padding(
+              padding: EdgeInsets.only(left: 8),
+              child: Text(
+                "Текст скопирован в буффер обмена.",
+                style: TextStyle(fontWeight: FontWeight.normal),
+              ),
+            )
+          ],
+        )));
   }
 }

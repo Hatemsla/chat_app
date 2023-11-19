@@ -1,17 +1,18 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:chat_app/features/add_users_to_group/add_users_to_group.dart';
 import 'package:chat_app/router/router.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 @RoutePage()
-class CreateGroupScreen extends StatefulWidget {
-  const CreateGroupScreen({super.key});
+class CreateChannelScreen extends StatefulWidget {
+  const CreateChannelScreen({super.key});
 
   @override
-  State<CreateGroupScreen> createState() => _CreateGroupScreenState();
+  State<CreateChannelScreen> createState() => _CreateChannelScreenState();
 }
 
-class _CreateGroupScreenState extends State<CreateGroupScreen> {
+class _CreateChannelScreenState extends State<CreateChannelScreen> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -20,17 +21,18 @@ class _CreateGroupScreenState extends State<CreateGroupScreen> {
         backgroundColor: theme.primaryColor,
         surfaceTintColor: theme.primaryColor,
         title: const Text(
-          "Создать группу",
+          "Создать канал",
           style: TextStyle(
               fontSize: 20, color: Colors.white, fontWeight: FontWeight.w600),
         ),
       ),
       floatingActionButton: CircleFloatingActionButton(
         icon: const Icon(
-          Icons.check,
+          CupertinoIcons.arrow_right,
           color: Colors.white,
         ),
-        onPressed: () => AutoRouter.of(context).popAndPush(GroupChatRoute()),
+        onPressed: () =>
+            AutoRouter.of(context).push(const ChooseChannelTypeRoute()),
       ),
       backgroundColor: Colors.blueGrey[50],
       body: Column(children: [
@@ -58,11 +60,11 @@ class _CreateGroupScreenState extends State<CreateGroupScreen> {
                   child: TextFormField(
                     style: const TextStyle(fontSize: 14, color: Colors.black),
                     decoration: InputDecoration(
-                        hintText: "Введите имя группы",
+                        hintText: "Имя канала",
                         contentPadding: const EdgeInsets.only(bottom: 4),
-                        enabledBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(
-                                color: theme.primaryColor, width: 2)),
+                        enabledBorder: const UnderlineInputBorder(
+                            borderSide:
+                                BorderSide(color: Colors.black12, width: 2)),
                         focusedBorder: UnderlineInputBorder(
                             borderSide: BorderSide(
                                 color: theme.primaryColor, width: 2)),
@@ -82,7 +84,46 @@ class _CreateGroupScreenState extends State<CreateGroupScreen> {
               )
             ],
           ),
-        )
+        ),
+        Expanded(
+          child: Container(
+            padding: const EdgeInsets.only(left: 22, top: 18),
+            color: Colors.white,
+            child: Column(
+              children: [
+                Container(
+                  margin: const EdgeInsets.only(right: 16),
+                  child: TextFormField(
+                    maxLength: 600,
+                    style: const TextStyle(fontSize: 14, color: Colors.black),
+                    decoration: InputDecoration(
+                      hintText: "Описание",
+                      contentPadding: const EdgeInsets.only(bottom: 4),
+                      enabledBorder: const UnderlineInputBorder(
+                          borderSide:
+                              BorderSide(color: Colors.black12, width: 2)),
+                      focusedBorder: UnderlineInputBorder(
+                          borderSide:
+                              BorderSide(color: theme.primaryColor, width: 2)),
+                      focusColor: theme.primaryColor,
+                      isDense: true,
+                    ),
+                  ),
+                ),
+                Container(
+                  margin: const EdgeInsets.only(right: 16, top: 8),
+                  alignment: Alignment.centerLeft,
+                  child: const Text(
+                    "Вы можете добавить несколько строк о себе.",
+                    textAlign: TextAlign.left,
+                    style: TextStyle(
+                        color: Colors.black38, fontWeight: FontWeight.normal),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
       ]),
     );
   }

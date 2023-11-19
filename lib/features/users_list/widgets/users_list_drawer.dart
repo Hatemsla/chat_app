@@ -25,9 +25,18 @@ class UsersListDrawer extends StatelessWidget {
             accountEmail: Text("kalashnikovjan@yandex.ru",
                 style: TextStyle(
                     fontSize: 14, color: Colors.white.withOpacity(0.7))),
-            currentAccountPicture: const CircleAvatar(
+            currentAccountPicture: CircleAvatar(
               child: ClipOval(
-                child: Icon(Icons.person),
+                child: IconButton(
+                  enableFeedback: false,
+                  highlightColor: Colors.transparent,
+                  icon: const Icon(
+                    Icons.person,
+                    color: Colors.black87,
+                  ),
+                  onPressed: () =>
+                      AutoRouter.of(context).popAndPush(const SettingsRoute()),
+                ),
               ),
             ),
             decoration: BoxDecoration(color: theme.primaryColor),
@@ -39,7 +48,7 @@ class UsersListDrawer extends StatelessWidget {
               style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
             ),
             onTap: () =>
-                AutoRouter.of(context).push(const AddUsersToGroupRoute()),
+                AutoRouter.of(context).popAndPush(const AddUsersToGroupRoute()),
           ),
           ListTile(
             leading: const Icon(Icons.person_outline),
@@ -47,7 +56,8 @@ class UsersListDrawer extends StatelessWidget {
               "Контакты",
               style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
             ),
-            onTap: () => AutoRouter.of(context).push(const ContactsRoute()),
+            onTap: () =>
+                AutoRouter.of(context).popAndPush(const ContactsRoute()),
           ),
           ListTile(
             leading: const Icon(Icons.settings_outlined),
@@ -55,7 +65,8 @@ class UsersListDrawer extends StatelessWidget {
               "Настройки",
               style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
             ),
-            onTap: () => AutoRouter.of(context).push(const SettingsRoute()),
+            onTap: () =>
+                AutoRouter.of(context).popAndPush(const SettingsRoute()),
           ),
           ListTile(
             leading: const Icon(Icons.logout),

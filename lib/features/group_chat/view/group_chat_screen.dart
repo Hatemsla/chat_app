@@ -4,32 +4,15 @@ import 'package:chat_app/router/router.dart';
 import 'package:flutter/material.dart';
 
 @RoutePage()
-class ChatScreen extends StatefulWidget {
-  const ChatScreen({super.key});
+class GroupChatScreen extends StatefulWidget {
+  const GroupChatScreen({super.key});
 
   @override
-  State<ChatScreen> createState() => _ChatScreenState();
+  State<GroupChatScreen> createState() => _GroupChatScreenState();
 }
 
-class _ChatScreenState extends State<ChatScreen> {
+class _GroupChatScreenState extends State<GroupChatScreen> {
   final TextEditingController _messageController = TextEditingController();
-  bool isMessageNotEmpty = false;
-
-  @override
-  void initState() {
-    _messageController.addListener(() {
-      setState(() {
-        isMessageNotEmpty = _messageController.text.isNotEmpty;
-      });
-    });
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    _messageController.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -38,20 +21,18 @@ class _ChatScreenState extends State<ChatScreen> {
         appBar: AppBar(
           backgroundColor: theme.primaryColor,
           surfaceTintColor: theme.primaryColor,
-          title: ListTile(
-            onTap: () =>
-                AutoRouter.of(context).push(const AnotherUserInfoRoute()),
-            leading: const CircleAvatar(
+          title: const ListTile(
+            leading: CircleAvatar(
               child: Icon(Icons.person),
             ),
-            title: const Text(
-              "Имя",
+            title: Text(
+              "Название чата",
               maxLines: 1,
               style:
                   TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
             ),
-            subtitle: const Text(
-              "недавно",
+            subtitle: Text(
+              "N участников",
               style: TextStyle(color: Colors.white70),
             ),
           ),
@@ -61,11 +42,6 @@ class _ChatScreenState extends State<ChatScreen> {
               },
               icon: const Icon(Icons.arrow_back)),
           actions: [
-            IconButton(
-                onPressed: () {},
-                icon: const Icon(
-                  Icons.phone,
-                )),
             PopupMenuButton(
                 itemBuilder: (context) => [
                       const PopupMenuItem(
@@ -143,8 +119,11 @@ class _ChatScreenState extends State<ChatScreen> {
                         crossAxisAlignment: CrossAxisAlignment.end,
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
-                          SizedBox(
-                            height: 16,
+                          Text(
+                            "почта",
+                            style: TextStyle(
+                                fontWeight: FontWeight.normal,
+                                color: Colors.black38),
                           ),
                           ChatBubble(
                               leftSide: false,
@@ -174,8 +153,6 @@ class _ChatScreenState extends State<ChatScreen> {
                           fontSize: theme.textTheme.bodyMedium?.fontSize,
                           color: Colors.black),
                       decoration: const InputDecoration(
-                          isDense: true,
-                          contentPadding: EdgeInsets.zero,
                           hintText: "Сообщение",
                           hintStyle: TextStyle(color: Colors.black38),
                           enabledBorder: OutlineInputBorder(
@@ -186,19 +163,12 @@ class _ChatScreenState extends State<ChatScreen> {
                               borderRadius: BorderRadius.zero))),
                 ),
                 IconButton(
-                  onPressed: isMessageNotEmpty ? () {} : () {},
-                  icon: isMessageNotEmpty
-                      ? Icon(
-                          Icons.send,
-                          color: theme.primaryColor,
-                          size: 30,
-                        )
-                      : const Icon(
-                          Icons.attach_file,
-                          color: Colors.black26,
-                          size: 30,
-                        ),
-                )
+                    onPressed: () {},
+                    icon: Icon(
+                      Icons.send,
+                      color: theme.primaryColor,
+                      size: 30,
+                    ))
               ],
             )
           ],

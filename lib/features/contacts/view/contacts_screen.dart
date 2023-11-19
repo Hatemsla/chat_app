@@ -12,11 +12,13 @@ class ContactsScreen extends StatelessWidget {
     final theme = Theme.of(context);
 
     final List<Widget> listWidgets = <Widget>[
-      const PreloadListTile(
+      PreloadListTile(
+        onTap: () => AutoRouter.of(context).push(const AddUsersToGroupRoute()),
         text: "Создать группу",
         icon: Icons.people_outline_outlined,
       ),
-      const PreloadListTile(
+      PreloadListTile(
+        onTap: () => AutoRouter.of(context).push(const CreateChannelRoute()),
         text: "Создать канал",
         icon: Icons.speaker_notes_outlined,
       ),
@@ -37,67 +39,67 @@ class ContactsScreen extends StatelessWidget {
         userAvatar: const Icon(Icons.person),
         userName: "Имя",
         userLastConnect: "был(а) недавно",
-        onTap: () => AutoRouter.of(context).push(ChatRoute(isChat: true)),
+        onTap: () => AutoRouter.of(context).push(const ChatRoute()),
       ),
       AddUserCard(
         userAvatar: const Icon(Icons.person),
         userName: "Имя",
         userLastConnect: "был(а) недавно",
-        onTap: () => AutoRouter.of(context).push(ChatRoute(isChat: true)),
+        onTap: () => AutoRouter.of(context).push(const ChatRoute()),
       ),
       AddUserCard(
         userAvatar: const Icon(Icons.person),
         userName: "Имя",
         userLastConnect: "был(а) недавно",
-        onTap: () => AutoRouter.of(context).push(ChatRoute(isChat: true)),
+        onTap: () => AutoRouter.of(context).push(const ChatRoute()),
       ),
       AddUserCard(
         userAvatar: const Icon(Icons.person),
         userName: "Имя",
         userLastConnect: "был(а) недавно",
-        onTap: () => AutoRouter.of(context).push(ChatRoute(isChat: true)),
+        onTap: () => AutoRouter.of(context).push(const ChatRoute()),
       ),
       AddUserCard(
         userAvatar: const Icon(Icons.person),
         userName: "Имя",
         userLastConnect: "был(а) недавно",
-        onTap: () => AutoRouter.of(context).push(ChatRoute(isChat: true)),
+        onTap: () => AutoRouter.of(context).push(const ChatRoute()),
       ),
       AddUserCard(
         userAvatar: const Icon(Icons.person),
         userName: "Имя",
         userLastConnect: "был(а) недавно",
-        onTap: () => AutoRouter.of(context).push(ChatRoute(isChat: true)),
+        onTap: () => AutoRouter.of(context).push(const ChatRoute()),
       ),
       AddUserCard(
         userAvatar: const Icon(Icons.person),
         userName: "Имя",
         userLastConnect: "был(а) недавно",
-        onTap: () => AutoRouter.of(context).push(ChatRoute(isChat: true)),
+        onTap: () => AutoRouter.of(context).push(const ChatRoute()),
       ),
       AddUserCard(
         userAvatar: const Icon(Icons.person),
         userName: "Имя",
         userLastConnect: "был(а) недавно",
-        onTap: () => AutoRouter.of(context).push(ChatRoute(isChat: true)),
+        onTap: () => AutoRouter.of(context).push(const ChatRoute()),
       ),
       AddUserCard(
         userAvatar: const Icon(Icons.person),
         userName: "Имя",
         userLastConnect: "был(а) недавно",
-        onTap: () => AutoRouter.of(context).push(ChatRoute(isChat: true)),
+        onTap: () => AutoRouter.of(context).push(const ChatRoute()),
       ),
       AddUserCard(
         userAvatar: const Icon(Icons.person),
         userName: "Имя",
         userLastConnect: "был(а) недавно",
-        onTap: () => AutoRouter.of(context).push(ChatRoute(isChat: true)),
+        onTap: () => AutoRouter.of(context).push(const ChatRoute()),
       ),
       AddUserCard(
         userAvatar: const Icon(Icons.person),
         userName: "Имя",
         userLastConnect: "был(а) недавно",
-        onTap: () => AutoRouter.of(context).push(ChatRoute(isChat: true)),
+        onTap: () => AutoRouter.of(context).push(const ChatRoute()),
       ),
     ];
 
@@ -128,14 +130,17 @@ class PreloadListTile extends StatelessWidget {
     super.key,
     required this.text,
     required this.icon,
+    required this.onTap,
   });
 
   final String text;
   final IconData icon;
+  final Function() onTap;
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
+      onTap: onTap,
       leading: Icon(icon, color: Colors.black38),
       title: Padding(
         padding: const EdgeInsets.only(left: 8),

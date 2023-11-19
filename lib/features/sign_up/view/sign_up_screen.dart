@@ -73,6 +73,20 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     .copyWith(top: 16),
                 child: FormTextField(
                   label: Text(
+                    'Phone number',
+                    style: theme.textTheme.labelLarge,
+                  ),
+                  type: TextInputType.emailAddress,
+                  validator: (email) =>
+                      email != null && !EmailValidator.validate(email)
+                          ? 'Enter correct Phone'
+                          : null,
+                )),
+            FormWidget(
+                padding: const EdgeInsets.symmetric(horizontal: 16)
+                    .copyWith(top: 16),
+                child: FormTextField(
+                  label: Text(
                     'Email',
                     style: theme.textTheme.labelLarge,
                   ),
@@ -126,7 +140,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         ),
                       ),
                     ))),
-            const SizedBox(height: 50),
+            const SizedBox(height: 40),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 25),
               child: Row(
@@ -160,7 +174,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 SquareTile(imagePath: 'assets/google.png'),
               ],
             ),
-            const SizedBox(height: 80),
+            const SizedBox(height: 20),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [

@@ -22,7 +22,7 @@ class UserCard extends StatelessWidget {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(0)),
       margin: const EdgeInsets.all(2),
       child: InkWell(
-        onTap: () => AutoRouter.of(context).push(ChatRoute(isChat: true)),
+        onTap: () => AutoRouter.of(context).push(const ChatRoute()),
         child: ListTile(
           leading: CircleAvatar(
             child: userAvatar,
