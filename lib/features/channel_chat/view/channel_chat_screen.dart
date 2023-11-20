@@ -4,14 +4,14 @@ import 'package:chat_app/router/router.dart';
 import 'package:flutter/material.dart';
 
 @RoutePage()
-class GroupChatScreen extends StatefulWidget {
-  const GroupChatScreen({super.key});
+class ChannelChatScreen extends StatefulWidget {
+  const ChannelChatScreen({super.key});
 
   @override
-  State<GroupChatScreen> createState() => _GroupChatScreenState();
+  State<ChannelChatScreen> createState() => _ChannelChatScreenState();
 }
 
-class _GroupChatScreenState extends State<GroupChatScreen> {
+class _ChannelChatScreenState extends State<ChannelChatScreen> {
   final TextEditingController _messageController = TextEditingController();
 
   @override
@@ -22,13 +22,14 @@ class _GroupChatScreenState extends State<GroupChatScreen> {
           backgroundColor: theme.primaryColor,
           surfaceTintColor: theme.primaryColor,
           title: ListTile(
+            contentPadding: EdgeInsets.zero,
             onTap: () =>
-                AutoRouter.of(context).push(const GroupChatInfoRoute()),
+                AutoRouter.of(context).push(const ChannelChatInfoRoute()),
             leading: const CircleAvatar(
               child: Icon(Icons.person),
             ),
             title: const Text(
-              "Название чата",
+              "Название канала",
               maxLines: 1,
               style:
                   TextStyle(color: Colors.white, fontWeight: FontWeight.w600),

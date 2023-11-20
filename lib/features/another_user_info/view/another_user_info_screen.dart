@@ -159,14 +159,17 @@ class _AnotherUserInfoScreenState extends State<AnotherUserInfoScreen> {
                 (_notifications) ? "Включены" : "Выключены",
                 style: const TextStyle(color: Colors.black26, fontSize: 12),
               ),
-              trailing: Switch(
-                  activeColor: theme.primaryColor,
-                  value: _notifications,
-                  onChanged: (val) {
-                    setState(() {
-                      _notifications = val;
-                    });
-                  }),
+              trailing: Transform.scale(
+                scale: 0.8,
+                child: Switch(
+                    activeColor: theme.primaryColor,
+                    value: _notifications,
+                    onChanged: (val) {
+                      setState(() {
+                        _notifications = val;
+                      });
+                    }),
+              ),
             ),
           ],
         ),

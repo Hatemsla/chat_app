@@ -21,6 +21,12 @@ abstract class _$AppRouter extends RootStackRouter {
         child: const AddUsersToChannelScreen(),
       );
     },
+    AddUsersToExistGroupRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const AddUsersToExistGroupScreen(),
+      );
+    },
     AddUsersToGroupRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
@@ -31,6 +37,18 @@ abstract class _$AppRouter extends RootStackRouter {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
         child: const AnotherUserInfoScreen(),
+      );
+    },
+    ChannelChatInfoRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const ChannelChatInfoScreen(),
+      );
+    },
+    ChannelChatRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const ChannelChatScreen(),
       );
     },
     ChatRoute.name: (routeData) {
@@ -63,6 +81,12 @@ abstract class _$AppRouter extends RootStackRouter {
         child: const CreateGroupScreen(),
       );
     },
+    GroupChatInfoRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const GroupChatInfoScreen(),
+      );
+    },
     GroupChatRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
@@ -85,6 +109,12 @@ abstract class _$AppRouter extends RootStackRouter {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
         child: const SignUpScreen(),
+      );
+    },
+    UpdateGroupInfoRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const UpdateGroupInfoScreen(),
       );
     },
     UpdateUserDescriptionRoute.name: (routeData) {
@@ -141,6 +171,20 @@ class AddUsersToChannelRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [AddUsersToExistGroupScreen]
+class AddUsersToExistGroupRoute extends PageRouteInfo<void> {
+  const AddUsersToExistGroupRoute({List<PageRouteInfo>? children})
+      : super(
+          AddUsersToExistGroupRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'AddUsersToExistGroupRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
 /// [AddUsersToGroupScreen]
 class AddUsersToGroupRoute extends PageRouteInfo<void> {
   const AddUsersToGroupRoute({List<PageRouteInfo>? children})
@@ -164,6 +208,34 @@ class AnotherUserInfoRoute extends PageRouteInfo<void> {
         );
 
   static const String name = 'AnotherUserInfoRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [ChannelChatInfoScreen]
+class ChannelChatInfoRoute extends PageRouteInfo<void> {
+  const ChannelChatInfoRoute({List<PageRouteInfo>? children})
+      : super(
+          ChannelChatInfoRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'ChannelChatInfoRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [ChannelChatScreen]
+class ChannelChatRoute extends PageRouteInfo<void> {
+  const ChannelChatRoute({List<PageRouteInfo>? children})
+      : super(
+          ChannelChatRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'ChannelChatRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
 }
@@ -239,6 +311,20 @@ class CreateGroupRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [GroupChatInfoScreen]
+class GroupChatInfoRoute extends PageRouteInfo<void> {
+  const GroupChatInfoRoute({List<PageRouteInfo>? children})
+      : super(
+          GroupChatInfoRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'GroupChatInfoRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
 /// [GroupChatScreen]
 class GroupChatRoute extends PageRouteInfo<void> {
   const GroupChatRoute({List<PageRouteInfo>? children})
@@ -290,6 +376,20 @@ class SignUpRoute extends PageRouteInfo<void> {
         );
 
   static const String name = 'SignUpRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [UpdateGroupInfoScreen]
+class UpdateGroupInfoRoute extends PageRouteInfo<void> {
+  const UpdateGroupInfoRoute({List<PageRouteInfo>? children})
+      : super(
+          UpdateGroupInfoRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'UpdateGroupInfoRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
 }

@@ -5,15 +5,16 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 @RoutePage()
-class AddUsersToChannelScreen extends StatefulWidget {
-  const AddUsersToChannelScreen({super.key});
+class AddUsersToExistGroupScreen extends StatefulWidget {
+  const AddUsersToExistGroupScreen({super.key});
 
   @override
-  State<AddUsersToChannelScreen> createState() =>
-      _AddUsersToChannelScreenState();
+  State<AddUsersToExistGroupScreen> createState() =>
+      _AddUsersToExistGroupScreenState();
 }
 
-class _AddUsersToChannelScreenState extends State<AddUsersToChannelScreen> {
+class _AddUsersToExistGroupScreenState
+    extends State<AddUsersToExistGroupScreen> {
   final TextEditingController _findUserController = TextEditingController();
 
   @override
@@ -21,30 +22,20 @@ class _AddUsersToChannelScreenState extends State<AddUsersToChannelScreen> {
     final theme = Theme.of(context);
     return Scaffold(
       appBar: AppBar(
-        title: const ListTile(
-          dense: true,
-          contentPadding: EdgeInsets.zero,
-          title: Text(
-            "Добавить подписчиков",
-            softWrap: false,
-            style: TextStyle(
-                fontSize: 20, color: Colors.white, fontWeight: FontWeight.w600),
-          ),
-          subtitle: Text(
-            "0 участников",
-            style:
-                TextStyle(color: Colors.white70, fontWeight: FontWeight.normal),
-          ),
+        title: const Text(
+          "Добавить участников",
+          style: TextStyle(
+              fontSize: 20, color: Colors.white, fontWeight: FontWeight.w600),
         ),
         backgroundColor: theme.primaryColor,
       ),
       floatingActionButton: CircleFloatingActionButton(
         icon: const Icon(
-          CupertinoIcons.arrow_right,
+          CupertinoIcons.check_mark,
           color: Colors.white,
         ),
         onPressed: () {
-          AutoRouter.of(context).popAndPush(const ChannelChatRoute());
+          AutoRouter.of(context).pop(const GroupChatInfoRoute());
         },
       ),
       body: Column(

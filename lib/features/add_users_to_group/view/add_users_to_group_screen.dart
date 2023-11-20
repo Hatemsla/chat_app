@@ -22,6 +22,7 @@ class _AddUsersToGroupScreenState extends State<AddUsersToGroupScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const ListTile(
+          contentPadding: EdgeInsets.zero,
           dense: true,
           title: Text(
             "Создать группу",
@@ -34,13 +35,6 @@ class _AddUsersToGroupScreenState extends State<AddUsersToGroupScreen> {
                 TextStyle(color: Colors.white70, fontWeight: FontWeight.normal),
           ),
         ),
-        actions: [
-          IconButton(
-              onPressed: () {},
-              icon: const Icon(
-                Icons.search_outlined,
-              ))
-        ],
         backgroundColor: theme.primaryColor,
       ),
       floatingActionButton: CircleFloatingActionButton(
