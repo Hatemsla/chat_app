@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:chat_app/features/settings/settings.dart';
+import 'package:chat_app/generated/l10n.dart';
 import 'package:flutter/material.dart';
 
 @RoutePage()
@@ -35,8 +36,8 @@ class _UpdateUserEmailScreenState extends State<UpdateUserEmailScreen> {
       appBar: AppBar(
         backgroundColor: theme.primaryColor,
         surfaceTintColor: Colors.transparent,
-        title: const Text("Почта",
-            style: TextStyle(
+        title: Text(S.of(context).email,
+            style: const TextStyle(
                 fontSize: 20,
                 color: Colors.white,
                 fontWeight: FontWeight.w600)),
@@ -49,7 +50,7 @@ class _UpdateUserEmailScreenState extends State<UpdateUserEmailScreen> {
       body: Column(
         children: [
           DetailInfo(
-            titleText: "Задать почту пользователя",
+            titleText: S.of(context).setTheUserEmail,
             containerHeight: 90,
             padding: const EdgeInsets.symmetric(horizontal: 20),
             listWidgets: [
@@ -61,7 +62,7 @@ class _UpdateUserEmailScreenState extends State<UpdateUserEmailScreen> {
                     fontSize: theme.textTheme.bodyMedium?.fontSize,
                     color: Colors.black),
                 decoration: InputDecoration(
-                    hintText: "Почта(обязательно)",
+                    hintText: S.of(context).mailRequired,
                     hintStyle:
                         const TextStyle(color: Colors.black38, fontSize: 14),
                     enabledBorder: const UnderlineInputBorder(
@@ -76,16 +77,18 @@ class _UpdateUserEmailScreenState extends State<UpdateUserEmailScreen> {
           ),
           Container(
             padding: const EdgeInsets.only(top: 12),
-            child: const Card(
+            child: Card(
               color: Colors.black12,
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.zero),
+              shape:
+                  const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
               elevation: 0,
               margin: EdgeInsets.zero,
               child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
                 child: Text(
-                  "После выбора новой почты, вам придет сообщение на новую почту с подтверждением.",
-                  style: TextStyle(color: Colors.black38),
+                  S.of(context).afterSelectingANewMail,
+                  style: const TextStyle(color: Colors.black38),
                 ),
               ),
             ),

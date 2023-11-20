@@ -2,6 +2,7 @@
 
 import 'package:auto_route/auto_route.dart';
 import 'package:chat_app/features/settings/settings.dart';
+import 'package:chat_app/generated/l10n.dart';
 import 'package:chat_app/router/router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -23,20 +24,20 @@ class _AnotherUserInfoScreenState extends State<AnotherUserInfoScreen> {
     return Scaffold(
       backgroundColor: Colors.blue[50],
       appBar: AppBar(
-        title: const ListTile(
+        title: ListTile(
             contentPadding: EdgeInsets.zero,
-            leading: CircleAvatar(
+            leading: const CircleAvatar(
               child: Icon(Icons.person),
             ),
-            title: Text(
+            title: const Text(
               "Другой пользователь",
               softWrap: false,
               style:
                   TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
             ),
             subtitle: Text(
-              "в сети",
-              style: TextStyle(color: Colors.white70),
+              S.of(context).online,
+              style: const TextStyle(color: Colors.white70),
             )),
         backgroundColor: theme.primaryColor,
         actions: [
@@ -46,9 +47,9 @@ class _AnotherUserInfoScreenState extends State<AnotherUserInfoScreen> {
                     PopupMenuItem(
                         onTap: () => AutoRouter.of(context)
                             .push(const UpdateUserNameRoute()),
-                        child: const Row(
+                        child: Row(
                           children: [
-                            Padding(
+                            const Padding(
                               padding: EdgeInsets.all(8.0),
                               child: Icon(
                                 Icons.block,
@@ -56,18 +57,18 @@ class _AnotherUserInfoScreenState extends State<AnotherUserInfoScreen> {
                               ),
                             ),
                             Padding(
-                              padding: EdgeInsets.all(8.0),
+                              padding: const EdgeInsets.all(8.0),
                               child: Text(
-                                "Заблокировать",
-                                style: TextStyle(fontSize: 16),
+                                S.of(context).block,
+                                style: const TextStyle(fontSize: 16),
                               ),
                             )
                           ],
                         )),
-                    const PopupMenuItem(
+                    PopupMenuItem(
                         child: Row(
                       children: [
-                        Padding(
+                        const Padding(
                           padding: EdgeInsets.all(8.0),
                           child: Icon(
                             Icons.delete_outline,
@@ -75,10 +76,10 @@ class _AnotherUserInfoScreenState extends State<AnotherUserInfoScreen> {
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsets.all(8.0),
+                          padding: const EdgeInsets.all(8.0),
                           child: Text(
-                            "Удалить",
-                            style: TextStyle(fontSize: 16),
+                            S.of(context).delete,
+                            style: const TextStyle(fontSize: 16),
                           ),
                         )
                       ],
@@ -89,7 +90,7 @@ class _AnotherUserInfoScreenState extends State<AnotherUserInfoScreen> {
       ),
       body: ListView(children: [
         DetailInfo(
-          titleText: "Информация",
+          titleText: S.of(context).information,
           containerHeight: 255,
           padding: const EdgeInsets.symmetric(horizontal: 20).copyWith(top: 16),
           listWidgets: [
@@ -106,9 +107,9 @@ class _AnotherUserInfoScreenState extends State<AnotherUserInfoScreen> {
                 "+7 (965) 582-08-60",
                 style: TextStyle(fontSize: 14),
               ),
-              subtitle: const Text(
-                "Телефон",
-                style: TextStyle(color: Colors.black26, fontSize: 12),
+              subtitle: Text(
+                S.of(context).phone,
+                style: const TextStyle(color: Colors.black26, fontSize: 12),
               ),
             ),
             ListTile(
@@ -120,9 +121,9 @@ class _AnotherUserInfoScreenState extends State<AnotherUserInfoScreen> {
               visualDensity: VisualDensity.compact,
               dense: true,
               contentPadding: EdgeInsets.zero,
-              title: const Text(
-                "Информация о пользователе",
-                style: TextStyle(fontSize: 14),
+              title: Text(
+                S.of(context).userInformation,
+                style: const TextStyle(fontSize: 14),
               ),
               subtitle: const Text(
                 "О себе",
@@ -142,21 +143,23 @@ class _AnotherUserInfoScreenState extends State<AnotherUserInfoScreen> {
                 "kalashnikovjan@yandex.ru",
                 style: TextStyle(fontSize: 14),
               ),
-              subtitle: const Text(
-                "Почта пользователя",
-                style: TextStyle(color: Colors.black26, fontSize: 12),
+              subtitle: Text(
+                S.of(context).userEmail,
+                style: const TextStyle(color: Colors.black26, fontSize: 12),
               ),
             ),
             ListTile(
               visualDensity: VisualDensity.compact,
               dense: true,
               contentPadding: EdgeInsets.zero,
-              title: const Text(
-                "Уведомления",
-                style: TextStyle(fontSize: 14),
+              title: Text(
+                S.of(context).notifications,
+                style: const TextStyle(fontSize: 14),
               ),
               subtitle: Text(
-                (_notifications) ? "Включены" : "Выключены",
+                (_notifications)
+                    ? S.of(context).enabled
+                    : S.of(context).disabled,
                 style: const TextStyle(color: Colors.black26, fontSize: 12),
               ),
               trailing: Transform.scale(
@@ -186,17 +189,17 @@ class _AnotherUserInfoScreenState extends State<AnotherUserInfoScreen> {
         elevation: 0,
         shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(12))),
-        content: const Row(
+        content: Row(
           children: [
-            Icon(
+            const Icon(
               Icons.copy,
               color: Colors.white,
             ),
             Padding(
-              padding: EdgeInsets.only(left: 8),
+              padding: const EdgeInsets.only(left: 8),
               child: Text(
-                "Текст скопирован в буффер обмена.",
-                style: TextStyle(fontWeight: FontWeight.normal),
+                S.of(context).theTextIsCopiedToTheClipboard,
+                style: const TextStyle(fontWeight: FontWeight.normal),
               ),
             )
           ],

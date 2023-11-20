@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:chat_app/features/add_users_to_group/add_users_to_group.dart';
+import 'package:chat_app/generated/l10n.dart';
 import 'package:chat_app/router/router.dart';
 import 'package:flutter/material.dart';
 
@@ -19,9 +20,9 @@ class _CreateGroupScreenState extends State<CreateGroupScreen> {
       appBar: AppBar(
         backgroundColor: theme.primaryColor,
         surfaceTintColor: theme.primaryColor,
-        title: const Text(
-          "Создать группу",
-          style: TextStyle(
+        title: Text(
+          S.of(context).createGroup,
+          style: const TextStyle(
               fontSize: 20, color: Colors.white, fontWeight: FontWeight.w600),
         ),
       ),
@@ -30,7 +31,8 @@ class _CreateGroupScreenState extends State<CreateGroupScreen> {
           Icons.check,
           color: Colors.white,
         ),
-        onPressed: () => AutoRouter.of(context).popAndPush(GroupChatRoute()),
+        onPressed: () =>
+            AutoRouter.of(context).popAndPush(const GroupChatRoute()),
       ),
       backgroundColor: Colors.blueGrey[50],
       body: Column(children: [
@@ -58,7 +60,7 @@ class _CreateGroupScreenState extends State<CreateGroupScreen> {
                   child: TextFormField(
                     style: const TextStyle(fontSize: 14, color: Colors.black),
                     decoration: InputDecoration(
-                        hintText: "Введите имя группы",
+                        hintText: S.of(context).enterTheNameOfTheGroup,
                         contentPadding: const EdgeInsets.only(bottom: 4),
                         enabledBorder: UnderlineInputBorder(
                             borderSide: BorderSide(

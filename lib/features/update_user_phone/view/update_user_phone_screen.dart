@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:chat_app/features/settings/settings.dart';
+import 'package:chat_app/generated/l10n.dart';
 import 'package:flutter/material.dart';
 
 @RoutePage()
@@ -35,8 +36,8 @@ class _UpdateUserPhoneScreenState extends State<UpdateUserPhoneScreen> {
       appBar: AppBar(
         backgroundColor: theme.primaryColor,
         surfaceTintColor: Colors.transparent,
-        title: const Text("Изменить телефон",
-            style: TextStyle(
+        title: Text(S.of(context).updatePhone,
+            style: const TextStyle(
                 fontSize: 20,
                 color: Colors.white,
                 fontWeight: FontWeight.w600)),
@@ -49,7 +50,7 @@ class _UpdateUserPhoneScreenState extends State<UpdateUserPhoneScreen> {
       body: Column(
         children: [
           DetailInfo(
-            titleText: "Задать новый телефон",
+            titleText: S.of(context).setANewPhoneNumber,
             containerHeight: 90,
             padding: const EdgeInsets.symmetric(horizontal: 20),
             listWidgets: [
@@ -61,7 +62,7 @@ class _UpdateUserPhoneScreenState extends State<UpdateUserPhoneScreen> {
                     fontSize: theme.textTheme.bodyMedium?.fontSize,
                     color: Colors.black),
                 decoration: InputDecoration(
-                    hintText: "Телефон(обязательно)",
+                    hintText: S.of(context).phoneNumberRequired,
                     hintStyle:
                         const TextStyle(color: Colors.black38, fontSize: 14),
                     enabledBorder: const UnderlineInputBorder(

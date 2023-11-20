@@ -1,4 +1,5 @@
 import 'package:chat_app/features/widgets/widgets.dart';
+import 'package:chat_app/generated/l10n.dart';
 import 'package:chat_app/router/router.dart';
 import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
@@ -32,7 +33,7 @@ class _SignInScreenState extends State<SignInScreen> {
                   const EdgeInsets.symmetric(horizontal: 16).copyWith(top: 16),
               child: FormTextField(
                 label: Text(
-                  'Phone number',
+                  S.of(context).phoneNumber,
                   style: theme.textTheme.labelLarge,
                 ),
                 type: TextInputType.phone,
@@ -43,7 +44,7 @@ class _SignInScreenState extends State<SignInScreen> {
                     .copyWith(top: 16),
                 child: FormTextField(
                     label: Text(
-                  'Password',
+                  S.of(context).password,
                   style: theme.textTheme.labelLarge,
                 ))),
             const SizedBox(height: 8),
@@ -52,7 +53,7 @@ class _SignInScreenState extends State<SignInScreen> {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   Text(
-                    'Forgot Password?',
+                    S.of(context).forgotPassword,
                     style: TextStyle(color: Colors.grey[600]),
                   ),
                 ],
@@ -72,7 +73,7 @@ class _SignInScreenState extends State<SignInScreen> {
                         borderRadius: BorderRadius.circular(12)),
                     child: Center(
                       child: Text(
-                        "Sign In",
+                        S.of(context).signIn,
                         style: theme.textTheme.bodyLarge,
                       ),
                     ),
@@ -92,7 +93,7 @@ class _SignInScreenState extends State<SignInScreen> {
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 10),
                     child: Text(
-                      'Or continue with',
+                      S.of(context).orContinueWith,
                       style: TextStyle(color: Colors.grey[700]),
                     ),
                   ),
@@ -117,7 +118,7 @@ class _SignInScreenState extends State<SignInScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  'Not a member?',
+                  S.of(context).notAMember,
                   style: TextStyle(color: Colors.grey[700]),
                 ),
                 const SizedBox(width: 4),
@@ -129,7 +130,7 @@ class _SignInScreenState extends State<SignInScreen> {
                     AutoRouter.of(context).replace(const SignUpRoute());
                   },
                   child: Text(
-                    'Register now',
+                    S.of(context).registerNow,
                     style: theme.textTheme.bodyMedium,
                   ),
                 )

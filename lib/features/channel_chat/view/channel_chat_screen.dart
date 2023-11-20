@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:chat_app/features/chat/widgets/chat_bubble.dart';
+import 'package:chat_app/generated/l10n.dart';
 import 'package:chat_app/router/router.dart';
 import 'package:flutter/material.dart';
 
@@ -28,15 +29,15 @@ class _ChannelChatScreenState extends State<ChannelChatScreen> {
             leading: const CircleAvatar(
               child: Icon(Icons.person),
             ),
-            title: const Text(
-              "Название канала",
+            title: Text(
+              S.of(context).channelName,
               maxLines: 1,
-              style:
-                  TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
+              style: const TextStyle(
+                  color: Colors.white, fontWeight: FontWeight.w600),
             ),
-            subtitle: const Text(
-              "N участников",
-              style: TextStyle(color: Colors.white70),
+            subtitle: Text(
+              S.of(context).participantsCountOfParticipants(1),
+              style: const TextStyle(color: Colors.white70),
             ),
           ),
           leading: IconButton(
@@ -47,10 +48,10 @@ class _ChannelChatScreenState extends State<ChannelChatScreen> {
           actions: [
             PopupMenuButton(
                 itemBuilder: (context) => [
-                      const PopupMenuItem(
+                      PopupMenuItem(
                           child: Row(
                         children: [
-                          Padding(
+                          const Padding(
                             padding: EdgeInsets.all(8.0),
                             child: Icon(
                               Icons.search_outlined,
@@ -58,18 +59,18 @@ class _ChannelChatScreenState extends State<ChannelChatScreen> {
                             ),
                           ),
                           Padding(
-                            padding: EdgeInsets.all(8.0),
+                            padding: const EdgeInsets.all(8.0),
                             child: Text(
-                              "Поиск",
-                              style: TextStyle(fontSize: 16),
+                              S.of(context).search,
+                              style: const TextStyle(fontSize: 16),
                             ),
                           )
                         ],
                       )),
-                      const PopupMenuItem(
+                      PopupMenuItem(
                           child: Row(
                         children: [
-                          Padding(
+                          const Padding(
                             padding: EdgeInsets.all(8.0),
                             child: Icon(
                               Icons.cleaning_services_outlined,
@@ -77,18 +78,18 @@ class _ChannelChatScreenState extends State<ChannelChatScreen> {
                             ),
                           ),
                           Padding(
-                            padding: EdgeInsets.all(8.0),
+                            padding: const EdgeInsets.all(8.0),
                             child: Text(
-                              "Очистить историю",
-                              style: TextStyle(fontSize: 16),
+                              S.of(context).clearHistory,
+                              style: const TextStyle(fontSize: 16),
                             ),
                           )
                         ],
                       )),
-                      const PopupMenuItem(
+                      PopupMenuItem(
                           child: Row(
                         children: [
-                          Padding(
+                          const Padding(
                             padding: EdgeInsets.all(8.0),
                             child: Icon(
                               Icons.volume_off_outlined,
@@ -97,10 +98,11 @@ class _ChannelChatScreenState extends State<ChannelChatScreen> {
                             ),
                           ),
                           Padding(
-                            padding: EdgeInsets.all(8.0),
+                            padding: const EdgeInsets.all(8.0),
                             child: Text(
-                              "Выключить уведомления",
-                              style: TextStyle(color: Colors.red, fontSize: 16),
+                              S.of(context).disableNotifications,
+                              style: const TextStyle(
+                                  color: Colors.red, fontSize: 16),
                             ),
                           )
                         ],
@@ -108,9 +110,9 @@ class _ChannelChatScreenState extends State<ChannelChatScreen> {
                       PopupMenuItem(
                           onTap: () => AutoRouter.of(context)
                               .popAndPush(const UsersListRoute()),
-                          child: const Row(
+                          child: Row(
                             children: [
-                              Padding(
+                              const Padding(
                                 padding: EdgeInsets.all(8.0),
                                 child: Icon(
                                   Icons.exit_to_app_outlined,
@@ -118,10 +120,10 @@ class _ChannelChatScreenState extends State<ChannelChatScreen> {
                                 ),
                               ),
                               Padding(
-                                padding: EdgeInsets.all(8.0),
+                                padding: const EdgeInsets.all(8.0),
                                 child: Text(
-                                  "Покинуть группу",
-                                  style: TextStyle(fontSize: 16),
+                                  S.of(context).exitGroup,
+                                  style: const TextStyle(fontSize: 16),
                                 ),
                               )
                             ],
@@ -139,17 +141,17 @@ class _ChannelChatScreenState extends State<ChannelChatScreen> {
                     alignment: Alignment.centerRight,
                     child: Padding(
                       padding: const EdgeInsets.all(8.0).copyWith(left: 44),
-                      child: const Column(
+                      child: Column(
                         crossAxisAlignment: CrossAxisAlignment.end,
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
                           Text(
-                            "почта",
-                            style: TextStyle(
+                            S.of(context).email,
+                            style: const TextStyle(
                                 fontWeight: FontWeight.normal,
                                 color: Colors.black38),
                           ),
-                          ChatBubble(
+                          const ChatBubble(
                               leftSide: false,
                               message:
                                   "messagemessagemessagemessagemessagemessagemessagemessagemessagemessagemessage"),
@@ -176,15 +178,15 @@ class _ChannelChatScreenState extends State<ChannelChatScreen> {
                       style: TextStyle(
                           fontSize: theme.textTheme.bodyMedium?.fontSize,
                           color: Colors.black),
-                      decoration: const InputDecoration(
+                      decoration: InputDecoration(
                           isDense: true,
                           contentPadding: EdgeInsets.zero,
-                          hintText: "Сообщение",
-                          hintStyle: TextStyle(color: Colors.black38),
-                          enabledBorder: OutlineInputBorder(
+                          hintText: S.of(context).message,
+                          hintStyle: const TextStyle(color: Colors.black38),
+                          enabledBorder: const OutlineInputBorder(
                               borderSide: BorderSide(color: Colors.white),
                               borderRadius: BorderRadius.zero),
-                          focusedBorder: OutlineInputBorder(
+                          focusedBorder: const OutlineInputBorder(
                               borderSide: BorderSide(color: Colors.white),
                               borderRadius: BorderRadius.zero))),
                 ),

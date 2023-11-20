@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:chat_app/features/add_users_to_group/add_users_to_group.dart';
+import 'package:chat_app/generated/l10n.dart';
 import 'package:chat_app/router/router.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -20,9 +21,9 @@ class _CreateChannelScreenState extends State<CreateChannelScreen> {
       appBar: AppBar(
         backgroundColor: theme.primaryColor,
         surfaceTintColor: theme.primaryColor,
-        title: const Text(
-          "Создать канал",
-          style: TextStyle(
+        title: Text(
+          S.of(context).createChannel,
+          style: const TextStyle(
               fontSize: 20, color: Colors.white, fontWeight: FontWeight.w600),
         ),
       ),
@@ -60,7 +61,7 @@ class _CreateChannelScreenState extends State<CreateChannelScreen> {
                   child: TextFormField(
                     style: const TextStyle(fontSize: 14, color: Colors.black),
                     decoration: InputDecoration(
-                        hintText: "Имя канала",
+                        hintText: S.of(context).channelName,
                         contentPadding: const EdgeInsets.only(bottom: 4),
                         enabledBorder: const UnderlineInputBorder(
                             borderSide:
@@ -97,7 +98,7 @@ class _CreateChannelScreenState extends State<CreateChannelScreen> {
                     maxLength: 600,
                     style: const TextStyle(fontSize: 14, color: Colors.black),
                     decoration: InputDecoration(
-                      hintText: "Описание",
+                      hintText: S.of(context).description,
                       contentPadding: const EdgeInsets.only(bottom: 4),
                       enabledBorder: const UnderlineInputBorder(
                           borderSide:
@@ -113,10 +114,10 @@ class _CreateChannelScreenState extends State<CreateChannelScreen> {
                 Container(
                   margin: const EdgeInsets.only(right: 16, top: 8),
                   alignment: Alignment.centerLeft,
-                  child: const Text(
-                    "Вы можете добавить несколько строк о себе.",
+                  child: Text(
+                    S.of(context).youCanAddAFewLinesAboutYourself,
                     textAlign: TextAlign.left,
-                    style: TextStyle(
+                    style: const TextStyle(
                         color: Colors.black38, fontWeight: FontWeight.normal),
                   ),
                 ),

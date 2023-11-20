@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:chat_app/features/settings/settings.dart';
+import 'package:chat_app/generated/l10n.dart';
 import 'package:chat_app/router/router.dart';
 import 'package:flutter/material.dart';
 
@@ -12,26 +13,43 @@ class SettingsScreen extends StatefulWidget {
 }
 
 class _SettingsScreenState extends State<SettingsScreen> {
+  Language? _language = Language.English;
+
+  @override
+  void didChangeDependencies() {
+    _language = _getCurrentLanguage();
+    super.didChangeDependencies();
+  }
+
+  Language _getCurrentLanguage() {
+    Locale currentLocale = Localizations.localeOf(context);
+    if (currentLocale.languageCode.startsWith('ru')) {
+      return Language.Russian;
+    } else {
+      return Language.English;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return Scaffold(
       backgroundColor: Colors.blue[50],
       appBar: AppBar(
-        title: const ListTile(
+        title: ListTile(
             contentPadding: EdgeInsets.zero,
-            leading: CircleAvatar(
+            leading: const CircleAvatar(
               child: Icon(Icons.person),
             ),
-            title: Text(
+            title: const Text(
               "Ян Калашников",
               maxLines: 1,
               style:
                   TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
             ),
             subtitle: Text(
-              "в сети",
-              style: TextStyle(color: Colors.white70),
+              S.of(context).online,
+              style: const TextStyle(color: Colors.white70),
             )),
         backgroundColor: theme.primaryColor,
         actions: [
@@ -40,9 +58,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     PopupMenuItem(
                         onTap: () => AutoRouter.of(context)
                             .push(const UpdateUserNameRoute()),
-                        child: const Row(
+                        child: Row(
                           children: [
-                            Padding(
+                            const Padding(
                               padding: EdgeInsets.all(8.0),
                               child: Icon(
                                 Icons.edit_outlined,
@@ -50,18 +68,18 @@ class _SettingsScreenState extends State<SettingsScreen> {
                               ),
                             ),
                             Padding(
-                              padding: EdgeInsets.all(8.0),
+                              padding: const EdgeInsets.all(8.0),
                               child: Text(
-                                "Изменить имя",
-                                style: TextStyle(fontSize: 16),
+                                S.of(context).updateName,
+                                style: const TextStyle(fontSize: 16),
                               ),
                             )
                           ],
                         )),
-                    const PopupMenuItem(
+                    PopupMenuItem(
                         child: Row(
                       children: [
-                        Padding(
+                        const Padding(
                           padding: EdgeInsets.all(8.0),
                           child: Icon(
                             Icons.add_a_photo_outlined,
@@ -69,10 +87,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsets.all(8.0),
+                          padding: const EdgeInsets.all(8.0),
                           child: Text(
-                            "Выбрать фотографию",
-                            style: TextStyle(fontSize: 16),
+                            S.of(context).choosePhoto,
+                            style: const TextStyle(fontSize: 16),
                           ),
                         )
                       ],
@@ -80,9 +98,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     PopupMenuItem(
                         onTap: () =>
                             AutoRouter.of(context).replace(const SignInRoute()),
-                        child: const Row(
+                        child: Row(
                           children: [
-                            Padding(
+                            const Padding(
                               padding: EdgeInsets.all(8.0),
                               child: Icon(
                                 Icons.exit_to_app_outlined,
@@ -90,10 +108,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
                               ),
                             ),
                             Padding(
-                              padding: EdgeInsets.all(8.0),
+                              padding: const EdgeInsets.all(8.0),
                               child: Text(
-                                "Выход",
-                                style: TextStyle(fontSize: 16),
+                                S.of(context).exit,
+                                style: const TextStyle(fontSize: 16),
                               ),
                             )
                           ],
@@ -104,7 +122,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
       ),
       body: ListView(children: [
         DetailInfo(
-          titleText: "Аккаунт",
+          titleText: S.of(context).account,
           containerHeight: 205,
           padding: const EdgeInsets.symmetric(horizontal: 20).copyWith(top: 16),
           listWidgets: [
@@ -118,9 +136,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 "+7 (965) 582-08-60",
                 style: TextStyle(fontSize: 14),
               ),
-              subtitle: const Text(
-                "Нажмите, чтобы изменить номер телефона",
-                style: TextStyle(color: Colors.black26, fontSize: 12),
+              subtitle: Text(
+                S.of(context).clickToChangeThePhoneNumber,
+                style: const TextStyle(color: Colors.black26, fontSize: 12),
               ),
             ),
             ListTile(
@@ -133,9 +151,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 "kalashnikovjan@yandex.ru",
                 style: TextStyle(fontSize: 14),
               ),
-              subtitle: const Text(
-                "Нажмите, чтобы изменить почту",
-                style: TextStyle(color: Colors.black26, fontSize: 12),
+              subtitle: Text(
+                S.of(context).clickToChangeTheMail,
+                style: const TextStyle(color: Colors.black26, fontSize: 12),
               ),
             ),
             ListTile(
@@ -148,9 +166,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 "Level up!",
                 style: TextStyle(fontSize: 14),
               ),
-              subtitle: const Text(
-                "О себе",
-                style: TextStyle(color: Colors.black26, fontSize: 12),
+              subtitle: Text(
+                S.of(context).aboutMe,
+                style: const TextStyle(color: Colors.black26, fontSize: 12),
               ),
             ),
           ],
@@ -161,14 +179,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
         Container(
           alignment: Alignment.centerLeft,
           padding: const EdgeInsets.symmetric(horizontal: 20).copyWith(top: 16),
-          height: 80,
+          height: 120,
           width: double.infinity,
           color: Colors.white,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "Настройки",
+                S.of(context).languageSettings,
                 style: TextStyle(
                     color: theme.primaryColor, fontWeight: FontWeight.w500),
                 textAlign: TextAlign.left,
@@ -181,19 +199,39 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     dense: true,
                     contentPadding: EdgeInsets.zero,
                     title: const Text(
-                      "Язык",
+                      "Русский",
                       style: TextStyle(fontSize: 14),
                     ),
-                    leading: const Icon(
-                      Icons.language_outlined,
-                      color: Colors.black38,
+                    leading: Radio<Language>(
+                      value: Language.Russian,
+                      activeColor: theme.primaryColor,
+                      groupValue: _language,
+                      onChanged: (val) {
+                        setState(() {
+                          _language = val;
+                          S.load(const Locale('ru'));
+                        });
+                      },
                     ),
-                    trailing: Text(
-                      "Русский",
-                      style: TextStyle(
-                          color: theme.primaryColor,
-                          fontSize: 14,
-                          fontWeight: FontWeight.normal),
+                  ),
+                  ListTile(
+                    visualDensity: VisualDensity.compact,
+                    dense: true,
+                    contentPadding: EdgeInsets.zero,
+                    title: const Text(
+                      "English",
+                      style: TextStyle(fontSize: 14),
+                    ),
+                    leading: Radio<Language>(
+                      value: Language.English,
+                      activeColor: theme.primaryColor,
+                      groupValue: _language,
+                      onChanged: (val) {
+                        setState(() {
+                          _language = val;
+                          S.load(const Locale('en'));
+                        });
+                      },
                     ),
                   ),
                 ],
@@ -205,3 +243,5 @@ class _SettingsScreenState extends State<SettingsScreen> {
     );
   }
 }
+
+enum Language { Russian, English }

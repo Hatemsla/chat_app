@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:chat_app/generated/l10n.dart';
 import 'package:chat_app/router/router.dart';
 import 'package:flutter/material.dart';
 
@@ -43,36 +44,36 @@ class UsersListDrawer extends StatelessWidget {
           ),
           ListTile(
             leading: const Icon(Icons.people_alt_outlined),
-            title: const Text(
-              "Создать группу",
-              style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
+            title: Text(
+              S.of(context).createGroup,
+              style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
             ),
             onTap: () =>
                 AutoRouter.of(context).popAndPush(const AddUsersToGroupRoute()),
           ),
           ListTile(
             leading: const Icon(Icons.person_outline),
-            title: const Text(
-              "Контакты",
-              style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
+            title: Text(
+              S.of(context).contacts,
+              style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
             ),
             onTap: () =>
                 AutoRouter.of(context).popAndPush(const ContactsRoute()),
           ),
           ListTile(
             leading: const Icon(Icons.settings_outlined),
-            title: const Text(
-              "Настройки",
-              style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
+            title: Text(
+              S.of(context).settings,
+              style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
             ),
             onTap: () =>
                 AutoRouter.of(context).popAndPush(const SettingsRoute()),
           ),
           ListTile(
             leading: const Icon(Icons.logout),
-            title: const Text(
-              "Выйти",
-              style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
+            title: Text(
+              S.of(context).exit,
+              style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
             ),
             onTap: () => AutoRouter.of(context).replace(const SignUpRoute()),
           ),

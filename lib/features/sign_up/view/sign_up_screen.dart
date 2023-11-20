@@ -1,4 +1,5 @@
 import 'package:chat_app/features/widgets/widgets.dart';
+import 'package:chat_app/generated/l10n.dart';
 import 'package:chat_app/router/router.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -73,13 +74,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     .copyWith(top: 16),
                 child: FormTextField(
                   label: Text(
-                    'Phone number',
+                    S.of(context).phoneNumber,
                     style: theme.textTheme.labelLarge,
                   ),
                   type: TextInputType.emailAddress,
                   validator: (email) =>
                       email != null && !EmailValidator.validate(email)
-                          ? 'Enter correct Phone'
+                          ? S.of(context).enterCorrectPhone
                           : null,
                 )),
             FormWidget(
@@ -87,13 +88,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     .copyWith(top: 16),
                 child: FormTextField(
                   label: Text(
-                    'Email',
+                    S.of(context).email,
                     style: theme.textTheme.labelLarge,
                   ),
                   type: TextInputType.emailAddress,
                   validator: (email) =>
                       email != null && !EmailValidator.validate(email)
-                          ? 'Enter correct Email'
+                          ? S.of(context).enterCorrectEmail
                           : null,
                 )),
             FormWidget(
@@ -101,12 +102,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     .copyWith(top: 16),
                 child: FormTextField(
                   label: Text(
-                    'Password',
+                    S.of(context).password,
                     style: theme.textTheme.labelLarge,
                   ),
                   controller: passwordTextInputController,
                   validator: (value) => value != null && value.length < 6
-                      ? 'Min 6 symbols'
+                      ? S.of(context).min6Symbols
                       : null,
                 )),
             FormWidget(
@@ -114,11 +115,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     .copyWith(top: 16),
                 child: FormTextField(
                   label: Text(
-                    'Confirm password',
+                    S.of(context).confirmPassword,
                     style: theme.textTheme.labelLarge,
                   ),
                   validator: (value) => value != null && value.length < 6
-                      ? 'Min 6 symbols'
+                      ? S.of(context).min6Symbols
                       : null,
                 )),
             const SizedBox(height: 8),
@@ -135,7 +136,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           borderRadius: BorderRadius.circular(12)),
                       child: Center(
                         child: Text(
-                          "Sign Up",
+                          S.of(context).signUp,
                           style: theme.textTheme.bodyLarge,
                         ),
                       ),
@@ -154,7 +155,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 10),
                     child: Text(
-                      'Or continue with',
+                      S.of(context).orContinueWith,
                       style: TextStyle(color: Colors.grey[700]),
                     ),
                   ),
@@ -179,7 +180,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  'Already have an account?',
+                  S.of(context).alreadyHaveAnAccount,
                   style: TextStyle(color: Colors.grey[700]),
                 ),
                 const SizedBox(width: 4),
@@ -191,7 +192,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     AutoRouter.of(context).replace(const SignInRoute());
                   },
                   child: Text(
-                    'Log in now',
+                    S.of(context).logInNow,
                     style: theme.textTheme.bodyMedium,
                   ),
                 )

@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:chat_app/features/chat/widgets/chat_bubble.dart';
+import 'package:chat_app/generated/l10n.dart';
 import 'package:chat_app/router/router.dart';
 import 'package:flutter/material.dart';
 
@@ -50,9 +51,9 @@ class _ChatScreenState extends State<ChatScreen> {
               style:
                   TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
             ),
-            subtitle: const Text(
-              "недавно",
-              style: TextStyle(color: Colors.white70),
+            subtitle: Text(
+              S.of(context).recently,
+              style: const TextStyle(color: Colors.white70),
             ),
           ),
           leading: IconButton(
@@ -68,10 +69,10 @@ class _ChatScreenState extends State<ChatScreen> {
                 )),
             PopupMenuButton(
                 itemBuilder: (context) => [
-                      const PopupMenuItem(
+                      PopupMenuItem(
                           child: Row(
                         children: [
-                          Padding(
+                          const Padding(
                             padding: EdgeInsets.all(8.0),
                             child: Icon(
                               Icons.search_outlined,
@@ -79,18 +80,18 @@ class _ChatScreenState extends State<ChatScreen> {
                             ),
                           ),
                           Padding(
-                            padding: EdgeInsets.all(8.0),
+                            padding: const EdgeInsets.all(8.0),
                             child: Text(
-                              "Поиск",
-                              style: TextStyle(fontSize: 16),
+                              S.of(context).search,
+                              style: const TextStyle(fontSize: 16),
                             ),
                           )
                         ],
                       )),
-                      const PopupMenuItem(
+                      PopupMenuItem(
                           child: Row(
                         children: [
-                          Padding(
+                          const Padding(
                             padding: EdgeInsets.all(8.0),
                             child: Icon(
                               Icons.cleaning_services_outlined,
@@ -98,18 +99,18 @@ class _ChatScreenState extends State<ChatScreen> {
                             ),
                           ),
                           Padding(
-                            padding: EdgeInsets.all(8.0),
+                            padding: const EdgeInsets.all(8.0),
                             child: Text(
-                              "Очистить историю",
-                              style: TextStyle(fontSize: 16),
+                              S.of(context).clearHistory,
+                              style: const TextStyle(fontSize: 16),
                             ),
                           )
                         ],
                       )),
-                      const PopupMenuItem(
+                      PopupMenuItem(
                           child: Row(
                         children: [
-                          Padding(
+                          const Padding(
                             padding: EdgeInsets.all(8.0),
                             child: Icon(
                               Icons.volume_off_outlined,
@@ -118,10 +119,11 @@ class _ChatScreenState extends State<ChatScreen> {
                             ),
                           ),
                           Padding(
-                            padding: EdgeInsets.all(8.0),
+                            padding: const EdgeInsets.all(8.0),
                             child: Text(
-                              "Выключить уведомления",
-                              style: TextStyle(color: Colors.red, fontSize: 16),
+                              S.of(context).disableNotifications,
+                              style: const TextStyle(
+                                  color: Colors.red, fontSize: 16),
                             ),
                           )
                         ],
@@ -173,15 +175,15 @@ class _ChatScreenState extends State<ChatScreen> {
                       style: TextStyle(
                           fontSize: theme.textTheme.bodyMedium?.fontSize,
                           color: Colors.black),
-                      decoration: const InputDecoration(
+                      decoration: InputDecoration(
                           isDense: true,
                           contentPadding: EdgeInsets.zero,
-                          hintText: "Сообщение",
-                          hintStyle: TextStyle(color: Colors.black38),
-                          enabledBorder: OutlineInputBorder(
+                          hintText: S.of(context).message,
+                          hintStyle: const TextStyle(color: Colors.black38),
+                          enabledBorder: const OutlineInputBorder(
                               borderSide: BorderSide(color: Colors.white),
                               borderRadius: BorderRadius.zero),
-                          focusedBorder: OutlineInputBorder(
+                          focusedBorder: const OutlineInputBorder(
                               borderSide: BorderSide(color: Colors.white),
                               borderRadius: BorderRadius.zero))),
                 ),
@@ -198,7 +200,21 @@ class _ChatScreenState extends State<ChatScreen> {
                           color: Colors.black26,
                           size: 30,
                         ),
-                )
+                ),
+                IconButton(
+                  onPressed: isMessageNotEmpty ? () {} : () {},
+                  icon: isMessageNotEmpty
+                      ? Icon(
+                          Icons.send,
+                          color: theme.primaryColor,
+                          size: 30,
+                        )
+                      : const Icon(
+                          Icons.mic,
+                          color: Colors.black26,
+                          size: 30,
+                        ),
+                ),
               ],
             )
           ],

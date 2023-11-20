@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:chat_app/features/settings/settings.dart';
+import 'package:chat_app/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -38,8 +39,8 @@ class _UpdateUserDescriptionScreenState
       appBar: AppBar(
         backgroundColor: theme.primaryColor,
         surfaceTintColor: Colors.transparent,
-        title: const Text("О себе",
-            style: TextStyle(
+        title: Text(S.of(context).aboutMe,
+            style: const TextStyle(
                 fontSize: 20,
                 color: Colors.white,
                 fontWeight: FontWeight.w600)),
@@ -52,7 +53,7 @@ class _UpdateUserDescriptionScreenState
       body: Column(
         children: [
           DetailInfo(
-            titleText: "Задать новый телефон",
+            titleText: S.of(context).personalInformation,
             containerHeight: 110,
             padding: const EdgeInsets.symmetric(horizontal: 20),
             listWidgets: [
@@ -66,7 +67,7 @@ class _UpdateUserDescriptionScreenState
                     fontSize: theme.textTheme.bodyMedium?.fontSize,
                     color: Colors.black),
                 decoration: InputDecoration(
-                    hintText: "О себе",
+                    hintText: S.of(context).aboutMe,
                     hintStyle:
                         const TextStyle(color: Colors.black38, fontSize: 14),
                     enabledBorder: const UnderlineInputBorder(
@@ -82,16 +83,18 @@ class _UpdateUserDescriptionScreenState
           Container(
             padding: const EdgeInsets.only(top: 12),
             alignment: Alignment.centerLeft,
-            child: const Card(
+            child: Card(
               color: Colors.white,
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.zero),
+              shape:
+                  const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
               elevation: 0,
               margin: EdgeInsets.zero,
               child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 4),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 4),
                 child: Text(
-                  "Вы можете добавить несколько строк о себе.",
-                  style: TextStyle(
+                  S.of(context).youCanAddAFewLinesAboutYourself,
+                  style: const TextStyle(
                       color: Colors.black38, fontWeight: FontWeight.normal),
                 ),
               ),

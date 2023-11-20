@@ -2,6 +2,7 @@
 
 import 'package:auto_route/auto_route.dart';
 import 'package:chat_app/features/settings/settings.dart';
+import 'package:chat_app/generated/l10n.dart';
 import 'package:chat_app/router/router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -23,20 +24,20 @@ class _ChannelChatInfoScreenState extends State<ChannelChatInfoScreen> {
     return Scaffold(
         backgroundColor: Colors.blue[50],
         appBar: AppBar(
-          title: const ListTile(
+          title: ListTile(
               contentPadding: EdgeInsets.zero,
-              leading: CircleAvatar(
+              leading: const CircleAvatar(
                 child: Icon(Icons.person),
               ),
               title: Text(
-                "Название канала",
+                S.of(context).channelName,
                 softWrap: false,
-                style:
-                    TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
+                style: const TextStyle(
+                    color: Colors.white, fontWeight: FontWeight.w600),
               ),
               subtitle: Text(
-                "тип канала",
-                style: TextStyle(color: Colors.white70),
+                S.of(context).channelType,
+                style: const TextStyle(color: Colors.white70),
               )),
           backgroundColor: theme.primaryColor,
           actions: [
@@ -46,10 +47,10 @@ class _ChannelChatInfoScreenState extends State<ChannelChatInfoScreen> {
                 icon: const Icon(Icons.edit)),
             PopupMenuButton(
                 itemBuilder: (context) => [
-                      const PopupMenuItem(
+                      PopupMenuItem(
                           child: Row(
                         children: [
-                          Padding(
+                          const Padding(
                             padding: EdgeInsets.all(8.0),
                             child: Icon(
                               Icons.search,
@@ -57,10 +58,10 @@ class _ChannelChatInfoScreenState extends State<ChannelChatInfoScreen> {
                             ),
                           ),
                           Padding(
-                            padding: EdgeInsets.all(8.0),
+                            padding: const EdgeInsets.all(8.0),
                             child: Text(
-                              "Поиск участников",
-                              style: TextStyle(fontSize: 16),
+                              S.of(context).searchForParticipants,
+                              style: const TextStyle(fontSize: 16),
                             ),
                           )
                         ],
@@ -68,18 +69,18 @@ class _ChannelChatInfoScreenState extends State<ChannelChatInfoScreen> {
                       PopupMenuItem(
                           onTap: () => AutoRouter.of(context)
                               .popAndPush(const UsersListRoute()),
-                          child: const Row(
+                          child: Row(
                             children: [
-                              Padding(
+                              const Padding(
                                 padding: EdgeInsets.all(8.0),
                                 child: Icon(Icons.exit_to_app,
                                     size: 28, color: Colors.red),
                               ),
                               Padding(
-                                padding: EdgeInsets.all(8.0),
+                                padding: const EdgeInsets.all(8.0),
                                 child: Text(
-                                  "Удалить канал",
-                                  style: TextStyle(
+                                  S.of(context).deleteChannel,
+                                  style: const TextStyle(
                                       fontSize: 16, color: Colors.red),
                                 ),
                               )
@@ -92,7 +93,7 @@ class _ChannelChatInfoScreenState extends State<ChannelChatInfoScreen> {
         body: ListView(
           children: [
             DetailInfo(
-              titleText: "Информация",
+              titleText: S.of(context).information,
               containerHeight: 150,
               padding:
                   const EdgeInsets.symmetric(horizontal: 20).copyWith(top: 16),
@@ -100,7 +101,7 @@ class _ChannelChatInfoScreenState extends State<ChannelChatInfoScreen> {
                 ListTile(
                   onTap: () async {
                     await Clipboard.setData(
-                        const ClipboardData(text: "Описание группы"));
+                        ClipboardData(text: S.of(context).groupDescription));
                     _showSnackBar(context);
                   },
                   visualDensity: VisualDensity.compact,
@@ -110,21 +111,23 @@ class _ChannelChatInfoScreenState extends State<ChannelChatInfoScreen> {
                     "hate.me/sdahfasjdpfe304",
                     style: TextStyle(fontSize: 14),
                   ),
-                  subtitle: const Text(
-                    "Ссылка-приглашение",
-                    style: TextStyle(fontWeight: FontWeight.normal),
+                  subtitle: Text(
+                    S.of(context).invitationLink,
+                    style: const TextStyle(fontWeight: FontWeight.normal),
                   ),
                 ),
                 ListTile(
                   visualDensity: VisualDensity.compact,
                   dense: true,
                   contentPadding: EdgeInsets.zero,
-                  title: const Text(
-                    "Уведомления",
-                    style: TextStyle(fontSize: 14),
+                  title: Text(
+                    S.of(context).notifications,
+                    style: const TextStyle(fontSize: 14),
                   ),
                   subtitle: Text(
-                    (_notifications) ? "Включены" : "Выключены",
+                    (_notifications)
+                        ? S.of(context).enabled
+                        : S.of(context).disabled,
                     style: const TextStyle(color: Colors.black26, fontSize: 12),
                   ),
                   trailing: Transform.scale(
@@ -144,33 +147,6 @@ class _ChannelChatInfoScreenState extends State<ChannelChatInfoScreen> {
             const SizedBox(
               height: 10,
             ),
-            // InkWell(
-            //   onTap: () => AutoRouter.of(context)
-            //       .push(const AddUsersToExistGroupRoute()),
-            //   child: Container(
-            //     decoration: const BoxDecoration(color: Colors.white),
-            //     child: Row(
-            //       children: [
-            //         Padding(
-            //           padding: const EdgeInsets.all(12).copyWith(left: 16),
-            //           child: Icon(
-            //             Icons.person_add_outlined,
-            //             color: theme.primaryColor,
-            //           ),
-            //         ),
-            //         Padding(
-            //           padding: const EdgeInsets.only(left: 12),
-            //           child: Text(
-            //             "Добавить участников",
-            //             style: TextStyle(
-            //                 color: theme.primaryColor,
-            //                 fontWeight: FontWeight.normal),
-            //           ),
-            //         )
-            //       ],
-            //     ),
-            //   ),
-            // ),
             Column(
               children: [
                 InkWell(
@@ -179,9 +155,9 @@ class _ChannelChatInfoScreenState extends State<ChannelChatInfoScreen> {
                     decoration: const BoxDecoration(color: Colors.white),
                     child: ListTile(
                       dense: true,
-                      title: const Text(
-                        "Подписчики",
-                        style: TextStyle(
+                      title: Text(
+                        S.of(context).subscribers,
+                        style: const TextStyle(
                             fontWeight: FontWeight.w500, fontSize: 14),
                       ),
                       leading: const Icon(
@@ -202,9 +178,9 @@ class _ChannelChatInfoScreenState extends State<ChannelChatInfoScreen> {
                     decoration: const BoxDecoration(color: Colors.white),
                     child: ListTile(
                       dense: true,
-                      title: const Text(
-                        "Администраторы",
-                        style: TextStyle(
+                      title: Text(
+                        S.of(context).administrators,
+                        style: const TextStyle(
                             fontWeight: FontWeight.w500, fontSize: 14),
                       ),
                       leading: const Icon(
@@ -234,17 +210,17 @@ class _ChannelChatInfoScreenState extends State<ChannelChatInfoScreen> {
         elevation: 0,
         shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(12))),
-        content: const Row(
+        content: Row(
           children: [
-            Icon(
+            const Icon(
               Icons.copy,
               color: Colors.white,
             ),
             Padding(
-              padding: EdgeInsets.only(left: 8),
+              padding: const EdgeInsets.only(left: 8),
               child: Text(
-                "Текст скопирован в буффер обмена.",
-                style: TextStyle(fontWeight: FontWeight.normal),
+                S.of(context).theTextIsCopiedToTheClipboard,
+                style: const TextStyle(fontWeight: FontWeight.normal),
               ),
             )
           ],

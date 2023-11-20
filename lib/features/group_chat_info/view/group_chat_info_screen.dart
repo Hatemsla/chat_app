@@ -2,6 +2,7 @@
 
 import 'package:auto_route/auto_route.dart';
 import 'package:chat_app/features/settings/settings.dart';
+import 'package:chat_app/generated/l10n.dart';
 import 'package:chat_app/router/router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -23,20 +24,20 @@ class _GroupChatInfoScreenState extends State<GroupChatInfoScreen> {
     return Scaffold(
         backgroundColor: Colors.blue[50],
         appBar: AppBar(
-          title: const ListTile(
+          title: ListTile(
               contentPadding: EdgeInsets.zero,
-              leading: CircleAvatar(
+              leading: const CircleAvatar(
                 child: Icon(Icons.person),
               ),
               title: Text(
-                "Название группы",
+                S.of(context).groupName,
                 softWrap: false,
-                style:
-                    TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
+                style: const TextStyle(
+                    color: Colors.white, fontWeight: FontWeight.w600),
               ),
               subtitle: Text(
-                "n участников",
-                style: TextStyle(color: Colors.white70),
+                S.of(context).nParticipants(1),
+                style: const TextStyle(color: Colors.white70),
               )),
           backgroundColor: theme.primaryColor,
           actions: [
@@ -49,9 +50,9 @@ class _GroupChatInfoScreenState extends State<GroupChatInfoScreen> {
                       PopupMenuItem(
                           onTap: () => AutoRouter.of(context)
                               .push(const UpdateUserNameRoute()),
-                          child: const Row(
+                          child: Row(
                             children: [
-                              Padding(
+                              const Padding(
                                 padding: EdgeInsets.all(8.0),
                                 child: Icon(
                                   Icons.search,
@@ -59,10 +60,10 @@ class _GroupChatInfoScreenState extends State<GroupChatInfoScreen> {
                                 ),
                               ),
                               Padding(
-                                padding: EdgeInsets.all(8.0),
+                                padding: const EdgeInsets.all(8.0),
                                 child: Text(
-                                  "Поиск участников",
-                                  style: TextStyle(fontSize: 16),
+                                  S.of(context).searchForParticipants,
+                                  style: const TextStyle(fontSize: 16),
                                 ),
                               )
                             ],
@@ -70,9 +71,9 @@ class _GroupChatInfoScreenState extends State<GroupChatInfoScreen> {
                       PopupMenuItem(
                           onTap: () => AutoRouter.of(context)
                               .popAndPush(const UsersListRoute()),
-                          child: const Row(
+                          child: Row(
                             children: [
-                              Padding(
+                              const Padding(
                                 padding: EdgeInsets.all(8.0),
                                 child: Icon(
                                   Icons.exit_to_app,
@@ -80,10 +81,10 @@ class _GroupChatInfoScreenState extends State<GroupChatInfoScreen> {
                                 ),
                               ),
                               Padding(
-                                padding: EdgeInsets.all(8.0),
+                                padding: const EdgeInsets.all(8.0),
                                 child: Text(
-                                  "Покинуть группу",
-                                  style: TextStyle(fontSize: 16),
+                                  S.of(context).leaveTheGroup,
+                                  style: const TextStyle(fontSize: 16),
                                 ),
                               )
                             ],
@@ -95,7 +96,7 @@ class _GroupChatInfoScreenState extends State<GroupChatInfoScreen> {
         body: ListView(
           children: [
             DetailInfo(
-              titleText: "Информация",
+              titleText: S.of(context).information,
               containerHeight: 130,
               padding:
                   const EdgeInsets.symmetric(horizontal: 20).copyWith(top: 16),
@@ -103,27 +104,29 @@ class _GroupChatInfoScreenState extends State<GroupChatInfoScreen> {
                 ListTile(
                   onTap: () async {
                     await Clipboard.setData(
-                        const ClipboardData(text: "Описание группы"));
+                        ClipboardData(text: S.of(context).groupDescription));
                     _showSnackBar(context);
                   },
                   visualDensity: VisualDensity.compact,
                   dense: true,
                   contentPadding: EdgeInsets.zero,
-                  title: const Text(
-                    "Описание группы",
-                    style: TextStyle(fontSize: 14),
+                  title: Text(
+                    S.of(context).groupDescription,
+                    style: const TextStyle(fontSize: 14),
                   ),
                 ),
                 ListTile(
                   visualDensity: VisualDensity.compact,
                   dense: true,
                   contentPadding: EdgeInsets.zero,
-                  title: const Text(
-                    "Уведомления",
-                    style: TextStyle(fontSize: 14),
+                  title: Text(
+                    S.of(context).notifications,
+                    style: const TextStyle(fontSize: 14),
                   ),
                   subtitle: Text(
-                    (_notifications) ? "Включены" : "Выключены",
+                    (_notifications)
+                        ? S.of(context).enabled
+                        : S.of(context).disabled,
                     style: const TextStyle(color: Colors.black26, fontSize: 12),
                   ),
                   trailing: Transform.scale(
@@ -160,7 +163,7 @@ class _GroupChatInfoScreenState extends State<GroupChatInfoScreen> {
                     Padding(
                       padding: const EdgeInsets.only(left: 12),
                       child: Text(
-                        "Добавить участников",
+                        S.of(context).addParticipants,
                         style: TextStyle(
                             color: theme.primaryColor,
                             fontWeight: FontWeight.normal),
@@ -180,14 +183,14 @@ class _GroupChatInfoScreenState extends State<GroupChatInfoScreen> {
                       AutoRouter.of(context).push(const AnotherUserInfoRoute()),
                   child: Container(
                     decoration: const BoxDecoration(color: Colors.white),
-                    child: const ListTile(
+                    child: ListTile(
                       dense: true,
                       title: Text(
-                        "Имя",
-                        style: TextStyle(fontWeight: FontWeight.w600),
+                        S.of(context).name,
+                        style: const TextStyle(fontWeight: FontWeight.w600),
                       ),
-                      subtitle: Text("был(а) в сети в 10:30"),
-                      leading: CircleAvatar(
+                      subtitle: Text(S.of(context).wasOnlineAtTime("10:30")),
+                      leading: const CircleAvatar(
                         child: Icon(Icons.person),
                       ),
                     ),
@@ -195,14 +198,14 @@ class _GroupChatInfoScreenState extends State<GroupChatInfoScreen> {
                 ),
                 Container(
                   decoration: const BoxDecoration(color: Colors.white),
-                  child: const ListTile(
+                  child: ListTile(
                     dense: true,
                     title: Text(
-                      "Имя",
-                      style: TextStyle(fontWeight: FontWeight.w600),
+                      S.of(context).name,
+                      style: const TextStyle(fontWeight: FontWeight.w600),
                     ),
-                    subtitle: Text("был(а) в сети в 10:30"),
-                    leading: CircleAvatar(
+                    subtitle: Text(S.of(context).wasOnlineAtTime("10:30")),
+                    leading: const CircleAvatar(
                       child: Icon(Icons.person),
                     ),
                   ),
@@ -222,17 +225,17 @@ class _GroupChatInfoScreenState extends State<GroupChatInfoScreen> {
         elevation: 0,
         shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(12))),
-        content: const Row(
+        content: Row(
           children: [
-            Icon(
+            const Icon(
               Icons.copy,
               color: Colors.white,
             ),
             Padding(
-              padding: EdgeInsets.only(left: 8),
+              padding: const EdgeInsets.only(left: 8),
               child: Text(
-                "Текст скопирован в буффер обмена.",
-                style: TextStyle(fontWeight: FontWeight.normal),
+                S.of(context).theTextIsCopiedToTheClipboard,
+                style: const TextStyle(fontWeight: FontWeight.normal),
               ),
             )
           ],

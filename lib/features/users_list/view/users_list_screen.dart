@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:auto_route/auto_route.dart';
 import 'package:chat_app/features/users_list/widgets/widgets.dart';
+import 'package:chat_app/generated/l10n.dart';
 import 'package:flutter/material.dart';
 
 @RoutePage()
@@ -14,8 +15,8 @@ class UsersListScreen extends StatelessWidget {
         drawer: const UsersListDrawer(),
         drawerEdgeDragWidth: MediaQuery.of(context).size.width / 2,
         appBar: AppBar(
-          title: const Text('Чаты',
-              style: TextStyle(
+          title: Text(S.of(context).Chats,
+              style: const TextStyle(
                   fontSize: 20,
                   color: Colors.white,
                   fontWeight: FontWeight.w600)),

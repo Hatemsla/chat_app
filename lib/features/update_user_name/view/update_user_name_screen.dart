@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:chat_app/generated/l10n.dart';
 import 'package:flutter/material.dart';
 
 @RoutePage()
@@ -34,8 +35,8 @@ class _UpdateUserNameScreenState extends State<UpdateUserNameScreen> {
       appBar: AppBar(
         backgroundColor: theme.primaryColor,
         surfaceTintColor: Colors.transparent,
-        title: const Text("Изменить имя",
-            style: TextStyle(
+        title: Text(S.of(context).updateName,
+            style: const TextStyle(
                 fontSize: 20,
                 color: Colors.white,
                 fontWeight: FontWeight.w600)),
@@ -64,7 +65,7 @@ class _UpdateUserNameScreenState extends State<UpdateUserNameScreen> {
                         fontSize: theme.textTheme.bodyMedium?.fontSize,
                         color: Colors.black),
                     decoration: InputDecoration(
-                        hintText: "Имя",
+                        hintText: S.of(context).name,
                         hintStyle: const TextStyle(
                             color: Colors.black38, fontSize: 14),
                         enabledBorder: const UnderlineInputBorder(

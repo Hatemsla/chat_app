@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:chat_app/generated/l10n.dart';
 import 'package:flutter/material.dart';
 
 @RoutePage()
@@ -57,7 +58,7 @@ class _UpdateGroupInfoScreenState extends State<UpdateGroupInfoScreen> {
                   child: TextFormField(
                     style: const TextStyle(fontSize: 14, color: Colors.black),
                     decoration: InputDecoration(
-                        hintText: "Имя группы",
+                        hintText: S.of(context).groupName,
                         contentPadding: const EdgeInsets.only(bottom: 4),
                         enabledBorder: const UnderlineInputBorder(
                             borderSide:
@@ -94,7 +95,7 @@ class _UpdateGroupInfoScreenState extends State<UpdateGroupInfoScreen> {
                     maxLength: 600,
                     style: const TextStyle(fontSize: 14, color: Colors.black),
                     decoration: InputDecoration(
-                      hintText: "Описание",
+                      hintText: S.of(context).description,
                       contentPadding: const EdgeInsets.only(bottom: 4),
                       enabledBorder: const UnderlineInputBorder(
                           borderSide:

@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:chat_app/features/add_users_to_group/add_users_to_group.dart';
 import 'package:chat_app/features/settings/settings.dart';
+import 'package:chat_app/generated/l10n.dart';
 import 'package:chat_app/router/router.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -24,8 +25,8 @@ class _ChooseChannelTypeScreenState extends State<ChooseChannelTypeScreen> {
     return Scaffold(
         backgroundColor: Colors.blue[50],
         appBar: AppBar(
-          title: const Text('Настройки канала',
-              style: TextStyle(
+          title: Text(S.of(context).channelSettings,
+              style: const TextStyle(
                   fontSize: 20,
                   color: Colors.white,
                   fontWeight: FontWeight.w600)),
@@ -42,7 +43,7 @@ class _ChooseChannelTypeScreenState extends State<ChooseChannelTypeScreen> {
         body: Column(
           children: [
             DetailInfo(
-              titleText: "Тип канала",
+              titleText: S.of(context).channelType,
               containerHeight: 200,
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
               listWidgets: [
@@ -57,13 +58,14 @@ class _ChooseChannelTypeScreenState extends State<ChooseChannelTypeScreen> {
                       _channelType = value;
                     });
                   },
-                  title: const Text(
-                    'Публичный канал',
-                    style: TextStyle(fontWeight: FontWeight.w500, fontSize: 16),
+                  title: Text(
+                    S.of(context).publicChannel,
+                    style: const TextStyle(
+                        fontWeight: FontWeight.w500, fontSize: 16),
                   ),
-                  subtitle: const Text(
-                    'Публичные каналы можно найти через поиск, подписаться на них может любой пользователь',
-                    style: TextStyle(fontWeight: FontWeight.normal),
+                  subtitle: Text(
+                    S.of(context).publicChannelDescription,
+                    style: const TextStyle(fontWeight: FontWeight.normal),
                   ),
                 ),
                 RadioListTile<ChannelType>(
@@ -77,13 +79,14 @@ class _ChooseChannelTypeScreenState extends State<ChooseChannelTypeScreen> {
                       _channelType = value;
                     });
                   },
-                  title: const Text(
-                    'Частный канал',
-                    style: TextStyle(fontWeight: FontWeight.w500, fontSize: 16),
+                  title: Text(
+                    S.of(context).privateChannel,
+                    style: const TextStyle(
+                        fontWeight: FontWeight.w500, fontSize: 16),
                   ),
-                  subtitle: const Text(
-                    'На частные каналы можно подписаться только по ссылке-приглашению',
-                    style: TextStyle(fontWeight: FontWeight.normal),
+                  subtitle: Text(
+                    S.of(context).privateChannelDescription,
+                    style: const TextStyle(fontWeight: FontWeight.normal),
                   ),
                 ),
               ],
@@ -95,7 +98,7 @@ class _ChooseChannelTypeScreenState extends State<ChooseChannelTypeScreen> {
               Column(
                 children: [
                   DetailInfo(
-                    titleText: "Публичная ссылка",
+                    titleText: S.of(context).publicLink,
                     containerHeight: 75,
                     padding: const EdgeInsets.symmetric(
                         horizontal: 20, vertical: 16),
@@ -106,40 +109,40 @@ class _ChooseChannelTypeScreenState extends State<ChooseChannelTypeScreen> {
                           style: TextStyle(
                               fontSize: theme.textTheme.bodyMedium?.fontSize,
                               color: Colors.black),
-                          decoration: const InputDecoration(
+                          decoration: InputDecoration(
                               isDense: true,
                               contentPadding: EdgeInsets.zero,
-                              hintText: "cсылка",
-                              prefixIcon: Text(
+                              hintText: S.of(context).link,
+                              prefixIcon: const Text(
                                 "hate.me/",
                                 style: TextStyle(
                                     color: Colors.black,
                                     fontWeight: FontWeight.normal),
                               ),
-                              prefixIconConstraints:
-                                  BoxConstraints(minWidth: 0, minHeight: 0),
-                              hintStyle: TextStyle(
+                              prefixIconConstraints: const BoxConstraints(
+                                  minWidth: 0, minHeight: 0),
+                              hintStyle: const TextStyle(
                                   color: Colors.black38, fontSize: 14),
-                              enabledBorder: OutlineInputBorder(
+                              enabledBorder: const OutlineInputBorder(
                                   borderSide: BorderSide(color: Colors.white),
                                   borderRadius: BorderRadius.zero),
-                              focusedBorder: OutlineInputBorder(
+                              focusedBorder: const OutlineInputBorder(
                                   borderSide: BorderSide(color: Colors.white),
                                   borderRadius: BorderRadius.zero))),
                     ],
                   ),
-                  const Card(
+                  Card(
                     color: Colors.transparent,
-                    shape:
-                        RoundedRectangleBorder(borderRadius: BorderRadius.zero),
+                    shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.zero),
                     elevation: 0,
                     margin: EdgeInsets.zero,
                     child: Padding(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 16, vertical: 4),
                       child: Text(
-                        "Если у канала будет постоянная публичная ссылка, другие пользователи смогут найти его и подписаться.\n\nМожно использовать латиницу (a-z), цифры (0-9) и подчёркивание. Минимальная длина - 5 символов.",
-                        style: TextStyle(
+                        S.of(context).privateLinkExtended,
+                        style: const TextStyle(
                             color: Colors.black54,
                             fontWeight: FontWeight.normal),
                       ),
@@ -151,7 +154,7 @@ class _ChooseChannelTypeScreenState extends State<ChooseChannelTypeScreen> {
               Column(
                 children: [
                   DetailInfo(
-                    titleText: "Ссылка-приглашение",
+                    titleText: S.of(context).invitationLink,
                     containerHeight: 170,
                     padding: const EdgeInsets.symmetric(
                         horizontal: 20, vertical: 16),
@@ -184,9 +187,9 @@ class _ChooseChannelTypeScreenState extends State<ChooseChannelTypeScreen> {
                               Expanded(
                                 child: ElevatedButton.icon(
                                   onPressed: () {},
-                                  label: const Text(
-                                    "Скопировать",
-                                    style: TextStyle(
+                                  label: Text(
+                                    S.of(context).copy,
+                                    style: const TextStyle(
                                         color: Colors.white,
                                         fontWeight: FontWeight.w600),
                                   ),
@@ -208,9 +211,9 @@ class _ChooseChannelTypeScreenState extends State<ChooseChannelTypeScreen> {
                               Expanded(
                                 child: ElevatedButton.icon(
                                   onPressed: () {},
-                                  label: const Text(
-                                    "Поделиться",
-                                    style: TextStyle(
+                                  label: Text(
+                                    S.of(context).share,
+                                    style: const TextStyle(
                                         color: Colors.white,
                                         fontWeight: FontWeight.w600),
                                   ),
@@ -232,18 +235,18 @@ class _ChooseChannelTypeScreenState extends State<ChooseChannelTypeScreen> {
                       )
                     ],
                   ),
-                  const Card(
+                  Card(
                     color: Colors.transparent,
-                    shape:
-                        RoundedRectangleBorder(borderRadius: BorderRadius.zero),
+                    shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.zero),
                     elevation: 0,
                     margin: EdgeInsets.zero,
                     child: Padding(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 16, vertical: 4),
                       child: Text(
-                        "По этой ссылке можно подписаться на канал. Вы можете сбросить ее в любой момент.",
-                        style: TextStyle(
+                        S.of(context).publicLinkExtended,
+                        style: const TextStyle(
                             color: Colors.black54,
                             fontWeight: FontWeight.normal),
                       ),
