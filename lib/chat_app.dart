@@ -19,18 +19,18 @@ class _ChatAppState extends State<ChatApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
-        localizationsDelegates: const [
-          S.delegate,
-          GlobalMaterialLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate,
-          GlobalCupertinoLocalizations.delegate,
-        ],
-        supportedLocales: S.delegate.supportedLocales,
-        debugShowCheckedModeBanner: false,
-        title: 'Chat app',
-        theme: appTheme,
-        routerConfig: _appRouter.config(
-            navigatorObservers: () =>
-                [TalkerRouteObserver(GetIt.I<Talker>())]));
+      localizationsDelegates: const [
+        S.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: S.delegate.supportedLocales,
+      debugShowCheckedModeBanner: false,
+      title: 'Chat app',
+      theme: appTheme,
+      routerConfig: _appRouter.config(
+          navigatorObservers: () => [TalkerRouteObserver(GetIt.I<Talker>())]),
+    );
   }
 }

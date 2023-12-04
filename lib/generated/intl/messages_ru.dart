@@ -71,6 +71,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "enabled": MessageLookupByLibrary.simpleMessage("Включены"),
         "enterTheNameOfTheGroup":
             MessageLookupByLibrary.simpleMessage("Введите имя группы"),
+        "error": MessageLookupByLibrary.simpleMessage("Ошибка"),
         "exit": MessageLookupByLibrary.simpleMessage("Выход"),
         "exitGroup": MessageLookupByLibrary.simpleMessage("Покинуть группу"),
         "forgotPassword":

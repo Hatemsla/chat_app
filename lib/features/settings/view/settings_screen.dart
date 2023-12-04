@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:chat_app/features/settings/settings.dart';
 import 'package:chat_app/generated/l10n.dart';
+import 'package:chat_app/repositories/auth/auth.dart';
 import 'package:chat_app/router/router.dart';
 import 'package:flutter/material.dart';
 
@@ -33,6 +34,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final userModel = UserPreferences.userModel!;
     return Scaffold(
       backgroundColor: Colors.blue[50],
       appBar: AppBar(
@@ -41,11 +43,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
             leading: const CircleAvatar(
               child: Icon(Icons.person),
             ),
-            title: const Text(
-              "Ян Калашников",
+            title: Text(
+              userModel.displayName ?? userModel.email,
               maxLines: 1,
-              style:
-                  TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
+              style: const TextStyle(
+                  color: Colors.white, fontWeight: FontWeight.w600),
             ),
             subtitle: Text(
               S.of(context).online,
@@ -132,9 +134,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
               visualDensity: VisualDensity.compact,
               dense: true,
               contentPadding: EdgeInsets.zero,
-              title: const Text(
-                "+7 (965) 582-08-60",
-                style: TextStyle(fontSize: 14),
+              title: Text(
+                userModel.phoneNumber,
+                style: const TextStyle(fontSize: 14),
               ),
               subtitle: Text(
                 S.of(context).clickToChangeThePhoneNumber,
@@ -147,9 +149,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
               visualDensity: VisualDensity.compact,
               dense: true,
               contentPadding: EdgeInsets.zero,
-              title: const Text(
-                "kalashnikovjan@yandex.ru",
-                style: TextStyle(fontSize: 14),
+              title: Text(
+                userModel.email,
+                style: const TextStyle(fontSize: 14),
               ),
               subtitle: Text(
                 S.of(context).clickToChangeTheMail,
@@ -162,9 +164,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
               visualDensity: VisualDensity.compact,
               dense: true,
               contentPadding: EdgeInsets.zero,
-              title: const Text(
-                "Level up!",
-                style: TextStyle(fontSize: 14),
+              title: Text(
+                userModel.about ?? "",
+                style: const TextStyle(fontSize: 14),
               ),
               subtitle: Text(
                 S.of(context).aboutMe,

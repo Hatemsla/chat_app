@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:chat_app/features/settings/settings.dart';
 import 'package:chat_app/generated/l10n.dart';
+import 'package:chat_app/repositories/auth/auth.dart';
 import 'package:flutter/material.dart';
 
 @RoutePage()
@@ -14,10 +15,11 @@ class UpdateUserPhoneScreen extends StatefulWidget {
 class _UpdateUserPhoneScreenState extends State<UpdateUserPhoneScreen> {
   final TextEditingController _newPhone = TextEditingController();
   final FocusNode _newNameFocus = FocusNode();
+  final userModel = UserPreferences.userModel!;
 
   @override
   void initState() {
-    _newPhone.text = "+7 (965) 582-08-60";
+    _newPhone.text = userModel.phoneNumber;
     _newNameFocus.requestFocus();
     super.initState();
   }

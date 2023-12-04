@@ -26,7 +26,7 @@ class _AddUsersToGroupScreenState extends State<AddUsersToGroupScreen> {
           contentPadding: EdgeInsets.zero,
           dense: true,
           title: Text(
-            S.of(context).createGroup,
+            S.of(context).addParticipants,
             style: const TextStyle(
                 fontSize: 20, color: Colors.white, fontWeight: FontWeight.w600),
           ),
@@ -44,7 +44,7 @@ class _AddUsersToGroupScreenState extends State<AddUsersToGroupScreen> {
           color: Colors.white,
         ),
         onPressed: () {
-          AutoRouter.of(context).popAndPush(const CreateGroupRoute());
+          AutoRouter.of(context).push(const CreateGroupRoute());
         },
       ),
       body: Column(

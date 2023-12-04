@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:chat_app/features/settings/settings.dart';
 import 'package:chat_app/generated/l10n.dart';
+import 'package:chat_app/repositories/auth/auth.dart';
 import 'package:flutter/material.dart';
 
 @RoutePage()
@@ -14,10 +15,11 @@ class UpdateUserEmailScreen extends StatefulWidget {
 class _UpdateUserEmailScreenState extends State<UpdateUserEmailScreen> {
   final TextEditingController _newName = TextEditingController();
   final FocusNode _newNameFocus = FocusNode();
+  final userModel = UserPreferences.userModel!;
 
   @override
   void initState() {
-    _newName.text = "kalashnikovjan@yandex.ru";
+    _newName.text = userModel.email;
     _newNameFocus.requestFocus();
     super.initState();
   }

@@ -1,12 +1,13 @@
+import 'package:chat_app/features/sign_up/bloc/auth_bloc.dart';
 import 'package:chat_app/features/widgets/widgets.dart';
 import 'package:chat_app/generated/l10n.dart';
+import 'package:chat_app/repositories/auth/abstract_auth_repository.dart';
 import 'package:chat_app/router/router.dart';
 import 'package:email_validator/email_validator.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
-import 'package:talker_flutter/talker_flutter.dart';
 
 @RoutePage()
 class SignUpScreen extends StatefulWidget {
@@ -25,10 +26,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
   TextEditingController passwordTextInputController = TextEditingController();
   TextEditingController passwordTextRepeatInputController =
       TextEditingController();
-  final formKey = GlobalKey<FormState>();
+
+  final _authBloc = AuthBloc(GetIt.I<AbstractAuthRepository>());
 
   @override
   void dispose() {
+    phoneTextInputController.dispose();
     emailTextInputController.dispose();
     passwordTextInputController.dispose();
     passwordTextRepeatInputController.dispose();
@@ -40,20 +43,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
     setState(() {
       isHiddenPassword = !isHiddenPassword;
     });
-  }
-
-  Future<void> signUp() async {
-    final isValid = formKey.currentState!.validate();
-    if (!isValid) return;
-
-    try {
-      await FirebaseAuth.instance.createUserWithEmailAndPassword(
-        email: emailTextInputController.text.trim(),
-        password: passwordTextInputController.text.trim(),
-      );
-    } catch (e, st) {
-      GetIt.I<Talker>().error(e, st);
-    }
   }
 
   @override
@@ -78,6 +67,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     style: theme.textTheme.labelLarge,
                   ),
                   type: TextInputType.emailAddress,
+                  controller: phoneTextInputController,
                   validator: (email) =>
                       email != null && !EmailValidator.validate(email)
                           ? S.of(context).enterCorrectPhone
@@ -91,6 +81,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     S.of(context).email,
                     style: theme.textTheme.labelLarge,
                   ),
+                  controller: emailTextInputController,
                   type: TextInputType.emailAddress,
                   validator: (email) =>
                       email != null && !EmailValidator.validate(email)
@@ -118,29 +109,64 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     S.of(context).confirmPassword,
                     style: theme.textTheme.labelLarge,
                   ),
-                  validator: (value) => value != null && value.length < 6
-                      ? S.of(context).min6Symbols
-                      : null,
+                  controller: passwordTextRepeatInputController,
+                  validator: (value) =>
+                      value == passwordTextInputController.text
+                          ? S.of(context).passwordsNotEqual
+                          : null,
                 )),
             const SizedBox(height: 8),
-            FormWidget(
-                padding: const EdgeInsets.symmetric(horizontal: 16)
-                    .copyWith(top: 16),
-                child: InkWell(
-                    onTap: () =>
-                        AutoRouter.of(context).replace(const UsersListRoute()),
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(vertical: 16),
-                      decoration: BoxDecoration(
-                          color: theme.primaryColor,
-                          borderRadius: BorderRadius.circular(12)),
-                      child: Center(
-                        child: Text(
-                          S.of(context).signUp,
-                          style: theme.textTheme.bodyLarge,
-                        ),
-                      ),
-                    ))),
+            BlocConsumer(
+                bloc: _authBloc,
+                builder: (context, state) {
+                  return FormWidget(
+                      padding: const EdgeInsets.symmetric(horizontal: 16)
+                          .copyWith(top: 16),
+                      child: InkWell(
+                          onTap: () {
+                            _authBloc.add(SignUpUser(
+                                emailTextInputController.text,
+                                passwordTextInputController.text,
+                                phoneTextInputController.text));
+                          },
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(vertical: 16),
+                            decoration: BoxDecoration(
+                                color: theme.primaryColor,
+                                borderRadius: BorderRadius.circular(12)),
+                            child: Center(
+                              child: Text(
+                                S.of(context).signUp,
+                                style: theme.textTheme.bodyLarge,
+                              ),
+                            ),
+                          )));
+                },
+                listener: (context, state) {
+                  if (state is AuthSuccess) {
+                    AutoRouter.of(context).replace(const UsersListRoute());
+                  } else if (state is AuthFailure) {
+                    showDialog(
+                        context: context,
+                        builder: (context) {
+                          return AlertDialog(
+                            content: Text(
+                              state.error.toString(),
+                              style: TextStyle(
+                                  color: theme.primaryColor,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w500),
+                            ),
+                            title: Text(
+                              S.of(context).error,
+                              style: TextStyle(
+                                  color: theme.primaryColor,
+                                  fontWeight: FontWeight.w500),
+                            ),
+                          );
+                        });
+                  }
+                }),
             const SizedBox(height: 40),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 25),
@@ -189,7 +215,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       padding:
                           MaterialStatePropertyAll(theme.buttonTheme.padding)),
                   onPressed: () {
-                    AutoRouter.of(context).replace(const SignInRoute());
+                    AutoRouter.of(context).popAndPush(const SignInRoute());
                   },
                   child: Text(
                     S.of(context).logInNow,

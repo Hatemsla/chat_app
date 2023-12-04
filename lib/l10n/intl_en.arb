@@ -86,5 +86,8 @@
   "userEmail": "User email",
   "upToNParticipants": "Up to {participants_count} participants",
   "whoWouldYouLikeToInvite": "Who would you like to invite?",
-  "sendAnInvitation": "Send an invitation"
+  "sendAnInvitation": "Send an invitation",
+  "error": "Error",
+  "passwordsNotEqual": "Passwords not equal",
+  "pleaseTryAgainLater": "Please try again later"
 }

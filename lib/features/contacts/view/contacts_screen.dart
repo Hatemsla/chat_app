@@ -37,72 +37,18 @@ class ContactsScreen extends StatelessWidget {
           ),
         ),
       ),
-      AddUserCard(
-        userAvatar: const Icon(Icons.person),
-        userName: "Имя",
-        userLastConnect: S.of(context).wasRecently,
-        onTap: () => AutoRouter.of(context).push(const ChatRoute()),
-      ),
-      AddUserCard(
-        userAvatar: const Icon(Icons.person),
-        userName: "Имя",
-        userLastConnect: S.of(context).wasRecently,
-        onTap: () => AutoRouter.of(context).push(const ChatRoute()),
-      ),
-      AddUserCard(
-        userAvatar: const Icon(Icons.person),
-        userName: "Имя",
-        userLastConnect: S.of(context).wasRecently,
-        onTap: () => AutoRouter.of(context).push(const ChatRoute()),
-      ),
-      AddUserCard(
-        userAvatar: const Icon(Icons.person),
-        userName: "Имя",
-        userLastConnect: S.of(context).wasRecently,
-        onTap: () => AutoRouter.of(context).push(const ChatRoute()),
-      ),
-      AddUserCard(
-        userAvatar: const Icon(Icons.person),
-        userName: "Имя",
-        userLastConnect: S.of(context).wasRecently,
-        onTap: () => AutoRouter.of(context).push(const ChatRoute()),
-      ),
-      AddUserCard(
-        userAvatar: const Icon(Icons.person),
-        userName: "Имя",
-        userLastConnect: "был(а) недавно",
-        onTap: () => AutoRouter.of(context).push(const ChatRoute()),
-      ),
-      AddUserCard(
-        userAvatar: const Icon(Icons.person),
-        userName: "Имя",
-        userLastConnect: "был(а) недавно",
-        onTap: () => AutoRouter.of(context).push(const ChatRoute()),
-      ),
-      AddUserCard(
-        userAvatar: const Icon(Icons.person),
-        userName: "Имя",
-        userLastConnect: "был(а) недавно",
-        onTap: () => AutoRouter.of(context).push(const ChatRoute()),
-      ),
-      AddUserCard(
-        userAvatar: const Icon(Icons.person),
-        userName: "Имя",
-        userLastConnect: "был(а) недавно",
-        onTap: () => AutoRouter.of(context).push(const ChatRoute()),
-      ),
-      AddUserCard(
-        userAvatar: const Icon(Icons.person),
-        userName: "Имя",
-        userLastConnect: "был(а) недавно",
-        onTap: () => AutoRouter.of(context).push(const ChatRoute()),
-      ),
-      AddUserCard(
-        userAvatar: const Icon(Icons.person),
-        userName: "Имя",
-        userLastConnect: "был(а) недавно",
-        onTap: () => AutoRouter.of(context).push(const ChatRoute()),
-      ),
+      // AddUserCard(
+      //   userAvatar: const Icon(Icons.person),
+      //   userName: "Имя",
+      //   userLastConnect: S.of(context).wasRecently,
+      //   onTap: () => AutoRouter.of(context).push(const ChatRoute()),
+      // ),
+      // AddUserCard(
+      //   userAvatar: const Icon(Icons.person),
+      //   userName: "Имя",
+      //   userLastConnect: "был(а) недавно",
+      //   onTap: () => AutoRouter.of(context).push(const ChatRoute()),
+      // ),
     ];
 
     return Scaffold(

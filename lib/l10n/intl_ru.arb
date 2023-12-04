@@ -84,5 +84,8 @@
   "userEmail": "Почта пользователя",
   "upToNParticipants": "До {participants_count} участников",
   "whoWouldYouLikeToInvite": "Кого бы Вы хотели пригласить?",
-  "sendAnInvitation": "Отправить приглашение"
+  "sendAnInvitation": "Отправить приглашение",
+  "error": "Ошибка",
+  "passwordsNotEqual": "Passwords not equal",
+  "pleaseTryAgainLater": "Please try again later"
 }

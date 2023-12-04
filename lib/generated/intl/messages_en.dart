@@ -75,6 +75,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Enter correct Phone"),
         "enterTheNameOfTheGroup":
             MessageLookupByLibrary.simpleMessage("Enter the name of the group"),
+        "error": MessageLookupByLibrary.simpleMessage("Error"),
         "exit": MessageLookupByLibrary.simpleMessage("Exit"),
         "exitGroup": MessageLookupByLibrary.simpleMessage("Leave the group"),
         "forgotPassword":

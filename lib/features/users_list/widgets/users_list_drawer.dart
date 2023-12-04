@@ -1,29 +1,37 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:chat_app/features/sign_up/bloc/auth_bloc.dart';
 import 'package:chat_app/generated/l10n.dart';
+import 'package:chat_app/repositories/auth/abstract_auth_repository.dart';
+import 'package:chat_app/repositories/auth/auth.dart';
 import 'package:chat_app/router/router.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
 
 class UsersListDrawer extends StatelessWidget {
-  const UsersListDrawer({
+  UsersListDrawer({
     super.key,
   });
+
+  final _authBloc = AuthBloc(GetIt.I<AbstractAuthRepository>());
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final userModel = UserPreferences.userModel!;
     return Drawer(
       child: ListView(
         padding: EdgeInsets.zero,
         children: [
           UserAccountsDrawerHeader(
-            accountName: const Text(
-              "Ян Калашников",
-              style: TextStyle(
+            accountName: Text(
+              userModel.displayName ?? userModel.email,
+              style: const TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.w500,
                   color: Colors.white),
             ),
-            accountEmail: Text("kalashnikovjan@yandex.ru",
+            accountEmail: Text(userModel.email,
                 style: TextStyle(
                     fontSize: 14, color: Colors.white.withOpacity(0.7))),
             currentAccountPicture: CircleAvatar(
@@ -69,13 +77,44 @@ class UsersListDrawer extends StatelessWidget {
             onTap: () =>
                 AutoRouter.of(context).popAndPush(const SettingsRoute()),
           ),
-          ListTile(
-            leading: const Icon(Icons.logout),
-            title: Text(
-              S.of(context).exit,
-              style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
-            ),
-            onTap: () => AutoRouter.of(context).replace(const SignUpRoute()),
+          BlocConsumer<AuthBloc, AuthState>(
+            bloc: _authBloc,
+            builder: (context, state) {
+              return ListTile(
+                leading: const Icon(Icons.logout),
+                title: Text(
+                  S.of(context).exit,
+                  style: const TextStyle(
+                      fontSize: 14, fontWeight: FontWeight.w600),
+                ),
+                onTap: () => _authBloc.add(SignOut()),
+              );
+            },
+            listener: (context, state) {
+              if (state is AuthSuccess) {
+                AutoRouter.of(context).replace(const SignInRoute());
+              } else if (state is AuthFailure) {
+                showDialog(
+                    context: context,
+                    builder: (context) {
+                      return AlertDialog(
+                        content: Text(
+                          state.error.toString(),
+                          style: TextStyle(
+                              color: theme.primaryColor,
+                              fontSize: 16,
+                              fontWeight: FontWeight.w500),
+                        ),
+                        title: Text(
+                          S.of(context).error,
+                          style: TextStyle(
+                              color: theme.primaryColor,
+                              fontWeight: FontWeight.w500),
+                        ),
+                      );
+                    });
+              }
+            },
           ),
         ],
       ),

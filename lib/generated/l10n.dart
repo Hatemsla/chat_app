@@ -140,6 +140,16 @@ class S {
     );
   }
 
+  /// `Passwords not equal`
+  String get passwordsNotEqual {
+    return Intl.message(
+      'Passwords not equal',
+      name: 'passwordsNotEqual',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Confirm password`
   String get confirmPassword {
     return Intl.message(
@@ -925,6 +935,16 @@ class S {
     return Intl.message(
       'Send an invitation',
       name: 'sendAnInvitation',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Error`
+  String get error {
+    return Intl.message(
+      'Error',
+      name: 'error',
       desc: '',
       args: [],
     );

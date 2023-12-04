@@ -52,9 +52,13 @@ abstract class _$AppRouter extends RootStackRouter {
       );
     },
     ChatRoute.name: (routeData) {
+      final args = routeData.argsAs<ChatRouteArgs>();
       return AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const ChatScreen(),
+        child: ChatScreen(
+          key: args.key,
+          receiverUser: args.receiverUser,
+        ),
       );
     },
     ChooseChannelTypeRoute.name: (routeData) {
@@ -242,16 +246,39 @@ class ChannelChatRoute extends PageRouteInfo<void> {
 
 /// generated route for
 /// [ChatScreen]
-class ChatRoute extends PageRouteInfo<void> {
-  const ChatRoute({List<PageRouteInfo>? children})
-      : super(
+class ChatRoute extends PageRouteInfo<ChatRouteArgs> {
+  ChatRoute({
+    Key? key,
+    required UserModel receiverUser,
+    List<PageRouteInfo>? children,
+  }) : super(
           ChatRoute.name,
+          args: ChatRouteArgs(
+            key: key,
+            receiverUser: receiverUser,
+          ),
           initialChildren: children,
         );
 
   static const String name = 'ChatRoute';
 
-  static const PageInfo<void> page = PageInfo<void>(name);
+  static const PageInfo<ChatRouteArgs> page = PageInfo<ChatRouteArgs>(name);
+}
+
+class ChatRouteArgs {
+  const ChatRouteArgs({
+    this.key,
+    required this.receiverUser,
+  });
+
+  final Key? key;
+
+  final UserModel receiverUser;
+
+  @override
+  String toString() {
+    return 'ChatRouteArgs{key: $key, receiverUser: $receiverUser}';
+  }
 }
 
 /// generated route for

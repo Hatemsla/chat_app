@@ -1,20 +1,15 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:chat_app/repositories/auth/auth.dart';
 import 'package:chat_app/router/router.dart';
 import 'package:flutter/material.dart';
 
 class UserCard extends StatelessWidget {
   const UserCard({
     super.key,
-    required this.userAvatar,
-    required this.userName,
-    required this.userLastMessage,
-    required this.userLastMessageTime,
+    required this.userModel,
   });
 
-  final Widget userAvatar;
-  final String userName;
-  final String userLastMessage;
-  final String userLastMessageTime;
+  final UserModel userModel;
 
   @override
   Widget build(BuildContext context) {
@@ -22,21 +17,24 @@ class UserCard extends StatelessWidget {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(0)),
       margin: const EdgeInsets.all(2),
       child: InkWell(
-        onTap: () => AutoRouter.of(context).push(const ChatRoute()),
+        onTap: () =>
+            AutoRouter.of(context).push(ChatRoute(receiverUser: userModel)),
         child: ListTile(
           leading: CircleAvatar(
-            child: userAvatar,
+            child: userModel.avatar != null
+                ? Text(userModel.avatar!)
+                : const Icon(Icons.person),
           ),
           title: Text(
-            userName,
+            userModel.displayName ?? userModel.email,
             style: const TextStyle(fontWeight: FontWeight.bold),
           ),
           subtitle: Text(
-            userLastMessage,
+            userModel.lastMessage ?? "",
             maxLines: 1,
           ),
           trailing: Text(
-            userLastMessageTime,
+            userModel.lastMessageTime ?? "",
             style: const TextStyle(color: Colors.black54),
           ),
         ),
