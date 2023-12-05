@@ -25,6 +25,10 @@ dependencies:
   talker_logger: ^3.1.0
   talker_bloc_logger: ^2.3.2
   cloud_firestore: ^4.13.3
+  emoji_picker_flutter: ^1.6.3
+  image_picker: ^1.0.4
+  cached_network_image: ^3.3.0
+  firebase_storage: ^11.5.3
 
 dev_dependencies:
   flutter_test:

@@ -150,10 +150,10 @@ class _GroupChatScreenState extends State<GroupChatScreen> {
                                 fontWeight: FontWeight.normal,
                                 color: Colors.black38),
                           ),
-                          const ChatBubble(
-                              leftSide: false,
-                              message:
-                                  "messagemessagemessagemessagemessagemessagemessagemessagemessagemessagemessage"),
+                          // const ChatBubble(
+                          //     leftSide: false,
+                          //     message:
+                          //         "messagemessagemessagemessagemessagemessagemessagemessagemessagemessagemessage"),
                         ],
                       ),
                     ),

@@ -13,8 +13,8 @@ class MessageBloc extends Bloc<MessageEvent, MessageState> {
     on<SendUserMessage>((event, emit) async {
       emit(MessageLoading(isLoading: true));
       try {
-        final message =
-            await chatRepository.sendMessage(event.receiverId, event.message);
+        final message = await chatRepository.sendMessage(
+            event.receiverId, event.message, event.type);
         emit(MessageSentSuccces(message: message));
       } catch (e, st) {
         GetIt.I<Talker>().handle(e, st);
