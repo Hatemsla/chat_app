@@ -9,8 +9,6 @@ class UserModel {
     this.about,
     this.displayName,
     this.avatar,
-    this.lastMessage,
-    this.lastMessageTime,
     required this.isOnline,
   });
 
@@ -20,8 +18,6 @@ class UserModel {
   final String? about;
   final String? displayName;
   final String? avatar;
-  final String? lastMessage;
-  final String? lastMessageTime;
   final bool isOnline;
 
   Map<String, dynamic> toMap() {
@@ -32,8 +28,6 @@ class UserModel {
       'about': about,
       'displayName': displayName,
       'avatar': avatar,
-      'lastMessage': lastMessage,
-      'lastMessageTime': lastMessageTime,
       'isOnline': isOnline,
     };
   }
@@ -47,11 +41,6 @@ class UserModel {
       displayName:
           map['displayName'] != null ? map['displayName'] as String : null,
       avatar: map['avatar'] != null ? map['avatar'] as String : null,
-      lastMessage:
-          map['lastMessage'] != null ? map['lastMessage'] as String : null,
-      lastMessageTime: map['lastMessageTime'] != null
-          ? map['lastMessageTime'] as String
-          : null,
       isOnline: map['isOnline'] as bool,
     );
   }

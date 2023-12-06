@@ -1,6 +1,6 @@
+// ignore: depend_on_referenced_packages
 import 'package:bloc/bloc.dart';
-import 'package:chat_app/repositories/auth/auth.dart';
-import 'package:chat_app/repositories/users_list/abstract_users_list_repository.dart';
+import 'package:chat_app/repositories/users_list/users_list.dart';
 import 'package:equatable/equatable.dart';
 import 'package:get_it/get_it.dart';
 import 'package:talker_flutter/talker_flutter.dart';

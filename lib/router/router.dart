@@ -22,7 +22,7 @@ import 'package:chat_app/features/update_user_name/update_user_name.dart';
 import 'package:chat_app/features/update_user_phone/update_user_phone.dart';
 import 'package:chat_app/features/users_list/users_list.dart';
 import 'package:chat_app/features/verify_user/verify_user.dart';
-import 'package:chat_app/repositories/auth/auth.dart';
+import 'package:chat_app/repositories/users_list/users_list.dart';
 import 'package:flutter/material.dart';
 
 part 'router.gr.dart';

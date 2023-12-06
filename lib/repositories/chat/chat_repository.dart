@@ -42,22 +42,22 @@ class ChatRepository extends AbstractChatRepository {
 
   @override
   Future<Message> sendMessage(
-      String receiverId, String message, MessageType type) async {
+      String receiverUid, String message, MessageType type) async {
     try {
-      final String currentUserId = _firebaseAuth.currentUser!.uid;
+      final String currentUserUid = _firebaseAuth.currentUser!.uid;
       final String currentUserEmail =
           _firebaseAuth.currentUser!.email.toString();
       final Timestamp timestamp = Timestamp.now();
 
       final newMessage = Message(
-          senderId: currentUserId,
+          senderId: currentUserUid,
           senderEmail: currentUserEmail,
-          receiverId: receiverId,
+          receiverId: receiverUid,
           message: message,
           timestamp: timestamp,
           type: type);
 
-      final ids = [currentUserId, receiverId];
+      final ids = [currentUserUid, receiverUid];
       ids.sort();
       final chatRoomId = ids.join("_");
 

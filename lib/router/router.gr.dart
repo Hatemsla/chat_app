@@ -249,7 +249,7 @@ class ChannelChatRoute extends PageRouteInfo<void> {
 class ChatRoute extends PageRouteInfo<ChatRouteArgs> {
   ChatRoute({
     Key? key,
-    required UserModel receiverUser,
+    required UserListModel receiverUser,
     List<PageRouteInfo>? children,
   }) : super(
           ChatRoute.name,
@@ -273,7 +273,7 @@ class ChatRouteArgs {
 
   final Key? key;
 
-  final UserModel receiverUser;
+  final UserListModel receiverUser;
 
   @override
   String toString() {

@@ -1,6 +1,8 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:chat_app/repositories/auth/auth.dart';
+import 'package:chat_app/repositories/chat/chat.dart';
+import 'package:chat_app/repositories/users_list/users_list.dart';
 import 'package:chat_app/router/router.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class UserCard extends StatelessWidget {
@@ -9,7 +11,42 @@ class UserCard extends StatelessWidget {
     required this.userModel,
   });
 
-  final UserModel userModel;
+  final UserListModel userModel;
+
+  String formatMessageTime(Timestamp? timestamp) {
+    if (timestamp == null) {
+      return '';
+    }
+
+    final now = DateTime.now();
+    final messageTime = timestamp.toDate();
+
+    final today = DateTime(now.year, now.month, now.day);
+    final messageDay =
+        DateTime(messageTime.year, messageTime.month, messageTime.day);
+
+    if (today == messageDay) {
+      return '${messageTime.hour}:${messageTime.minute.toString().padLeft(2, '0')}';
+    } else {
+      return '${messageTime.day.toString().padLeft(2, '0')}.${messageTime.month.toString().padLeft(2, '0')}';
+    }
+  }
+
+  String? getSubtitleText(UserListModel userModel) {
+    if (userModel.lastMessage != null) {
+      if (userModel.type == MessageType.image) {
+        return 'image';
+      } else if (userModel.type == MessageType.video) {
+        return 'video';
+      } else if (userModel.type == MessageType.audio) {
+        return 'audio';
+      } else {
+        return userModel.lastMessage;
+      }
+    } else {
+      return '';
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,11 +67,13 @@ class UserCard extends StatelessWidget {
             style: const TextStyle(fontWeight: FontWeight.bold),
           ),
           subtitle: Text(
-            userModel.lastMessage ?? "",
+            getSubtitleText(userModel)!,
             maxLines: 1,
           ),
           trailing: Text(
-            userModel.lastMessageTime ?? "",
+            userModel.lastMessageTime != null
+                ? formatMessageTime(userModel.lastMessageTime)
+                : "",
             style: const TextStyle(color: Colors.black54),
           ),
         ),

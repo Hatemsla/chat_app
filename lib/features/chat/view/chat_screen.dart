@@ -8,6 +8,7 @@ import 'package:chat_app/features/chat/widgets/chat_bubble.dart';
 import 'package:chat_app/generated/l10n.dart';
 import 'package:chat_app/repositories/auth/auth.dart';
 import 'package:chat_app/repositories/chat/chat.dart';
+import 'package:chat_app/repositories/users_list/users_list.dart';
 import 'package:chat_app/router/router.dart';
 import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
 import 'package:flutter/material.dart';
@@ -19,7 +20,7 @@ import 'package:image_picker/image_picker.dart';
 class ChatScreen extends StatefulWidget {
   const ChatScreen({super.key, required this.receiverUser});
 
-  final UserModel receiverUser;
+  final UserListModel receiverUser;
 
   @override
   State<ChatScreen> createState() => _ChatScreenState();

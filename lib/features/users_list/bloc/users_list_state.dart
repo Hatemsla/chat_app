@@ -24,7 +24,7 @@ class UsersListLoadingFailure extends UsersListState {
 class UsersListLoaded extends UsersListState {
   UsersListLoaded({required this.usersList});
 
-  final List<UserModel> usersList;
+  final List<UserListModel> usersList;
 
   @override
   List<Object?> get props => [usersList];
