@@ -7,4 +7,6 @@ abstract class AbstractChatRepository {
   Future<Message> sendMessage(
       String receiverId, String message, MessageType type);
   Future<Message> sendImage(String receiverId, File file);
+  Future<Message> sendVideo(String receiverId, File file);
+  Future<Message> sendAudio(String receiverId, File file);
 }

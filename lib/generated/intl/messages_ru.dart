@@ -102,12 +102,16 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Или продолжить с"),
         "participantsCountOfParticipants": m1,
         "password": MessageLookupByLibrary.simpleMessage("Пароль"),
+        "passwordsNotEqual":
+            MessageLookupByLibrary.simpleMessage("Пароли не равны"),
         "personalInformation":
             MessageLookupByLibrary.simpleMessage("Данные о себе"),
         "phone": MessageLookupByLibrary.simpleMessage("Телефон"),
         "phoneNumber": MessageLookupByLibrary.simpleMessage("Номер телефона"),
         "phoneNumberRequired":
             MessageLookupByLibrary.simpleMessage("Телефон(обязательно)"),
+        "pleaseTryAgainLater": MessageLookupByLibrary.simpleMessage(
+            "Пожалуйста, попробуйте еще раз"),
         "privateChannel": MessageLookupByLibrary.simpleMessage("Частный канал"),
         "privateChannelDescription": MessageLookupByLibrary.simpleMessage(
             "На частные каналы можно подписаться только по ссылке-приглашению"),
@@ -121,6 +125,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "publicLinkExtended": MessageLookupByLibrary.simpleMessage(
             "По этой ссылке можно подписаться на канал. Вы можете сбросить ее в любой момент."),
         "recently": MessageLookupByLibrary.simpleMessage("недавно"),
+        "recording": MessageLookupByLibrary.simpleMessage("Запись.."),
         "registerNow":
             MessageLookupByLibrary.simpleMessage("Зарегистрируйтесь сейчас"),
         "search": MessageLookupByLibrary.simpleMessage("Поиск"),

@@ -98,4 +98,54 @@ class ChatRepository extends AbstractChatRepository {
       throw Exception(st);
     }
   }
+
+  @override
+  Future<Message> sendVideo(String receiverId, File file) async {
+    try {
+      final ext = file.path.split('.').last;
+
+      final ref = _storage.ref().child(
+          'videos/${_firebaseAuth.currentUser!.uid}/${DateTime.now().millisecondsSinceEpoch}.$ext');
+
+      await ref
+          .putFile(file, SettableMetadata(contentType: 'video/$ext'))
+          .then((p0) {
+        GetIt.I<Talker>()
+            .info('Data Transferred: ${p0.bytesTransferred / 1000} kb');
+      });
+
+      final videoUrl = await ref.getDownloadURL();
+      final msg = await sendMessage(receiverId, videoUrl, MessageType.video);
+
+      return msg;
+    } catch (e, st) {
+      GetIt.I<Talker>().handle(e, st);
+      throw Exception(st);
+    }
+  }
+
+  @override
+  Future<Message> sendAudio(String receiverId, File file) async {
+    try {
+      final ext = file.path.split('.').last;
+
+      final ref = _storage.ref().child(
+          'audios/${_firebaseAuth.currentUser!.uid}/${DateTime.now().millisecondsSinceEpoch}.$ext');
+
+      await ref
+          .putFile(file, SettableMetadata(contentType: 'audio/$ext'))
+          .then((p0) {
+        GetIt.I<Talker>()
+            .info('Data Transferred: ${p0.bytesTransferred / 1000} kb');
+      });
+
+      final audioUrl = await ref.getDownloadURL();
+      final msg = await sendMessage(receiverId, audioUrl, MessageType.audio);
+
+      return msg;
+    } catch (e, st) {
+      GetIt.I<Talker>().handle(e, st);
+      throw Exception(st);
+    }
+  }
 }

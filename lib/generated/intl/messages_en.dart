@@ -104,12 +104,16 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Or continue with"),
         "participantsCountOfParticipants": m1,
         "password": MessageLookupByLibrary.simpleMessage("Password"),
+        "passwordsNotEqual":
+            MessageLookupByLibrary.simpleMessage("Passwords not equal"),
         "personalInformation":
             MessageLookupByLibrary.simpleMessage("Personal information"),
         "phone": MessageLookupByLibrary.simpleMessage("Phone"),
         "phoneNumber": MessageLookupByLibrary.simpleMessage("Phone number"),
         "phoneNumberRequired":
             MessageLookupByLibrary.simpleMessage("Phone number(required)"),
+        "pleaseTryAgainLater":
+            MessageLookupByLibrary.simpleMessage("Please try again later"),
         "privateChannel":
             MessageLookupByLibrary.simpleMessage("Private channel"),
         "privateChannelDescription": MessageLookupByLibrary.simpleMessage(
@@ -123,6 +127,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "publicLinkExtended": MessageLookupByLibrary.simpleMessage(
             "You can subscribe to the channel using this link. You can reset it at any time."),
         "recently": MessageLookupByLibrary.simpleMessage("recently"),
+        "recording": MessageLookupByLibrary.simpleMessage("Recording..."),
         "registerNow": MessageLookupByLibrary.simpleMessage("Register now"),
         "search": MessageLookupByLibrary.simpleMessage("Search"),
         "searchForParticipants":

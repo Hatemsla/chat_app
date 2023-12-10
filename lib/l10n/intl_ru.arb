@@ -86,6 +86,7 @@
   "whoWouldYouLikeToInvite": "Кого бы Вы хотели пригласить?",
   "sendAnInvitation": "Отправить приглашение",
   "error": "Ошибка",
-  "passwordsNotEqual": "Passwords not equal",
-  "pleaseTryAgainLater": "Please try again later"
+  "passwordsNotEqual": "Пароли не равны",
+  "pleaseTryAgainLater": "Пожалуйста, попробуйте еще раз",
+  "recording": "Запись.."
 }

@@ -140,16 +140,6 @@ class S {
     );
   }
 
-  /// `Passwords not equal`
-  String get passwordsNotEqual {
-    return Intl.message(
-      'Passwords not equal',
-      name: 'passwordsNotEqual',
-      desc: '',
-      args: [],
-    );
-  }
-
   /// `Confirm password`
   String get confirmPassword {
     return Intl.message(
@@ -945,6 +935,36 @@ class S {
     return Intl.message(
       'Error',
       name: 'error',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Passwords not equal`
+  String get passwordsNotEqual {
+    return Intl.message(
+      'Passwords not equal',
+      name: 'passwordsNotEqual',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please try again later`
+  String get pleaseTryAgainLater {
+    return Intl.message(
+      'Please try again later',
+      name: 'pleaseTryAgainLater',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Recording...`
+  String get recording {
+    return Intl.message(
+      'Recording...',
+      name: 'recording',
       desc: '',
       args: [],
     );
