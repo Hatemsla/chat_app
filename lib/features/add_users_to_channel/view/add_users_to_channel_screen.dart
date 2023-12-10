@@ -69,11 +69,11 @@ class _AddUsersToChannelScreenState extends State<AddUsersToChannelScreen> {
                       borderRadius: BorderRadius.zero))),
           Expanded(child: ListView.builder(
             itemBuilder: (context, index) {
-              return AddUserCard(
-                userAvatar: const Icon(Icons.person),
-                userName: 'Имя',
-                userLastConnect: S.of(context).wasRecently,
-              );
+              // return AddUserCard(
+              //   userAvatar: const Icon(Icons.person),
+              //   userName: 'Имя',
+              //   userLastConnect: S.of(context).wasRecently,
+              // );
             },
           ))
         ],

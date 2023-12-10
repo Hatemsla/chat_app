@@ -80,9 +80,13 @@ abstract class _$AppRouter extends RootStackRouter {
       );
     },
     CreateGroupRoute.name: (routeData) {
+      final args = routeData.argsAs<CreateGroupRouteArgs>();
       return AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const CreateGroupScreen(),
+        child: CreateGroupScreen(
+          key: args.key,
+          addUsers: args.addUsers,
+        ),
       );
     },
     GroupChatInfoRoute.name: (routeData) {
@@ -325,16 +329,40 @@ class CreateChannelRoute extends PageRouteInfo<void> {
 
 /// generated route for
 /// [CreateGroupScreen]
-class CreateGroupRoute extends PageRouteInfo<void> {
-  const CreateGroupRoute({List<PageRouteInfo>? children})
-      : super(
+class CreateGroupRoute extends PageRouteInfo<CreateGroupRouteArgs> {
+  CreateGroupRoute({
+    Key? key,
+    required List<UserListModel> addUsers,
+    List<PageRouteInfo>? children,
+  }) : super(
           CreateGroupRoute.name,
+          args: CreateGroupRouteArgs(
+            key: key,
+            addUsers: addUsers,
+          ),
           initialChildren: children,
         );
 
   static const String name = 'CreateGroupRoute';
 
-  static const PageInfo<void> page = PageInfo<void>(name);
+  static const PageInfo<CreateGroupRouteArgs> page =
+      PageInfo<CreateGroupRouteArgs>(name);
+}
+
+class CreateGroupRouteArgs {
+  const CreateGroupRouteArgs({
+    this.key,
+    required this.addUsers,
+  });
+
+  final Key? key;
+
+  final List<UserListModel> addUsers;
+
+  @override
+  String toString() {
+    return 'CreateGroupRouteArgs{key: $key, addUsers: $addUsers}';
+  }
 }
 
 /// generated route for

@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:chat_app/features/add_users_to_group/add_users_to_group.dart';
 import 'package:chat_app/generated/l10n.dart';
+import 'package:chat_app/repositories/users_list/models/models.dart';
 import 'package:chat_app/router/router.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -60,11 +61,9 @@ class _AddUsersToExistGroupScreenState
                       borderRadius: BorderRadius.zero))),
           Expanded(child: ListView.builder(
             itemBuilder: (context, index) {
-              return AddUserCard(
-                userAvatar: const Icon(Icons.person),
-                userName: 'Имя',
-                userLastConnect: S.of(context).wasRecently,
-              );
+              // return AddUserCard(
+              //   userModel: UserListModel(),
+              // );
             },
           ))
         ],

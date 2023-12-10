@@ -1,10 +1,16 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:chat_app/generated/l10n.dart';
-import 'package:chat_app/router/router.dart';
+import 'package:chat_app/features/users_list/bloc/users_list_bloc.dart';
+import 'package:chat_app/repositories/users_list/abstract_users_list_repository.dart';
+import 'package:chat_app/repositories/users_list/models/models.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../widgets/widgets.dart';
+import 'package:chat_app/generated/l10n.dart';
+import 'package:chat_app/router/router.dart';
+
+import 'package:chat_app/features/add_users_to_group/widgets/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
 
 @RoutePage()
 class AddUsersToGroupScreen extends StatefulWidget {
@@ -16,6 +22,19 @@ class AddUsersToGroupScreen extends StatefulWidget {
 
 class _AddUsersToGroupScreenState extends State<AddUsersToGroupScreen> {
   final TextEditingController _findUserController = TextEditingController();
+  final _usersListBloc = UsersListBloc(GetIt.I<AbstractUsersListRepository>());
+  late List<Map<UserListModel, bool>> _selectedUsers;
+
+  @override
+  void initState() {
+    _usersListBloc.add(LoadUsersList());
+    super.initState();
+  }
+
+  List<Map<UserListModel, bool>> _convertToMapList(
+      List<UserListModel> userList) {
+    return userList.map((userModel) => {userModel: false}).toList();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +63,12 @@ class _AddUsersToGroupScreenState extends State<AddUsersToGroupScreen> {
           color: Colors.white,
         ),
         onPressed: () {
-          AutoRouter.of(context).push(const CreateGroupRoute());
+          List<UserListModel> selectedUsers = _selectedUsers
+              .where((userMap) => userMap.values.first == true)
+              .map((userMap) => userMap.keys.first)
+              .toList();
+          AutoRouter.of(context)
+              .push(CreateGroupRoute(addUsers: selectedUsers));
         },
       ),
       body: Column(
@@ -66,15 +90,62 @@ class _AddUsersToGroupScreenState extends State<AddUsersToGroupScreen> {
                   focusedBorder: const OutlineInputBorder(
                       borderSide: BorderSide(color: Colors.white),
                       borderRadius: BorderRadius.zero))),
-          Expanded(child: ListView.builder(
-            itemBuilder: (context, index) {
-              return AddUserCard(
-                userAvatar: const Icon(Icons.person),
-                userName: 'Имя',
-                userLastConnect: S.of(context).wasRecently,
-              );
+          BlocBuilder<UsersListBloc, UsersListState>(
+            bloc: _usersListBloc,
+            builder: (context, state) {
+              if (state is UsersListLoaded) {
+                _selectedUsers = _convertToMapList(state.usersList);
+                return Expanded(
+                    child: ListView.builder(
+                  itemCount: state.usersList.length,
+                  itemBuilder: (context, index) {
+                    final userModel = state.usersList[index];
+                    return AddUserCard(
+                      userModel: userModel,
+                      selectedUsers: _selectedUsers,
+                      index: index,
+                    );
+                  },
+                ));
+              }
+              if (state is UsersListLoadingFailure) {
+                return Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text(
+                        "Something went wrong",
+                        style: theme.textTheme.headlineMedium,
+                      ),
+                      Text(
+                        "Please try again later",
+                        style:
+                            theme.textTheme.labelSmall?.copyWith(fontSize: 16),
+                      ),
+                      const SizedBox(
+                        height: 30,
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          _usersListBloc.add(LoadUsersList());
+                        },
+                        child: Text(
+                          "Try again",
+                          style: theme.textTheme.bodySmall,
+                        ),
+                      )
+                    ],
+                  ),
+                );
+              }
+              return const Center(
+                  child: Padding(
+                padding: EdgeInsets.only(top: 16),
+                child: CircularProgressIndicator(),
+              ));
             },
-          ))
+          )
         ],
       ),
     );
