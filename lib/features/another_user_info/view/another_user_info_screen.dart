@@ -3,13 +3,16 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:chat_app/features/settings/settings.dart';
 import 'package:chat_app/generated/l10n.dart';
+import 'package:chat_app/repositories/users_list/users_list.dart';
 import 'package:chat_app/router/router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 @RoutePage()
 class AnotherUserInfoScreen extends StatefulWidget {
-  const AnotherUserInfoScreen({super.key});
+  const AnotherUserInfoScreen({super.key, required this.userModel});
+
+  final UserListModel userModel;
 
   @override
   State<AnotherUserInfoScreen> createState() => _AnotherUserInfoScreenState();
@@ -29,14 +32,16 @@ class _AnotherUserInfoScreenState extends State<AnotherUserInfoScreen> {
             leading: const CircleAvatar(
               child: Icon(Icons.person),
             ),
-            title: const Text(
-              "Другой пользователь",
+            title: Text(
+              widget.userModel.displayName ?? widget.userModel.email,
               softWrap: false,
-              style:
-                  TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
+              style: const TextStyle(
+                  color: Colors.white, fontWeight: FontWeight.w600),
             ),
             subtitle: Text(
-              S.of(context).online,
+              widget.userModel.isOnline
+                  ? S.of(context).online
+                  : S.of(context).recently,
               style: const TextStyle(color: Colors.white70),
             )),
         backgroundColor: theme.primaryColor,
@@ -97,15 +102,15 @@ class _AnotherUserInfoScreenState extends State<AnotherUserInfoScreen> {
             ListTile(
               onTap: () async {
                 await Clipboard.setData(
-                    const ClipboardData(text: "+7 (965) 582-08-60"));
+                    ClipboardData(text: widget.userModel.phoneNumber));
                 _showSnackBar(context);
               },
               visualDensity: VisualDensity.compact,
               dense: true,
               contentPadding: EdgeInsets.zero,
-              title: const Text(
-                "+7 (965) 582-08-60",
-                style: TextStyle(fontSize: 14),
+              title: Text(
+                widget.userModel.phoneNumber,
+                style: const TextStyle(fontSize: 14),
               ),
               subtitle: Text(
                 S.of(context).phone,
@@ -115,7 +120,7 @@ class _AnotherUserInfoScreenState extends State<AnotherUserInfoScreen> {
             ListTile(
               onTap: () async {
                 await Clipboard.setData(
-                    const ClipboardData(text: "Информация о пользователе"));
+                    ClipboardData(text: widget.userModel.about ?? ''));
                 _showSnackBar(context);
               },
               visualDensity: VisualDensity.compact,
@@ -125,23 +130,23 @@ class _AnotherUserInfoScreenState extends State<AnotherUserInfoScreen> {
                 S.of(context).userInformation,
                 style: const TextStyle(fontSize: 14),
               ),
-              subtitle: const Text(
-                "О себе",
-                style: TextStyle(color: Colors.black26, fontSize: 12),
+              subtitle: Text(
+                S.of(context).aboutMe,
+                style: const TextStyle(color: Colors.black26, fontSize: 12),
               ),
             ),
             ListTile(
               onTap: () async {
                 await Clipboard.setData(
-                    const ClipboardData(text: "kalashnikovjan@yandex.ru"));
+                    ClipboardData(text: widget.userModel.email));
                 _showSnackBar(context);
               },
               visualDensity: VisualDensity.compact,
               dense: true,
               contentPadding: EdgeInsets.zero,
-              title: const Text(
-                "kalashnikovjan@yandex.ru",
-                style: TextStyle(fontSize: 14),
+              title: Text(
+                widget.userModel.email,
+                style: const TextStyle(fontSize: 14),
               ),
               subtitle: Text(
                 S.of(context).userEmail,

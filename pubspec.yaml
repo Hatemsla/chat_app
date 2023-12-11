@@ -37,6 +37,7 @@ dependencies:
   intl_utils: ^2.8.6
   record: ^5.0.1
   audioplayers: ^5.2.1
+  uuid: ^4.2.1
 
 dev_dependencies:
   flutter_test:

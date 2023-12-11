@@ -4,7 +4,6 @@ import 'dart:io';
 
 import 'package:bloc/bloc.dart';
 import 'package:chat_app/repositories/group/abstract_group_repositpry.dart';
-import 'package:chat_app/repositories/group/models/models.dart';
 import 'package:chat_app/repositories/users_list/users_list.dart';
 import 'package:equatable/equatable.dart';
 import 'package:get_it/get_it.dart';
@@ -23,7 +22,15 @@ class CreateGroupBloc extends Bloc<CreateGroupEvent, CreateGroupState> {
         final groupModel = await _groupRepository.createGroup(event.groupName,
             event.avatar, event.memebers.map((e) => e.uid).toList());
 
-        emit(CreateGroupSuccess(groupModel: groupModel));
+        final groupListModel = GroupListModel(
+            uid: groupModel.uid,
+            name: groupModel.name,
+            members: groupModel.members,
+            creator: groupModel.creator,
+            avatar: groupModel.avatar,
+            isGroup: groupModel.isGroup);
+
+        emit(CreateGroupSuccess(groupListModel: groupListModel));
       } catch (e, st) {
         GetIt.I<Talker>().handle(e, st);
         emit(CreateGroupFailure(exception: e));

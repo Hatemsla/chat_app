@@ -30,10 +30,14 @@ class _ChatBubbleState extends State<ChatBubble> {
 
   @override
   void dispose() {
-    if (_videoController.value.isInitialized) {
-      _videoController.dispose();
+    if (widget.message.type == MessageType.video) {
+      if (_videoController.value.isInitialized) {
+        _videoController.dispose();
+      }
     }
-    _audioPlayer.dispose();
+    if (widget.message.type == MessageType.audio) {
+      _audioPlayer.dispose();
+    }
     super.dispose();
   }
 

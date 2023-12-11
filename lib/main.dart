@@ -14,8 +14,8 @@ import 'package:chat_app/repositories/auth/abstract_auth_repository.dart';
 import 'package:chat_app/repositories/auth/auth_repository.dart';
 import 'package:chat_app/repositories/chat/abstract_chat_repository.dart';
 import 'package:chat_app/repositories/chat/chat_repository.dart';
-import 'package:chat_app/repositories/users_list/abstract_users_list_repository.dart';
-import 'package:chat_app/repositories/users_list/users_list_repository.dart';
+import 'package:chat_app/repositories/users_list/abstract_chats_list_repository.dart';
+import 'package:chat_app/repositories/users_list/chats_list_repository.dart';
 
 void main() {
   runZonedGuarded(() async {
@@ -38,8 +38,8 @@ void main() {
 
     GetIt.I
         .registerLazySingleton<AbstractAuthRepository>(() => AuthRepository());
-    GetIt.I.registerLazySingleton<AbstractUsersListRepository>(
-        () => UsersListRepository());
+    GetIt.I.registerLazySingleton<AbstractChatsListRepository>(
+        () => ChatsListRepository());
     GetIt.I
         .registerLazySingleton<AbstractChatRepository>(() => ChatRepository());
     GetIt.I.registerLazySingleton<AbstractGroupRepository>(

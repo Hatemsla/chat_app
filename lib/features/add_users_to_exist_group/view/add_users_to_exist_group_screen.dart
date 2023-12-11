@@ -37,7 +37,7 @@ class _AddUsersToExistGroupScreenState
           color: Colors.white,
         ),
         onPressed: () {
-          AutoRouter.of(context).pop(const GroupChatInfoRoute());
+          AutoRouter.of(context).pop();
         },
       ),
       body: Column(

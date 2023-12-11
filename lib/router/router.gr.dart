@@ -34,9 +34,13 @@ abstract class _$AppRouter extends RootStackRouter {
       );
     },
     AnotherUserInfoRoute.name: (routeData) {
+      final args = routeData.argsAs<AnotherUserInfoRouteArgs>();
       return AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const AnotherUserInfoScreen(),
+        child: AnotherUserInfoScreen(
+          key: args.key,
+          userModel: args.userModel,
+        ),
       );
     },
     ChannelChatInfoRoute.name: (routeData) {
@@ -90,15 +94,23 @@ abstract class _$AppRouter extends RootStackRouter {
       );
     },
     GroupChatInfoRoute.name: (routeData) {
+      final args = routeData.argsAs<GroupChatInfoRouteArgs>();
       return AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const GroupChatInfoScreen(),
+        child: GroupChatInfoScreen(
+          key: args.key,
+          groupModel: args.groupModel,
+        ),
       );
     },
     GroupChatRoute.name: (routeData) {
+      final args = routeData.argsAs<GroupChatRouteArgs>();
       return AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const GroupChatScreen(),
+        child: GroupChatScreen(
+          key: args.key,
+          groupModel: args.groupModel,
+        ),
       );
     },
     SettingsRoute.name: (routeData) {
@@ -208,16 +220,40 @@ class AddUsersToGroupRoute extends PageRouteInfo<void> {
 
 /// generated route for
 /// [AnotherUserInfoScreen]
-class AnotherUserInfoRoute extends PageRouteInfo<void> {
-  const AnotherUserInfoRoute({List<PageRouteInfo>? children})
-      : super(
+class AnotherUserInfoRoute extends PageRouteInfo<AnotherUserInfoRouteArgs> {
+  AnotherUserInfoRoute({
+    Key? key,
+    required UserListModel userModel,
+    List<PageRouteInfo>? children,
+  }) : super(
           AnotherUserInfoRoute.name,
+          args: AnotherUserInfoRouteArgs(
+            key: key,
+            userModel: userModel,
+          ),
           initialChildren: children,
         );
 
   static const String name = 'AnotherUserInfoRoute';
 
-  static const PageInfo<void> page = PageInfo<void>(name);
+  static const PageInfo<AnotherUserInfoRouteArgs> page =
+      PageInfo<AnotherUserInfoRouteArgs>(name);
+}
+
+class AnotherUserInfoRouteArgs {
+  const AnotherUserInfoRouteArgs({
+    this.key,
+    required this.userModel,
+  });
+
+  final Key? key;
+
+  final UserListModel userModel;
+
+  @override
+  String toString() {
+    return 'AnotherUserInfoRouteArgs{key: $key, userModel: $userModel}';
+  }
 }
 
 /// generated route for
@@ -367,30 +403,78 @@ class CreateGroupRouteArgs {
 
 /// generated route for
 /// [GroupChatInfoScreen]
-class GroupChatInfoRoute extends PageRouteInfo<void> {
-  const GroupChatInfoRoute({List<PageRouteInfo>? children})
-      : super(
+class GroupChatInfoRoute extends PageRouteInfo<GroupChatInfoRouteArgs> {
+  GroupChatInfoRoute({
+    Key? key,
+    required GroupListModel groupModel,
+    List<PageRouteInfo>? children,
+  }) : super(
           GroupChatInfoRoute.name,
+          args: GroupChatInfoRouteArgs(
+            key: key,
+            groupModel: groupModel,
+          ),
           initialChildren: children,
         );
 
   static const String name = 'GroupChatInfoRoute';
 
-  static const PageInfo<void> page = PageInfo<void>(name);
+  static const PageInfo<GroupChatInfoRouteArgs> page =
+      PageInfo<GroupChatInfoRouteArgs>(name);
+}
+
+class GroupChatInfoRouteArgs {
+  const GroupChatInfoRouteArgs({
+    this.key,
+    required this.groupModel,
+  });
+
+  final Key? key;
+
+  final GroupListModel groupModel;
+
+  @override
+  String toString() {
+    return 'GroupChatInfoRouteArgs{key: $key, groupModel: $groupModel}';
+  }
 }
 
 /// generated route for
 /// [GroupChatScreen]
-class GroupChatRoute extends PageRouteInfo<void> {
-  const GroupChatRoute({List<PageRouteInfo>? children})
-      : super(
+class GroupChatRoute extends PageRouteInfo<GroupChatRouteArgs> {
+  GroupChatRoute({
+    Key? key,
+    required GroupListModel groupModel,
+    List<PageRouteInfo>? children,
+  }) : super(
           GroupChatRoute.name,
+          args: GroupChatRouteArgs(
+            key: key,
+            groupModel: groupModel,
+          ),
           initialChildren: children,
         );
 
   static const String name = 'GroupChatRoute';
 
-  static const PageInfo<void> page = PageInfo<void>(name);
+  static const PageInfo<GroupChatRouteArgs> page =
+      PageInfo<GroupChatRouteArgs>(name);
+}
+
+class GroupChatRouteArgs {
+  const GroupChatRouteArgs({
+    this.key,
+    required this.groupModel,
+  });
+
+  final Key? key;
+
+  final GroupListModel groupModel;
+
+  @override
+  String toString() {
+    return 'GroupChatRouteArgs{key: $key, groupModel: $groupModel}';
+  }
 }
 
 /// generated route for

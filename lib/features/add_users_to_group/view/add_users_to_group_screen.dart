@@ -1,6 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:chat_app/features/users_list/bloc/users_list_bloc.dart';
-import 'package:chat_app/repositories/users_list/abstract_users_list_repository.dart';
+import 'package:chat_app/repositories/users_list/abstract_chats_list_repository.dart';
 import 'package:chat_app/repositories/users_list/models/models.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -22,7 +22,7 @@ class AddUsersToGroupScreen extends StatefulWidget {
 
 class _AddUsersToGroupScreenState extends State<AddUsersToGroupScreen> {
   final TextEditingController _findUserController = TextEditingController();
-  final _usersListBloc = UsersListBloc(GetIt.I<AbstractUsersListRepository>());
+  final _usersListBloc = UsersListBloc(GetIt.I<AbstractChatsListRepository>());
   late List<Map<UserListModel, bool>> _selectedUsers;
 
   @override
@@ -90,25 +90,26 @@ class _AddUsersToGroupScreenState extends State<AddUsersToGroupScreen> {
                   focusedBorder: const OutlineInputBorder(
                       borderSide: BorderSide(color: Colors.white),
                       borderRadius: BorderRadius.zero))),
-          BlocBuilder<UsersListBloc, UsersListState>(
+          BlocBuilder<UsersListBloc, ListState>(
             bloc: _usersListBloc,
             builder: (context, state) {
-              if (state is UsersListLoaded) {
-                _selectedUsers = _convertToMapList(state.usersList);
+              if (state is ListLoaded) {
+                _selectedUsers = _convertToMapList(
+                    state.chatsList.map((e) => e as UserListModel).toList());
                 return Expanded(
                     child: ListView.builder(
-                  itemCount: state.usersList.length,
+                  itemCount: state.chatsList.length,
                   itemBuilder: (context, index) {
-                    final userModel = state.usersList[index];
+                    final userModel = state.chatsList[index];
                     return AddUserCard(
-                      userModel: userModel,
+                      userModel: userModel as UserListModel,
                       selectedUsers: _selectedUsers,
                       index: index,
                     );
                   },
                 ));
               }
-              if (state is UsersListLoadingFailure) {
+              if (state is ListLoadingFailure) {
                 return Center(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -128,7 +129,7 @@ class _AddUsersToGroupScreenState extends State<AddUsersToGroupScreen> {
                       ),
                       TextButton(
                         onPressed: () {
-                          _usersListBloc.add(LoadUsersList());
+                          _usersListBloc.add(LoadChatsList());
                         },
                         child: Text(
                           "Try again",

@@ -1,31 +1,31 @@
 part of 'users_list_bloc.dart';
 
-abstract class UsersListState extends Equatable {}
+abstract class ListState extends Equatable {}
 
-class UsersListInitial extends UsersListState {
+class ListInitial extends ListState {
   @override
   List<Object?> get props => [];
 }
 
-class UsersListLoading extends UsersListState {
+class ListLoading extends ListState {
   @override
   List<Object?> get props => [];
 }
 
-class UsersListLoadingFailure extends UsersListState {
+class ListLoadingFailure extends ListState {
   final Object? exception;
 
-  UsersListLoadingFailure({required this.exception});
+  ListLoadingFailure({required this.exception});
 
   @override
   List<Object?> get props => [exception];
 }
 
-class UsersListLoaded extends UsersListState {
-  UsersListLoaded({required this.usersList});
+class ListLoaded extends ListState {
+  ListLoaded({required this.chatsList});
 
-  final List<UserListModel> usersList;
+  final List<ChatModel> chatsList;
 
   @override
-  List<Object?> get props => [usersList];
+  List<Object?> get props => [chatsList];
 }

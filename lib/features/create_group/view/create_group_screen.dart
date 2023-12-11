@@ -58,7 +58,8 @@ class _CreateGroupScreenState extends State<CreateGroupScreen> {
         },
         listener: (context, state) {
           if (state is CreateGroupSuccess) {
-            AutoRouter.of(context).popAndPush(const GroupChatRoute());
+            AutoRouter.of(context)
+                .popAndPush(GroupChatRoute(groupModel: state.groupListModel));
           } else if (state is CreateGroupFailure) {
             showDialog(
                 context: context,
@@ -106,6 +107,7 @@ class _CreateGroupScreenState extends State<CreateGroupScreen> {
                 child: Container(
                   margin: const EdgeInsets.only(right: 16),
                   child: TextFormField(
+                    controller: _groupName,
                     style: const TextStyle(fontSize: 14, color: Colors.black),
                     decoration: InputDecoration(
                         hintText: S.of(context).enterTheNameOfTheGroup,

@@ -3,7 +3,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:chat_app/features/users_list/bloc/users_list_bloc.dart';
 import 'package:chat_app/features/users_list/widgets/widgets.dart';
 import 'package:chat_app/generated/l10n.dart';
-import 'package:chat_app/repositories/users_list/abstract_users_list_repository.dart';
+import 'package:chat_app/repositories/users_list/abstract_chats_list_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
@@ -17,11 +17,11 @@ class UsersListScreen extends StatefulWidget {
 }
 
 class _UsersListScreenState extends State<UsersListScreen> {
-  final _usersListBloc = UsersListBloc(GetIt.I<AbstractUsersListRepository>());
+  final _usersListBloc = UsersListBloc(GetIt.I<AbstractChatsListRepository>());
 
   @override
   void initState() {
-    _usersListBloc.add(LoadUsersList());
+    _usersListBloc.add(LoadChatsList());
     super.initState();
   }
 
@@ -46,21 +46,22 @@ class _UsersListScreenState extends State<UsersListScreen> {
           ],
           backgroundColor: theme.primaryColor,
         ),
-        body: BlocBuilder<UsersListBloc, UsersListState>(
+        body: BlocBuilder<UsersListBloc, ListState>(
           bloc: _usersListBloc,
           builder: (context, state) {
-            if (state is UsersListLoaded) {
+            if (state is ListLoaded) {
               return ListView.builder(
-                itemCount: state.usersList.length,
+                itemCount: state.chatsList.length,
                 itemBuilder: (context, index) {
-                  final user = state.usersList[index];
+                  final chatModel = state.chatsList[index];
                   return UserCard(
-                    userModel: user,
+                    chatModel: chatModel,
+                    isJustList: false,
                   );
                 },
               );
             }
-            if (state is UsersListLoadingFailure) {
+            if (state is ListLoadingFailure) {
               return Center(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -79,7 +80,7 @@ class _UsersListScreenState extends State<UsersListScreen> {
                     ),
                     TextButton(
                       onPressed: () {
-                        _usersListBloc.add(LoadUsersList());
+                        _usersListBloc.add(LoadChatsList());
                       },
                       child: Text(
                         "Try again",

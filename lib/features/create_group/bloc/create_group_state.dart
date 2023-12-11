@@ -17,12 +17,12 @@ class CreateGroupLoading extends CreateGroupState {
 }
 
 class CreateGroupSuccess extends CreateGroupState {
-  final GroupModel groupModel;
+  final GroupListModel groupListModel;
 
-  CreateGroupSuccess({required this.groupModel});
+  CreateGroupSuccess({required this.groupListModel});
 
   @override
-  List<Object?> get props => [groupModel];
+  List<Object?> get props => [groupListModel];
 }
 
 class CreateGroupFailure extends CreateGroupState {

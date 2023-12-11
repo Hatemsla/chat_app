@@ -4,22 +4,25 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 
 class GroupModel {
+  final String uid;
   final String name;
-  final String about;
-  final String avatar;
+  final String? about;
+  final String? avatar;
   final String creator;
   final bool isGroup;
   final List<String> members;
   GroupModel({
+    required this.uid,
     required this.name,
-    required this.about,
-    required this.avatar,
+    this.about,
+    this.avatar,
     required this.creator,
     required this.isGroup,
     required this.members,
   });
 
   GroupModel copyWith({
+    String? uid,
     String? name,
     String? about,
     String? avatar,
@@ -28,6 +31,7 @@ class GroupModel {
     List<String>? members,
   }) {
     return GroupModel(
+      uid: uid ?? this.uid,
       name: name ?? this.name,
       about: about ?? this.about,
       avatar: avatar ?? this.avatar,
@@ -39,6 +43,7 @@ class GroupModel {
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
+      'uid': uid,
       'name': name,
       'about': about,
       'avatar': avatar,
@@ -50,14 +55,14 @@ class GroupModel {
 
   factory GroupModel.fromMap(Map<String, dynamic> map) {
     return GroupModel(
-        name: map['name'] as String,
-        about: map['about'] as String,
-        avatar: map['avatar'] as String,
-        creator: map['creator'] as String,
-        isGroup: map['isGroup'] as bool,
-        members: List<String>.from(
-          (map['members'] as List<String>),
-        ));
+      uid: map['uid'] as String,
+      name: map['name'] as String,
+      about: map['about'] != null ? map['about'] as String : null,
+      avatar: map['avatar'] != null ? map['avatar'] as String : null,
+      creator: map['creator'] as String,
+      isGroup: map['isGroup'] as bool,
+      members: List<String>.from((map['members'] as List<String>),
+    ));
   }
 
   String toJson() => json.encode(toMap());
@@ -67,14 +72,15 @@ class GroupModel {
 
   @override
   String toString() {
-    return 'Group(name: $name, about: $about, avatar: $avatar, creator: $creator, isGroup: $isGroup, members: $members)';
+    return 'GroupModel(uid: $uid, name: $name, about: $about, avatar: $avatar, creator: $creator, isGroup: $isGroup, members: $members)';
   }
 
   @override
   bool operator ==(covariant GroupModel other) {
     if (identical(this, other)) return true;
 
-    return other.name == name &&
+    return other.uid == uid &&
+        other.name == name &&
         other.about == about &&
         other.avatar == avatar &&
         other.creator == creator &&
@@ -84,7 +90,8 @@ class GroupModel {
 
   @override
   int get hashCode {
-    return name.hashCode ^
+    return uid.hashCode ^
+        name.hashCode ^
         about.hashCode ^
         avatar.hashCode ^
         creator.hashCode ^

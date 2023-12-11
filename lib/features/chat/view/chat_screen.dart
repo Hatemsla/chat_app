@@ -141,8 +141,8 @@ class _ChatScreenState extends State<ChatScreen> {
               surfaceTintColor: theme.primaryColor,
               title: ListTile(
                 contentPadding: EdgeInsets.zero,
-                onTap: () =>
-                    AutoRouter.of(context).push(const AnotherUserInfoRoute()),
+                onTap: () => AutoRouter.of(context)
+                    .push(AnotherUserInfoRoute(userModel: widget.receiverUser)),
                 leading: const CircleAvatar(
                   child: Icon(Icons.person),
                 ),
@@ -238,102 +238,94 @@ class _ChatScreenState extends State<ChatScreen> {
             body: Column(
               children: [
                 Expanded(
-                  child: RefreshIndicator(
-                    onRefresh: () async {
-                      _messagesBloc.add(LoadUsersMessages(
-                          userId: UserPreferences.userModel!.uid,
-                          otherUserId: widget.receiverUser.uid));
-                    },
-                    child: BlocBuilder<MessagesBloc, MessagesState>(
-                      bloc: _messagesBloc,
-                      builder: (context, state) {
-                        if (state is MessagesLoaded) {
-                          var messagesRender = ListView.builder(
-                            controller: _messagesScrollController,
-                            itemCount: state.messageList.length,
-                            itemBuilder: (context, index) {
-                              final message = state.messageList[index];
-                              final isMineMessage = message.senderId !=
-                                  UserPreferences.userModel!.uid;
-                              return Container(
-                                alignment: isMineMessage
-                                    ? Alignment.centerLeft
-                                    : Alignment.centerRight,
-                                child: Padding(
-                                  padding: isMineMessage
-                                      ? const EdgeInsets.all(8)
-                                          .copyWith(right: 44)
-                                      : const EdgeInsets.all(8)
-                                          .copyWith(left: 44),
-                                  child: Column(
-                                    crossAxisAlignment: isMineMessage
-                                        ? CrossAxisAlignment.start
-                                        : CrossAxisAlignment.end,
-                                    mainAxisAlignment: isMineMessage
-                                        ? MainAxisAlignment.start
-                                        : MainAxisAlignment.end,
-                                    children: [
-                                      const SizedBox(
-                                        height: 4,
-                                      ),
-                                      ChatBubble(
-                                        leftSide: isMineMessage,
-                                        message: message,
-                                      ),
-                                    ],
-                                  ),
+                  child: BlocBuilder<MessagesBloc, MessagesState>(
+                    bloc: _messagesBloc,
+                    builder: (context, state) {
+                      if (state is MessagesLoaded) {
+                        var messagesRender = ListView.builder(
+                          controller: _messagesScrollController,
+                          itemCount: state.messageList.length,
+                          itemBuilder: (context, index) {
+                            final message = state.messageList[index];
+                            final isMineMessage = message.senderId !=
+                                UserPreferences.userModel!.uid;
+                            return Container(
+                              alignment: isMineMessage
+                                  ? Alignment.centerLeft
+                                  : Alignment.centerRight,
+                              child: Padding(
+                                padding: isMineMessage
+                                    ? const EdgeInsets.all(8)
+                                        .copyWith(right: 44)
+                                    : const EdgeInsets.all(8)
+                                        .copyWith(left: 44),
+                                child: Column(
+                                  crossAxisAlignment: isMineMessage
+                                      ? CrossAxisAlignment.start
+                                      : CrossAxisAlignment.end,
+                                  mainAxisAlignment: isMineMessage
+                                      ? MainAxisAlignment.start
+                                      : MainAxisAlignment.end,
+                                  children: [
+                                    const SizedBox(
+                                      height: 4,
+                                    ),
+                                    ChatBubble(
+                                      leftSide: isMineMessage,
+                                      message: message,
+                                    ),
+                                  ],
                                 ),
-                              );
-                            },
-                          );
-                          WidgetsBinding.instance.addPostFrameCallback((_) {
-                            _messagesScrollController.animateTo(
-                              _messagesScrollController
-                                  .position.maxScrollExtent,
-                              duration: const Duration(milliseconds: 200),
-                              curve: Curves.fastOutSlowIn,
+                              ),
                             );
-                          });
-                          return messagesRender;
-                        }
-                        if (state is MessagesLoadingFailure) {
-                          return Center(
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Text(
-                                  "Something went wrong",
-                                  style: theme.textTheme.headlineMedium,
-                                ),
-                                Text(
-                                  "Please try again later",
-                                  style: theme.textTheme.labelSmall
-                                      ?.copyWith(fontSize: 16),
-                                ),
-                                const SizedBox(
-                                  height: 30,
-                                ),
-                                TextButton(
-                                  onPressed: () {
-                                    _messagesBloc.add(LoadUsersMessages(
-                                        userId: UserPreferences.userModel!.uid,
-                                        otherUserId: widget.receiverUser.uid));
-                                  },
-                                  child: Text(
-                                    "Try again",
-                                    style: theme.textTheme.bodySmall,
-                                  ),
-                                )
-                              ],
-                            ),
-                          );
-                        }
-                        return const Center(
-                          child: CircularProgressIndicator(),
+                          },
                         );
-                      },
-                    ),
+                        WidgetsBinding.instance.addPostFrameCallback((_) {
+                          _messagesScrollController.animateTo(
+                            _messagesScrollController.position.maxScrollExtent,
+                            duration: const Duration(milliseconds: 200),
+                            curve: Curves.fastOutSlowIn,
+                          );
+                        });
+                        return messagesRender;
+                      }
+                      if (state is MessagesLoadingFailure) {
+                        return Center(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Text(
+                                "Something went wrong",
+                                style: theme.textTheme.headlineMedium,
+                              ),
+                              Text(
+                                "Please try again later",
+                                style: theme.textTheme.labelSmall
+                                    ?.copyWith(fontSize: 16),
+                              ),
+                              const SizedBox(
+                                height: 30,
+                              ),
+                              TextButton(
+                                onPressed: () {
+                                  _messagesBloc.add(LoadUsersMessages(
+                                      userId: UserPreferences.userModel!.uid,
+                                      otherUserId: widget.receiverUser.uid));
+                                },
+                                child: Text(
+                                  "Try again",
+                                  style: theme.textTheme.bodySmall,
+                                ),
+                              )
+                            ],
+                          ),
+                        );
+                      }
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    },
                   ),
                 ),
                 Row(

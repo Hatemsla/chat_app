@@ -2,14 +2,21 @@
 
 import 'package:auto_route/auto_route.dart';
 import 'package:chat_app/features/settings/settings.dart';
+import 'package:chat_app/features/users_list/bloc/users_list_bloc.dart';
+import 'package:chat_app/features/users_list/users_list.dart';
 import 'package:chat_app/generated/l10n.dart';
+import 'package:chat_app/repositories/users_list/users_list.dart';
 import 'package:chat_app/router/router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
 
 @RoutePage()
 class GroupChatInfoScreen extends StatefulWidget {
-  const GroupChatInfoScreen({super.key});
+  const GroupChatInfoScreen({super.key, required this.groupModel});
+
+  final GroupListModel groupModel;
 
   @override
   State<GroupChatInfoScreen> createState() => _GroupChatInfoScreenState();
@@ -17,6 +24,13 @@ class GroupChatInfoScreen extends StatefulWidget {
 
 class _GroupChatInfoScreenState extends State<GroupChatInfoScreen> {
   bool _notifications = true;
+  final _usersListBloc = UsersListBloc(GetIt.I<AbstractChatsListRepository>());
+
+  @override
+  void initState() {
+    _usersListBloc.add(LoadGroupUsersList(groupId: widget.groupModel.uid));
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,13 +44,13 @@ class _GroupChatInfoScreenState extends State<GroupChatInfoScreen> {
                 child: Icon(Icons.person),
               ),
               title: Text(
-                S.of(context).groupName,
+                widget.groupModel.name,
                 softWrap: false,
                 style: const TextStyle(
                     color: Colors.white, fontWeight: FontWeight.w600),
               ),
               subtitle: Text(
-                S.of(context).nParticipants(1),
+                S.of(context).nParticipants(widget.groupModel.members.length),
                 style: const TextStyle(color: Colors.white70),
               )),
           backgroundColor: theme.primaryColor,
@@ -104,14 +118,14 @@ class _GroupChatInfoScreenState extends State<GroupChatInfoScreen> {
                 ListTile(
                   onTap: () async {
                     await Clipboard.setData(
-                        ClipboardData(text: S.of(context).groupDescription));
+                        ClipboardData(text: widget.groupModel.about ?? ''));
                     _showSnackBar(context);
                   },
                   visualDensity: VisualDensity.compact,
                   dense: true,
                   contentPadding: EdgeInsets.zero,
                   title: Text(
-                    S.of(context).groupDescription,
+                    widget.groupModel.about ?? '',
                     style: const TextStyle(fontSize: 14),
                   ),
                 ),
@@ -178,37 +192,59 @@ class _GroupChatInfoScreenState extends State<GroupChatInfoScreen> {
             ),
             Column(
               children: [
-                InkWell(
-                  onTap: () =>
-                      AutoRouter.of(context).push(const AnotherUserInfoRoute()),
-                  child: Container(
-                    decoration: const BoxDecoration(color: Colors.white),
-                    child: ListTile(
-                      dense: true,
-                      title: Text(
-                        S.of(context).name,
-                        style: const TextStyle(fontWeight: FontWeight.w600),
-                      ),
-                      subtitle: Text(S.of(context).wasOnlineAtTime("10:30")),
-                      leading: const CircleAvatar(
-                        child: Icon(Icons.person),
-                      ),
-                    ),
-                  ),
-                ),
-                Container(
-                  decoration: const BoxDecoration(color: Colors.white),
-                  child: ListTile(
-                    dense: true,
-                    title: Text(
-                      S.of(context).name,
-                      style: const TextStyle(fontWeight: FontWeight.w600),
-                    ),
-                    subtitle: Text(S.of(context).wasOnlineAtTime("10:30")),
-                    leading: const CircleAvatar(
-                      child: Icon(Icons.person),
-                    ),
-                  ),
+                BlocBuilder<UsersListBloc, ListState>(
+                  bloc: _usersListBloc,
+                  builder: (context, state) {
+                    if (state is ListLoaded) {
+                      return ListView.builder(
+                        shrinkWrap: true,
+                        itemCount: state.chatsList.length,
+                        itemBuilder: (context, index) {
+                          final chatModel = state.chatsList[index];
+                          return UserCard(
+                            chatModel: chatModel,
+                            isJustList: true,
+                          );
+                        },
+                      );
+                    }
+                    if (state is ListLoadingFailure) {
+                      return Center(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Text(
+                              "Something went wrong",
+                              style: theme.textTheme.headlineMedium,
+                            ),
+                            Text(
+                              "Please try again later",
+                              style: theme.textTheme.labelSmall
+                                  ?.copyWith(fontSize: 16),
+                            ),
+                            const SizedBox(
+                              height: 30,
+                            ),
+                            TextButton(
+                              onPressed: () {
+                                _usersListBloc.add(LoadUsersList());
+                              },
+                              child: Text(
+                                "Try again",
+                                style: theme.textTheme.bodySmall,
+                              ),
+                            )
+                          ],
+                        ),
+                      );
+                    }
+                    return const Center(
+                        child: Padding(
+                      padding: EdgeInsets.only(top: 16),
+                      child: CircularProgressIndicator(),
+                    ));
+                  },
                 ),
               ],
             ),
