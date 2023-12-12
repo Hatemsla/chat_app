@@ -159,11 +159,11 @@ class _ChatScreenState extends State<ChatScreen> {
                   style: const TextStyle(color: Colors.white70),
                 ),
               ),
-              leading: IconButton(
-                  onPressed: () {
-                    AutoRouter.of(context).push(const UsersListRoute());
-                  },
-                  icon: const Icon(Icons.arrow_back)),
+              // leading: IconButton(
+              //     onPressed: () {
+              //       AutoRouter.of(context).push(const UsersListRoute());
+              //     },
+              //     icon: const Icon(Icons.arrow_back)),
               actions: [
                 IconButton(
                     onPressed: () {},

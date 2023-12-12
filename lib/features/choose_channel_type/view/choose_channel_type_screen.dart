@@ -37,8 +37,7 @@ class _ChooseChannelTypeScreenState extends State<ChooseChannelTypeScreen> {
             CupertinoIcons.arrow_right,
             color: Colors.white,
           ),
-          onPressed: () =>
-              AutoRouter.of(context).push(const AddUsersToChannelRoute()),
+          onPressed: () {},
         ),
         body: Column(
           children: [

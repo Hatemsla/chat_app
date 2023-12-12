@@ -34,8 +34,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Chats": MessageLookupByLibrary.simpleMessage("Chats"),
         "aboutMe": MessageLookupByLibrary.simpleMessage("About me"),
         "account": MessageLookupByLibrary.simpleMessage("Account"),
-        "addParticipants":
-            MessageLookupByLibrary.simpleMessage("Add participants"),
+        "addParticipants": MessageLookupByLibrary.simpleMessage("Add members"),
         "administrators":
             MessageLookupByLibrary.simpleMessage("Administrators"),
         "afterSelectingANewMail": MessageLookupByLibrary.simpleMessage(
@@ -61,7 +60,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "createChannel":
             MessageLookupByLibrary.simpleMessage("Create a channel"),
         "createGroup": MessageLookupByLibrary.simpleMessage("Create a group"),
-        "delete": MessageLookupByLibrary.simpleMessage("Aelete"),
+        "delete": MessageLookupByLibrary.simpleMessage("Delete"),
         "deleteChannel": MessageLookupByLibrary.simpleMessage("Delete channel"),
         "description": MessageLookupByLibrary.simpleMessage("Description"),
         "disableNotifications":
@@ -94,6 +93,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "logInNow": MessageLookupByLibrary.simpleMessage("Log in now"),
         "mailRequired": MessageLookupByLibrary.simpleMessage("Mail(required)"),
         "message": MessageLookupByLibrary.simpleMessage("Message"),
+        "messagesAreBlocked":
+            MessageLookupByLibrary.simpleMessage("Messages are blocked"),
         "min6Symbols": MessageLookupByLibrary.simpleMessage("Min 6 symbols"),
         "nParticipants": m0,
         "name": MessageLookupByLibrary.simpleMessage("Name"),

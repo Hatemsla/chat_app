@@ -10,11 +10,13 @@ class UserCard extends StatelessWidget {
   const UserCard({
     super.key,
     required this.chatModel,
-    required this.isJustList,
+    required this.isOnlineShow,
+    required this.isNeedMessage,
   });
 
   final ChatModel chatModel;
-  final bool isJustList;
+  final bool isOnlineShow;
+  final bool isNeedMessage;
 
   String formatMessageTime(Timestamp? timestamp) {
     if (timestamp == null) {
@@ -77,7 +79,7 @@ class UserCard extends StatelessWidget {
         margin: const EdgeInsets.all(2),
         child: InkWell(
           onTap: () {
-            if (isJustList) {
+            if (!isNeedMessage) {
               AutoRouter.of(context)
                   .push(AnotherUserInfoRoute(userModel: userModel));
             } else {
@@ -96,7 +98,7 @@ class UserCard extends StatelessWidget {
               style: const TextStyle(fontWeight: FontWeight.bold),
             ),
             subtitle: Text(
-              (isJustList)
+              (isOnlineShow)
                   ? (userModel.isOnline
                       ? S.of(context).online
                       : S.of(context).wasRecently)
@@ -118,8 +120,15 @@ class UserCard extends StatelessWidget {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(0)),
         margin: const EdgeInsets.all(2),
         child: InkWell(
-          onTap: () => AutoRouter.of(context)
-              .push(GroupChatRoute(groupModel: groupModel)),
+          onTap: () {
+            if (groupModel.isGroup) {
+              AutoRouter.of(context)
+                  .push(GroupChatRoute(groupModel: groupModel));
+            } else {
+              AutoRouter.of(context)
+                  .push(ChannelChatRoute(channelModel: groupModel));
+            }
+          },
           child: ListTile(
             leading: CircleAvatar(
               radius: 24,

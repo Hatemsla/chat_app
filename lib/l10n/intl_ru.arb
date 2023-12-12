@@ -88,5 +88,6 @@
   "error": "Ошибка",
   "passwordsNotEqual": "Пароли не равны",
   "pleaseTryAgainLater": "Пожалуйста, попробуйте еще раз",
-  "recording": "Запись.."
+  "recording": "Запись..",
+  "messagesAreBlocked": "Messages are blocked"
 }

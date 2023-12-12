@@ -161,8 +161,8 @@ class _GroupChatInfoScreenState extends State<GroupChatInfoScreen> {
               height: 10,
             ),
             InkWell(
-              onTap: () => AutoRouter.of(context)
-                  .push(const AddUsersToExistGroupRoute()),
+              onTap: () => AutoRouter.of(context).popAndPush(
+                  AddUsersToExistGroupRoute(groupModel: widget.groupModel)),
               child: Container(
                 decoration: const BoxDecoration(color: Colors.white),
                 child: Row(
@@ -192,10 +192,10 @@ class _GroupChatInfoScreenState extends State<GroupChatInfoScreen> {
             ),
             Column(
               children: [
-                BlocBuilder<UsersListBloc, ListState>(
+                BlocBuilder<UsersListBloc, UsersListState>(
                   bloc: _usersListBloc,
                   builder: (context, state) {
-                    if (state is ListLoaded) {
+                    if (state is UsersListLoaded) {
                       return ListView.builder(
                         shrinkWrap: true,
                         itemCount: state.chatsList.length,
@@ -203,12 +203,13 @@ class _GroupChatInfoScreenState extends State<GroupChatInfoScreen> {
                           final chatModel = state.chatsList[index];
                           return UserCard(
                             chatModel: chatModel,
-                            isJustList: true,
+                            isOnlineShow: true,
+                            isNeedMessage: false,
                           );
                         },
                       );
                     }
-                    if (state is ListLoadingFailure) {
+                    if (state is UsersListLoadingFailure) {
                       return Center(
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,

@@ -47,7 +47,7 @@
   "notifications": "Notifications",
   "enabled": "Enabled",
   "disabled": "Disabled",
-  "addParticipants": "Add participants",
+  "addParticipants": "Add members",
   "wasOnlineAtTime": "was online at {time}",
   "theTextIsCopiedToTheClipboard": "The text is copied to the clipboard.",
   "chatName": "Chat name",
@@ -80,7 +80,7 @@
   "subscribers": "Subscribers",
   "administrators": "Administrators",
   "block": "Block",
-  "delete": "Aelete",
+  "delete": "Delete",
   "phone": "Phone",
   "userInformation": "User Information",
   "userEmail": "User email",
@@ -90,5 +90,6 @@
   "error": "Error",
   "passwordsNotEqual": "Passwords not equal",
   "pleaseTryAgainLater": "Please try again later",
-  "recording": "Recording..."
+  "recording": "Recording...",
+  "messagesAreBlocked": "Messages are blocked"
 }

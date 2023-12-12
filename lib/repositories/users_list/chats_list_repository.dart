@@ -223,4 +223,39 @@ class ChatsListRepository extends AbstractChatsListRepository {
 
     return usersList;
   }
+
+  @override
+  Future<List<UserListModel>> getNotGroupUsersList(String groupId) async {
+    var usersList = <UserListModel>[];
+
+    try {
+      final groups = await _db.collection('groups').doc(groupId).get();
+      final members = List<String>.from(groups.data()!['members']);
+
+      final QuerySnapshot usersSnapshot =
+          await _db.collection('users').where('uid', whereNotIn: members).get();
+      List<DocumentSnapshot> userDocuments = usersSnapshot.docs;
+
+      for (var doc in userDocuments) {
+        final uid = doc['uid'];
+
+        final userListModel = UserListModel(
+          uid: uid,
+          phoneNumber: doc['phoneNumber'],
+          about: doc['about'],
+          email: doc['email'],
+          isOnline: doc['isOnline'],
+          avatar: doc['avatar'],
+          displayName: doc['displayName'],
+        );
+
+        usersList.add(userListModel);
+      }
+    } catch (e, st) {
+      GetIt.I<Talker>().handle(e, st);
+      throw Exception(st.toString());
+    }
+
+    return usersList;
+  }
 }

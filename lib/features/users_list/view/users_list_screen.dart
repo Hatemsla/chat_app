@@ -46,22 +46,23 @@ class _UsersListScreenState extends State<UsersListScreen> {
           ],
           backgroundColor: theme.primaryColor,
         ),
-        body: BlocBuilder<UsersListBloc, ListState>(
+        body: BlocBuilder<UsersListBloc, UsersListState>(
           bloc: _usersListBloc,
           builder: (context, state) {
-            if (state is ListLoaded) {
+            if (state is UsersListLoaded) {
               return ListView.builder(
                 itemCount: state.chatsList.length,
                 itemBuilder: (context, index) {
                   final chatModel = state.chatsList[index];
                   return UserCard(
                     chatModel: chatModel,
-                    isJustList: false,
+                    isOnlineShow: false,
+                    isNeedMessage: true,
                   );
                 },
               );
             }
-            if (state is ListLoadingFailure) {
+            if (state is UsersListLoadingFailure) {
               return Center(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,

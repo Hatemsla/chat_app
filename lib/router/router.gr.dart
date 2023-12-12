@@ -16,15 +16,25 @@ abstract class _$AppRouter extends RootStackRouter {
   @override
   final Map<String, PageFactory> pagesMap = {
     AddUsersToChannelRoute.name: (routeData) {
+      final args = routeData.argsAs<AddUsersToChannelRouteArgs>();
       return AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const AddUsersToChannelScreen(),
+        child: AddUsersToChannelScreen(
+          key: args.key,
+          channelName: args.channelName,
+          about: args.about,
+          avatar: args.avatar,
+        ),
       );
     },
     AddUsersToExistGroupRoute.name: (routeData) {
+      final args = routeData.argsAs<AddUsersToExistGroupRouteArgs>();
       return AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const AddUsersToExistGroupScreen(),
+        child: AddUsersToExistGroupScreen(
+          key: args.key,
+          groupModel: args.groupModel,
+        ),
       );
     },
     AddUsersToGroupRoute.name: (routeData) {
@@ -50,9 +60,13 @@ abstract class _$AppRouter extends RootStackRouter {
       );
     },
     ChannelChatRoute.name: (routeData) {
+      final args = routeData.argsAs<ChannelChatRouteArgs>();
       return AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const ChannelChatScreen(),
+        child: ChannelChatScreen(
+          key: args.key,
+          channelModel: args.channelListModel,
+        ),
       );
     },
     ChatRoute.name: (routeData) {
@@ -178,30 +192,89 @@ abstract class _$AppRouter extends RootStackRouter {
 
 /// generated route for
 /// [AddUsersToChannelScreen]
-class AddUsersToChannelRoute extends PageRouteInfo<void> {
-  const AddUsersToChannelRoute({List<PageRouteInfo>? children})
-      : super(
+class AddUsersToChannelRoute extends PageRouteInfo<AddUsersToChannelRouteArgs> {
+  AddUsersToChannelRoute({
+    Key? key,
+    required String channelName,
+    required String about,
+    File? avatar,
+    List<PageRouteInfo>? children,
+  }) : super(
           AddUsersToChannelRoute.name,
+          args: AddUsersToChannelRouteArgs(
+            key: key,
+            channelName: channelName,
+            about: about,
+            avatar: avatar,
+          ),
           initialChildren: children,
         );
 
   static const String name = 'AddUsersToChannelRoute';
 
-  static const PageInfo<void> page = PageInfo<void>(name);
+  static const PageInfo<AddUsersToChannelRouteArgs> page =
+      PageInfo<AddUsersToChannelRouteArgs>(name);
+}
+
+class AddUsersToChannelRouteArgs {
+  const AddUsersToChannelRouteArgs({
+    this.key,
+    required this.channelName,
+    required this.about,
+    this.avatar,
+  });
+
+  final Key? key;
+
+  final String channelName;
+
+  final String about;
+
+  final File? avatar;
+
+  @override
+  String toString() {
+    return 'AddUsersToChannelRouteArgs{key: $key, channelName: $channelName, about: $about, avatar: $avatar}';
+  }
 }
 
 /// generated route for
 /// [AddUsersToExistGroupScreen]
-class AddUsersToExistGroupRoute extends PageRouteInfo<void> {
-  const AddUsersToExistGroupRoute({List<PageRouteInfo>? children})
-      : super(
+class AddUsersToExistGroupRoute
+    extends PageRouteInfo<AddUsersToExistGroupRouteArgs> {
+  AddUsersToExistGroupRoute({
+    Key? key,
+    required GroupListModel groupModel,
+    List<PageRouteInfo>? children,
+  }) : super(
           AddUsersToExistGroupRoute.name,
+          args: AddUsersToExistGroupRouteArgs(
+            key: key,
+            groupModel: groupModel,
+          ),
           initialChildren: children,
         );
 
   static const String name = 'AddUsersToExistGroupRoute';
 
-  static const PageInfo<void> page = PageInfo<void>(name);
+  static const PageInfo<AddUsersToExistGroupRouteArgs> page =
+      PageInfo<AddUsersToExistGroupRouteArgs>(name);
+}
+
+class AddUsersToExistGroupRouteArgs {
+  const AddUsersToExistGroupRouteArgs({
+    this.key,
+    required this.groupModel,
+  });
+
+  final Key? key;
+
+  final GroupListModel groupModel;
+
+  @override
+  String toString() {
+    return 'AddUsersToExistGroupRouteArgs{key: $key, groupModel: $groupModel}';
+  }
 }
 
 /// generated route for
@@ -272,16 +345,40 @@ class ChannelChatInfoRoute extends PageRouteInfo<void> {
 
 /// generated route for
 /// [ChannelChatScreen]
-class ChannelChatRoute extends PageRouteInfo<void> {
-  const ChannelChatRoute({List<PageRouteInfo>? children})
-      : super(
+class ChannelChatRoute extends PageRouteInfo<ChannelChatRouteArgs> {
+  ChannelChatRoute({
+    Key? key,
+    required GroupListModel channelModel,
+    List<PageRouteInfo>? children,
+  }) : super(
           ChannelChatRoute.name,
+          args: ChannelChatRouteArgs(
+            key: key,
+            channelListModel: channelModel,
+          ),
           initialChildren: children,
         );
 
   static const String name = 'ChannelChatRoute';
 
-  static const PageInfo<void> page = PageInfo<void>(name);
+  static const PageInfo<ChannelChatRouteArgs> page =
+      PageInfo<ChannelChatRouteArgs>(name);
+}
+
+class ChannelChatRouteArgs {
+  const ChannelChatRouteArgs({
+    this.key,
+    required this.channelListModel,
+  });
+
+  final Key? key;
+
+  final GroupListModel channelListModel;
+
+  @override
+  String toString() {
+    return 'ChannelChatRouteArgs{key: $key, channelListModel: $channelListModel}';
+  }
 }
 
 /// generated route for

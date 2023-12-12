@@ -37,6 +37,44 @@ class CreateGroupBloc extends Bloc<CreateGroupEvent, CreateGroupState> {
       }
       emit(CreateGroupLoading(isLoading: false));
     });
+
+    on<CreateChannel>((event, emit) async {
+      emit(CreateGroupLoading(isLoading: true));
+      try {
+        final groupModel = await _groupRepository.createChannel(
+            event.channelName,
+            event.avatar,
+            event.memebers.map((e) => e.uid).toList());
+
+        final groupListModel = GroupListModel(
+            uid: groupModel.uid,
+            name: groupModel.name,
+            members: groupModel.members,
+            creator: groupModel.creator,
+            avatar: groupModel.avatar,
+            isGroup: groupModel.isGroup);
+
+        emit(CreateGroupSuccess(groupListModel: groupListModel));
+      } catch (e, st) {
+        GetIt.I<Talker>().handle(e, st);
+        emit(CreateGroupFailure(exception: e));
+      }
+      emit(CreateGroupLoading(isLoading: false));
+    });
+
+    on<AddMemebersToExistGroup>((event, emit) async {
+      emit(CreateGroupLoading(isLoading: true));
+      try {
+        await _groupRepository.addMembersToExistGroup(
+            event.groupId, event.newMemebers.map((e) => e.uid).toList());
+
+        emit(AddMemebersToExistGroupSuccess());
+      } catch (e, st) {
+        GetIt.I<Talker>().handle(e, st);
+        emit(AddMemebersToExistGroupFailure(exception: e));
+      }
+      emit(CreateGroupLoading(isLoading: false));
+    });
   }
 
   final AbstractGroupRepository _groupRepository;

@@ -127,7 +127,7 @@ class _AnotherUserInfoScreenState extends State<AnotherUserInfoScreen> {
               dense: true,
               contentPadding: EdgeInsets.zero,
               title: Text(
-                S.of(context).userInformation,
+                widget.userModel.about ?? '',
                 style: const TextStyle(fontSize: 14),
               ),
               subtitle: Text(

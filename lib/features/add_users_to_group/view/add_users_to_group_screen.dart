@@ -90,10 +90,10 @@ class _AddUsersToGroupScreenState extends State<AddUsersToGroupScreen> {
                   focusedBorder: const OutlineInputBorder(
                       borderSide: BorderSide(color: Colors.white),
                       borderRadius: BorderRadius.zero))),
-          BlocBuilder<UsersListBloc, ListState>(
+          BlocBuilder<UsersListBloc, UsersListState>(
             bloc: _usersListBloc,
             builder: (context, state) {
-              if (state is ListLoaded) {
+              if (state is UsersListLoaded) {
                 _selectedUsers = _convertToMapList(
                     state.chatsList.map((e) => e as UserListModel).toList());
                 return Expanded(
@@ -109,7 +109,7 @@ class _AddUsersToGroupScreenState extends State<AddUsersToGroupScreen> {
                   },
                 ));
               }
-              if (state is ListLoadingFailure) {
+              if (state is UsersListLoadingFailure) {
                 return Center(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,

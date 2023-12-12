@@ -14,6 +14,16 @@ class CreateChannelScreen extends StatefulWidget {
 }
 
 class _CreateChannelScreenState extends State<CreateChannelScreen> {
+  final _channelNameTextController = TextEditingController();
+  final _channelDescriptionTextController = TextEditingController();
+
+  @override
+  void dispose() {
+    _channelNameTextController.dispose();
+    _channelDescriptionTextController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -32,8 +42,10 @@ class _CreateChannelScreenState extends State<CreateChannelScreen> {
           CupertinoIcons.arrow_right,
           color: Colors.white,
         ),
-        onPressed: () =>
-            AutoRouter.of(context).push(const ChooseChannelTypeRoute()),
+        onPressed: () => AutoRouter.of(context).push(AddUsersToChannelRoute(
+          channelName: _channelNameTextController.text,
+          about: _channelDescriptionTextController.text,
+        )),
       ),
       backgroundColor: Colors.blueGrey[50],
       body: Column(children: [
@@ -59,6 +71,7 @@ class _CreateChannelScreenState extends State<CreateChannelScreen> {
                 child: Container(
                   margin: const EdgeInsets.only(right: 16),
                   child: TextFormField(
+                    controller: _channelNameTextController,
                     style: const TextStyle(fontSize: 14, color: Colors.black),
                     decoration: InputDecoration(
                         hintText: S.of(context).channelName,
@@ -95,6 +108,7 @@ class _CreateChannelScreenState extends State<CreateChannelScreen> {
                 Container(
                   margin: const EdgeInsets.only(right: 16),
                   child: TextFormField(
+                    controller: _channelDescriptionTextController,
                     maxLength: 600,
                     style: const TextStyle(fontSize: 14, color: Colors.black),
                     decoration: InputDecoration(

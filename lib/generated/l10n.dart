@@ -530,10 +530,10 @@ class S {
     );
   }
 
-  /// `Add participants`
+  /// `Add members`
   String get addParticipants {
     return Intl.message(
-      'Add participants',
+      'Add members',
       name: 'addParticipants',
       desc: '',
       args: [],
@@ -860,10 +860,10 @@ class S {
     );
   }
 
-  /// `Aelete`
+  /// `Delete`
   String get delete {
     return Intl.message(
-      'Aelete',
+      'Delete',
       name: 'delete',
       desc: '',
       args: [],
@@ -965,6 +965,16 @@ class S {
     return Intl.message(
       'Recording...',
       name: 'recording',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Messages are blocked`
+  String get messagesAreBlocked {
+    return Intl.message(
+      'Messages are blocked',
+      name: 'messagesAreBlocked',
       desc: '',
       args: [],
     );

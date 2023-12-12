@@ -25,6 +25,20 @@ class CreateGroupSuccess extends CreateGroupState {
   List<Object?> get props => [groupListModel];
 }
 
+class AddMemebersToExistGroupSuccess extends CreateGroupState {
+  @override
+  List<Object?> get props => [];
+}
+
+class AddMemebersToExistGroupFailure extends CreateGroupState {
+  final Object exception;
+
+  AddMemebersToExistGroupFailure({required this.exception});
+
+  @override
+  List<Object?> get props => [];
+}
+
 class CreateGroupFailure extends CreateGroupState {
   final Object exception;
 

@@ -4,4 +4,5 @@ abstract class AbstractChatsListRepository {
   Future<List<ChatModel>> getChatsList();
   Future<List<UserListModel>> getUsersList();
   Future<List<UserListModel>> getGroupUsersList(String groupId);
+  Future<List<UserListModel>> getNotGroupUsersList(String groupId);
 }

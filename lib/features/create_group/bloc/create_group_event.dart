@@ -13,3 +13,29 @@ class CreateGroup extends CreateGroupEvent {
   @override
   List<Object?> get props => [groupName, avatar, memebers];
 }
+
+class CreateChannel extends CreateGroupEvent {
+  final String channelName;
+  final String about;
+  final File? avatar;
+  final List<UserListModel> memebers;
+
+  CreateChannel(
+      {required this.channelName,
+      required this.about,
+      required this.avatar,
+      required this.memebers});
+
+  @override
+  List<Object?> get props => [channelName, about, avatar, memebers];
+}
+
+class AddMemebersToExistGroup extends CreateGroupEvent {
+  final String groupId;
+  final List<UserListModel> newMemebers;
+
+  AddMemebersToExistGroup({required this.groupId, required this.newMemebers});
+
+  @override
+  List<Object?> get props => [groupId, newMemebers];
+}

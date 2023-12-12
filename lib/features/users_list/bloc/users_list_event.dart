@@ -18,5 +18,14 @@ class LoadGroupUsersList extends UsersListEvent {
   LoadGroupUsersList({required this.groupId});
 
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => [groupId];
+}
+
+class LoadNotGroupMembersList extends UsersListEvent {
+  final String groupId;
+
+  LoadNotGroupMembersList({required this.groupId});
+
+  @override
+  List<Object?> get props => [groupId];
 }

@@ -52,6 +52,42 @@ class GroupRepository extends AbstractGroupRepository {
   }
 
   @override
+  Future<GroupModel> createChannel(
+      String name, File? avatar, List<String> members) async {
+    String? imageUrl;
+    if (avatar != null) {
+      final ext = avatar.path.split('.').last;
+
+      final ref = _storage.ref().child(
+          'images/${_firebaseAuth.currentUser!.uid}/${DateTime.now().millisecondsSinceEpoch}.$ext');
+
+      await ref
+          .putFile(avatar, SettableMetadata(contentType: 'image/$ext'))
+          .then((p0) {
+        GetIt.I<Talker>()
+            .info('Data Transferred: ${p0.bytesTransferred / 1000} kb');
+      });
+
+      imageUrl = await ref.getDownloadURL();
+    }
+
+    members.add(_firebaseAuth.currentUser!.uid);
+
+    final groupModel = GroupModel(
+        uid: const Uuid().v4(),
+        name: name,
+        about: null,
+        avatar: imageUrl,
+        creator: _firebaseAuth.currentUser!.uid,
+        isGroup: false,
+        members: members);
+
+    await _db.collection("groups").doc(groupModel.uid).set(groupModel.toMap());
+
+    return groupModel;
+  }
+
+  @override
   Future<List<Message>> getMessages(String userId, String groupId) async {
     var messageList = <Message>[];
 
@@ -173,6 +209,24 @@ class GroupRepository extends AbstractGroupRepository {
       final msg = await sendMessage(groupId, videoUrl, MessageType.video);
 
       return msg;
+    } catch (e, st) {
+      GetIt.I<Talker>().handle(e, st);
+      throw Exception(st);
+    }
+  }
+
+  @override
+  Future<void> addMembersToExistGroup(
+      String groupId, List<String> newMembers) async {
+    try {
+      final group = await _db.collection('groups').doc(groupId).get();
+      var currentMembers = List<String>.from(group['members'] ?? []);
+
+      currentMembers.addAll(newMembers);
+
+      await _db.collection('groups').doc(groupId).update({
+        'members': currentMembers,
+      });
     } catch (e, st) {
       GetIt.I<Talker>().handle(e, st);
       throw Exception(st);

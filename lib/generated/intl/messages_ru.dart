@@ -91,6 +91,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "mailRequired":
             MessageLookupByLibrary.simpleMessage("Почта(обязательно)"),
         "message": MessageLookupByLibrary.simpleMessage("Сообщение"),
+        "messagesAreBlocked":
+            MessageLookupByLibrary.simpleMessage("Messages are blocked"),
         "min6Symbols":
             MessageLookupByLibrary.simpleMessage("Минимально 6 символов"),
         "nParticipants": m0,

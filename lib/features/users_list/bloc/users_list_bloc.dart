@@ -8,14 +8,14 @@ import 'package:talker_flutter/talker_flutter.dart';
 part 'users_list_event.dart';
 part 'users_list_state.dart';
 
-class UsersListBloc extends Bloc<UsersListEvent, ListState> {
-  UsersListBloc(this.chatsListRepository) : super(ListInitial()) {
+class UsersListBloc extends Bloc<UsersListEvent, UsersListState> {
+  UsersListBloc(this.chatsListRepository) : super(UsersListInitial()) {
     on<LoadChatsList>((event, emit) async {
       try {
         final chatsList = await chatsListRepository.getChatsList();
-        emit(ListLoaded(chatsList: chatsList));
+        emit(UsersListLoaded(chatsList: chatsList));
       } catch (e, st) {
-        emit(ListLoadingFailure(exception: e));
+        emit(UsersListLoadingFailure(exception: e));
         GetIt.I<Talker>().handle(e, st);
       }
     });
@@ -23,9 +23,9 @@ class UsersListBloc extends Bloc<UsersListEvent, ListState> {
     on<LoadUsersList>((event, emit) async {
       try {
         final usersList = await chatsListRepository.getUsersList();
-        emit(ListLoaded(chatsList: usersList));
+        emit(UsersListLoaded(chatsList: usersList));
       } catch (e, st) {
-        emit(ListLoadingFailure(exception: e));
+        emit(UsersListLoadingFailure(exception: e));
         GetIt.I<Talker>().handle(e, st);
       }
     });
@@ -34,9 +34,20 @@ class UsersListBloc extends Bloc<UsersListEvent, ListState> {
       try {
         final usersList =
             await chatsListRepository.getGroupUsersList(event.groupId);
-        emit(ListLoaded(chatsList: usersList));
+        emit(UsersListLoaded(chatsList: usersList));
       } catch (e, st) {
-        emit(ListLoadingFailure(exception: e));
+        emit(UsersListLoadingFailure(exception: e));
+        GetIt.I<Talker>().handle(e, st);
+      }
+    });
+
+    on<LoadNotGroupMembersList>((event, emit) async {
+      try {
+        final usersList =
+            await chatsListRepository.getNotGroupUsersList(event.groupId);
+        emit(UsersListLoaded(chatsList: usersList));
+      } catch (e, st) {
+        emit(UsersListLoadingFailure(exception: e));
         GetIt.I<Talker>().handle(e, st);
       }
     });
