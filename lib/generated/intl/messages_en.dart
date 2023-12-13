@@ -62,6 +62,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "createGroup": MessageLookupByLibrary.simpleMessage("Create a group"),
         "delete": MessageLookupByLibrary.simpleMessage("Delete"),
         "deleteChannel": MessageLookupByLibrary.simpleMessage("Delete channel"),
+        "deleteTheChannel":
+            MessageLookupByLibrary.simpleMessage("Delete the channel"),
+        "deleteTheGroup":
+            MessageLookupByLibrary.simpleMessage("Delete the group"),
         "description": MessageLookupByLibrary.simpleMessage("Description"),
         "disableNotifications":
             MessageLookupByLibrary.simpleMessage("Disable notifications"),
@@ -87,6 +91,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Invitation link"),
         "languageSettings":
             MessageLookupByLibrary.simpleMessage("Language settings"),
+        "leaveTheChannel":
+            MessageLookupByLibrary.simpleMessage("Leave the channel"),
         "leaveTheGroup":
             MessageLookupByLibrary.simpleMessage("Leave the group"),
         "link": MessageLookupByLibrary.simpleMessage("link"),

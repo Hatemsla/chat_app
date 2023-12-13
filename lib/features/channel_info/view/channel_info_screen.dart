@@ -2,14 +2,20 @@
 
 import 'package:auto_route/auto_route.dart';
 import 'package:chat_app/features/settings/settings.dart';
+import 'package:chat_app/features/users_list/bloc/users_list_bloc.dart';
 import 'package:chat_app/generated/l10n.dart';
+import 'package:chat_app/repositories/auth/auth.dart';
+import 'package:chat_app/repositories/users_list/users_list.dart';
 import 'package:chat_app/router/router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get_it/get_it.dart';
 
 @RoutePage()
 class ChannelChatInfoScreen extends StatefulWidget {
-  const ChannelChatInfoScreen({super.key});
+  const ChannelChatInfoScreen({super.key, required this.channelModel});
+
+  final GroupListModel channelModel;
 
   @override
   State<ChannelChatInfoScreen> createState() => _ChannelChatInfoScreenState();
@@ -17,6 +23,13 @@ class ChannelChatInfoScreen extends StatefulWidget {
 
 class _ChannelChatInfoScreenState extends State<ChannelChatInfoScreen> {
   bool _notifications = true;
+  final _usersListBloc = UsersListBloc(GetIt.I<AbstractChatsListRepository>());
+
+  @override
+  void initState() {
+    _usersListBloc.add(LoadGroupUsersList(groupId: widget.channelModel.uid));
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,13 +43,13 @@ class _ChannelChatInfoScreenState extends State<ChannelChatInfoScreen> {
                 child: Icon(Icons.person),
               ),
               title: Text(
-                S.of(context).channelName,
+                widget.channelModel.name,
                 softWrap: false,
                 style: const TextStyle(
                     color: Colors.white, fontWeight: FontWeight.w600),
               ),
               subtitle: Text(
-                S.of(context).channelType,
+                S.of(context).publicChannel,
                 style: const TextStyle(color: Colors.white70),
               )),
           backgroundColor: theme.primaryColor,
@@ -107,13 +120,9 @@ class _ChannelChatInfoScreenState extends State<ChannelChatInfoScreen> {
                   visualDensity: VisualDensity.compact,
                   dense: true,
                   contentPadding: EdgeInsets.zero,
-                  title: const Text(
-                    "hate.me/sdahfasjdpfe304",
-                    style: TextStyle(fontSize: 14),
-                  ),
-                  subtitle: Text(
-                    S.of(context).invitationLink,
-                    style: const TextStyle(fontWeight: FontWeight.normal),
+                  title: Text(
+                    widget.channelModel.about ?? '',
+                    style: const TextStyle(fontSize: 14),
                   ),
                 ),
                 ListTile(
@@ -147,56 +156,87 @@ class _ChannelChatInfoScreenState extends State<ChannelChatInfoScreen> {
             const SizedBox(
               height: 10,
             ),
-            Column(
-              children: [
-                InkWell(
-                  onTap: () {},
-                  child: Container(
-                    decoration: const BoxDecoration(color: Colors.white),
-                    child: ListTile(
-                      dense: true,
-                      title: Text(
-                        S.of(context).subscribers,
-                        style: const TextStyle(
-                            fontWeight: FontWeight.w500, fontSize: 14),
-                      ),
-                      leading: const Icon(
-                        Icons.people_outline,
-                        color: Colors.black45,
-                      ),
-                      trailing: Text(
-                        "1",
-                        style:
-                            TextStyle(color: theme.primaryColor, fontSize: 14),
+            InkWell(
+              onTap: () => AutoRouter.of(context).popAndPush(
+                  AddUsersToExistGroupRoute(groupModel: widget.channelModel)),
+              child: Container(
+                decoration: const BoxDecoration(color: Colors.white),
+                child: Row(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(12).copyWith(left: 16),
+                      child: Icon(
+                        Icons.person_add_outlined,
+                        color: theme.primaryColor,
                       ),
                     ),
-                  ),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 12),
+                      child: Text(
+                        S.of(context).addParticipants,
+                        style: TextStyle(
+                            color: theme.primaryColor,
+                            fontWeight: FontWeight.normal),
+                      ),
+                    )
+                  ],
                 ),
-                InkWell(
-                  onTap: () {},
-                  child: Container(
-                    decoration: const BoxDecoration(color: Colors.white),
-                    child: ListTile(
-                      dense: true,
-                      title: Text(
-                        S.of(context).administrators,
-                        style: const TextStyle(
-                            fontWeight: FontWeight.w500, fontSize: 14),
-                      ),
-                      leading: const Icon(
-                        Icons.stars_outlined,
-                        color: Colors.black45,
-                      ),
-                      trailing: Text(
-                        "1",
-                        style:
-                            TextStyle(color: theme.primaryColor, fontSize: 14),
-                      ),
-                    ),
-                  ),
-                ),
-              ],
+              ),
             ),
+            const SizedBox(
+              height: 10,
+            ),
+            if (UserPreferences.userModel!.uid == widget.channelModel.creator)
+              Column(
+                children: [
+                  InkWell(
+                    onTap: () {},
+                    child: Container(
+                      decoration: const BoxDecoration(color: Colors.white),
+                      child: ListTile(
+                        dense: true,
+                        title: Text(
+                          S.of(context).subscribers,
+                          style: const TextStyle(
+                              fontWeight: FontWeight.w500, fontSize: 14),
+                        ),
+                        leading: const Icon(
+                          Icons.people_outline,
+                          color: Colors.black45,
+                        ),
+                        trailing: Text(
+                          (widget.channelModel.members.length - 1).toString(),
+                          style: TextStyle(
+                              color: theme.primaryColor, fontSize: 14),
+                        ),
+                      ),
+                    ),
+                  ),
+                  InkWell(
+                    onTap: () {},
+                    child: Container(
+                      decoration: const BoxDecoration(color: Colors.white),
+                      child: ListTile(
+                        dense: true,
+                        title: Text(
+                          S.of(context).administrators,
+                          style: const TextStyle(
+                              fontWeight: FontWeight.w500, fontSize: 14),
+                        ),
+                        leading: const Icon(
+                          Icons.stars_outlined,
+                          color: Colors.black45,
+                        ),
+                        trailing: Text(
+                          "1",
+                          style: TextStyle(
+                              color: theme.primaryColor, fontSize: 14),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
           ],
         ));
   }

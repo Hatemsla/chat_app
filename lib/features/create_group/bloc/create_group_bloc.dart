@@ -17,7 +17,6 @@ class CreateGroupBloc extends Bloc<CreateGroupEvent, CreateGroupState> {
     on<CreateGroupEvent>((event, emit) {});
 
     on<CreateGroup>((event, emit) async {
-      emit(CreateGroupLoading(isLoading: true));
       try {
         final groupModel = await _groupRepository.createGroup(event.groupName,
             event.avatar, event.memebers.map((e) => e.uid).toList());
@@ -35,11 +34,31 @@ class CreateGroupBloc extends Bloc<CreateGroupEvent, CreateGroupState> {
         GetIt.I<Talker>().handle(e, st);
         emit(CreateGroupFailure(exception: e));
       }
-      emit(CreateGroupLoading(isLoading: false));
+    });
+
+    on<DeleteGroup>((event, emit) async {
+      try {
+        await _groupRepository.deleteGroup(event.groupId);
+
+        emit(DeleteGroupSuccess());
+      } catch (e, st) {
+        GetIt.I<Talker>().handle(e, st);
+        emit(DeleteGroupFailure(exception: e));
+      }
+    });
+
+    on<RemoveUserFromGroup>((event, emit) async {
+      try {
+        await _groupRepository.removeUserFromGroup(event.groupId, event.userId);
+
+        emit(RemoveUserFromGroupSuccess());
+      } catch (e, st) {
+        GetIt.I<Talker>().handle(e, st);
+        emit(RemoveUserFromGroupFailure(exception: e));
+      }
     });
 
     on<CreateChannel>((event, emit) async {
-      emit(CreateGroupLoading(isLoading: true));
       try {
         final groupModel = await _groupRepository.createChannel(
             event.channelName,
@@ -59,11 +78,9 @@ class CreateGroupBloc extends Bloc<CreateGroupEvent, CreateGroupState> {
         GetIt.I<Talker>().handle(e, st);
         emit(CreateGroupFailure(exception: e));
       }
-      emit(CreateGroupLoading(isLoading: false));
     });
 
     on<AddMemebersToExistGroup>((event, emit) async {
-      emit(CreateGroupLoading(isLoading: true));
       try {
         await _groupRepository.addMembersToExistGroup(
             event.groupId, event.newMemebers.map((e) => e.uid).toList());
@@ -73,7 +90,6 @@ class CreateGroupBloc extends Bloc<CreateGroupEvent, CreateGroupState> {
         GetIt.I<Talker>().handle(e, st);
         emit(AddMemebersToExistGroupFailure(exception: e));
       }
-      emit(CreateGroupLoading(isLoading: false));
     });
   }
 

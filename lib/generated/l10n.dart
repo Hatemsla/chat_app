@@ -979,6 +979,36 @@ class S {
       args: [],
     );
   }
+
+  /// `Delete the group`
+  String get deleteTheGroup {
+    return Intl.message(
+      'Delete the group',
+      name: 'deleteTheGroup',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Delete the channel`
+  String get deleteTheChannel {
+    return Intl.message(
+      'Delete the channel',
+      name: 'deleteTheChannel',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Leave the channel`
+  String get leaveTheChannel {
+    return Intl.message(
+      'Leave the channel',
+      name: 'leaveTheChannel',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

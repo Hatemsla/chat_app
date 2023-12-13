@@ -8,12 +8,13 @@ class CreateGroupInitial extends CreateGroupState {
 }
 
 class CreateGroupLoading extends CreateGroupState {
-  final bool isLoading;
-
-  CreateGroupLoading({required this.isLoading});
-
   @override
-  List<Object?> get props => [isLoading];
+  List<Object?> get props => [];
+}
+
+class DeleteGroupLoading extends CreateGroupState {
+  @override
+  List<Object?> get props => [];
 }
 
 class CreateGroupSuccess extends CreateGroupState {
@@ -23,6 +24,29 @@ class CreateGroupSuccess extends CreateGroupState {
 
   @override
   List<Object?> get props => [groupListModel];
+}
+
+class CreateGroupFailure extends CreateGroupState {
+  final Object exception;
+
+  CreateGroupFailure({required this.exception});
+
+  @override
+  List<Object?> get props => [exception];
+}
+
+class DeleteGroupSuccess extends CreateGroupState {
+  @override
+  List<Object?> get props => [];
+}
+
+class DeleteGroupFailure extends CreateGroupState {
+  final Object exception;
+
+  DeleteGroupFailure({required this.exception});
+
+  @override
+  List<Object?> get props => [exception];
 }
 
 class AddMemebersToExistGroupSuccess extends CreateGroupState {
@@ -39,11 +63,16 @@ class AddMemebersToExistGroupFailure extends CreateGroupState {
   List<Object?> get props => [];
 }
 
-class CreateGroupFailure extends CreateGroupState {
+class RemoveUserFromGroupSuccess extends CreateGroupState {
+  @override
+  List<Object?> get props => [];
+}
+
+class RemoveUserFromGroupFailure extends CreateGroupState {
   final Object exception;
 
-  CreateGroupFailure({required this.exception});
+  RemoveUserFromGroupFailure({required this.exception});
 
   @override
-  List<Object?> get props => [exception];
+  List<Object?> get props => [];
 }

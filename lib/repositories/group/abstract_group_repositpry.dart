@@ -7,6 +7,8 @@ abstract class AbstractGroupRepository {
   Future<List<Message>> getMessages(String userId, String groupId);
   Future<GroupModel> createGroup(
       String name, File? avatar, List<String> members);
+  Future<void> deleteGroup(String groupId);
+  Future<void> removeUserFromGroup(String groupId, String userId);
   Future<GroupModel> createChannel(
       String name, File? avatar, List<String> members);
   Future<void> addMembersToExistGroup(String groupId, List<String> newMembers);

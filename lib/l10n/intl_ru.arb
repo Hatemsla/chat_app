@@ -89,5 +89,8 @@
   "passwordsNotEqual": "Пароли не равны",
   "pleaseTryAgainLater": "Пожалуйста, попробуйте еще раз",
   "recording": "Запись..",
-  "messagesAreBlocked": "Messages are blocked"
+  "messagesAreBlocked": "Сообщения запрещены",
+  "deleteTheGroup": "Удалить группу",
+  "deleteTheChannel": "Удалить канал",
+  "leaveTheChannel": "Покинуть канал"
 }

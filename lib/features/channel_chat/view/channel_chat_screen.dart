@@ -5,6 +5,7 @@ import 'dart:io';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:chat_app/features/chat/widgets/chat_bubble.dart';
+import 'package:chat_app/features/create_group/bloc/create_group_bloc.dart';
 import 'package:chat_app/features/group_chat/group_file_message_bloc/group_file_message_bloc.dart';
 import 'package:chat_app/features/group_chat/group_message_bloc/group_message_bloc.dart';
 import 'package:chat_app/features/group_chat/group_messages_bloc/group_messages_bloc.dart';
@@ -38,6 +39,7 @@ class _ChannelChatScreenState extends State<ChannelChatScreen> {
   final _messageBloc = GroupMessageBloc(GetIt.I<AbstractGroupRepository>());
   final _fileMessageBloc =
       GroupFileMessageBloc(GetIt.I<AbstractGroupRepository>());
+  final _groupBloc = CreateGroupBloc(GetIt.I<AbstractGroupRepository>());
   final _messageController = TextEditingController();
   final _messagesScrollController = ScrollController();
   bool _isMessageNotEmpty = false;
@@ -131,8 +133,8 @@ class _ChannelChatScreenState extends State<ChannelChatScreen> {
           surfaceTintColor: theme.primaryColor,
           title: ListTile(
             contentPadding: EdgeInsets.zero,
-            onTap: () =>
-                AutoRouter.of(context).push(const ChannelChatInfoRoute()),
+            onTap: () => AutoRouter.of(context)
+                .push(ChannelChatInfoRoute(channelModel: widget.channelModel)),
             leading: const CircleAvatar(
               child: Icon(Icons.person),
             ),
@@ -216,26 +218,56 @@ class _ChannelChatScreenState extends State<ChannelChatScreen> {
                         ],
                       )),
                       PopupMenuItem(
-                          onTap: () => AutoRouter.of(context)
-                              .popAndPush(const UsersListRoute()),
-                          child: Row(
-                            children: [
-                              const Padding(
-                                padding: EdgeInsets.all(8.0),
-                                child: Icon(
-                                  Icons.exit_to_app_outlined,
-                                  size: 28,
+                          child:
+                              BlocConsumer<CreateGroupBloc, CreateGroupState>(
+                        bloc: _groupBloc,
+                        listener: (context, state) {
+                          if (state is DeleteGroupSuccess) {
+                            AutoRouter.of(context)
+                                .popAndPush(const UsersListRoute());
+                          }
+                          if (state is RemoveUserFromGroupSuccess) {
+                            AutoRouter.of(context)
+                                .popAndPush(const UsersListRoute());
+                          }
+                        },
+                        builder: (context, state) {
+                          return InkWell(
+                            onTap: () {
+                              if (widget.channelModel.creator ==
+                                  UserPreferences.userModel!.uid) {
+                                _groupBloc.add(DeleteGroup(
+                                    groupId: widget.channelModel.uid));
+                              } else {
+                                _groupBloc.add(RemoveUserFromGroup(
+                                    userId: UserPreferences.userModel!.uid,
+                                    groupId: widget.channelModel.uid));
+                              }
+                            },
+                            child: Row(
+                              children: [
+                                const Padding(
+                                  padding: EdgeInsets.all(8.0),
+                                  child: Icon(
+                                    Icons.exit_to_app_outlined,
+                                    size: 28,
+                                  ),
                                 ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Text(
-                                  S.of(context).exitGroup,
-                                  style: const TextStyle(fontSize: 16),
-                                ),
-                              )
-                            ],
-                          )),
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Text(
+                                    widget.channelModel.creator ==
+                                            UserPreferences.userModel!.uid
+                                        ? S.of(context).deleteTheChannel
+                                        : S.of(context).leaveTheChannel,
+                                    style: const TextStyle(fontSize: 16),
+                                  ),
+                                )
+                              ],
+                            ),
+                          );
+                        },
+                      )),
                     ]),
           ],
           centerTitle: true,

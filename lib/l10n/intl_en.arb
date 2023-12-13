@@ -91,5 +91,8 @@
   "passwordsNotEqual": "Passwords not equal",
   "pleaseTryAgainLater": "Please try again later",
   "recording": "Recording...",
-  "messagesAreBlocked": "Messages are blocked"
+  "messagesAreBlocked": "Messages are blocked",
+  "deleteTheGroup": "Delete the group",
+  "deleteTheChannel": "Delete the channel",
+  "leaveTheChannel": "Leave the channel"
 }

@@ -63,6 +63,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "createGroup": MessageLookupByLibrary.simpleMessage("Создать группу"),
         "delete": MessageLookupByLibrary.simpleMessage("Удалить"),
         "deleteChannel": MessageLookupByLibrary.simpleMessage("Удалить канал"),
+        "deleteTheChannel":
+            MessageLookupByLibrary.simpleMessage("Удалить канал"),
+        "deleteTheGroup":
+            MessageLookupByLibrary.simpleMessage("Удалить группу"),
         "description": MessageLookupByLibrary.simpleMessage("Описание"),
         "disableNotifications":
             MessageLookupByLibrary.simpleMessage("Выключить уведомления"),
@@ -84,6 +88,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Ссылка-приглашение"),
         "languageSettings":
             MessageLookupByLibrary.simpleMessage("Настройки языка"),
+        "leaveTheChannel":
+            MessageLookupByLibrary.simpleMessage("Покинуть канал"),
         "leaveTheGroup":
             MessageLookupByLibrary.simpleMessage("Покинуть группу"),
         "link": MessageLookupByLibrary.simpleMessage("cсылка"),
@@ -92,7 +98,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Почта(обязательно)"),
         "message": MessageLookupByLibrary.simpleMessage("Сообщение"),
         "messagesAreBlocked":
-            MessageLookupByLibrary.simpleMessage("Messages are blocked"),
+            MessageLookupByLibrary.simpleMessage("Сообщения запрещены"),
         "min6Symbols":
             MessageLookupByLibrary.simpleMessage("Минимально 6 символов"),
         "nParticipants": m0,

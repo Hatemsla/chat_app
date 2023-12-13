@@ -5,6 +5,7 @@ import 'dart:io';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:chat_app/features/chat/chat.dart';
+import 'package:chat_app/features/create_group/bloc/create_group_bloc.dart';
 import 'package:chat_app/features/group_chat/group_file_message_bloc/group_file_message_bloc.dart';
 import 'package:chat_app/features/group_chat/group_message_bloc/group_message_bloc.dart';
 import 'package:chat_app/features/group_chat/group_messages_bloc/group_messages_bloc.dart';
@@ -38,6 +39,7 @@ class _GroupChatScreenState extends State<GroupChatScreen> {
   final _messageBloc = GroupMessageBloc(GetIt.I<AbstractGroupRepository>());
   final _fileMessageBloc =
       GroupFileMessageBloc(GetIt.I<AbstractGroupRepository>());
+  final _groupBloc = CreateGroupBloc(GetIt.I<AbstractGroupRepository>());
   final _messageController = TextEditingController();
   final _messagesScrollController = ScrollController();
   bool _isMessageNotEmpty = false;
@@ -225,26 +227,56 @@ class _GroupChatScreenState extends State<GroupChatScreen> {
                             ],
                           )),
                           PopupMenuItem(
-                              onTap: () => AutoRouter.of(context)
-                                  .popAndPush(const UsersListRoute()),
-                              child: Row(
-                                children: [
-                                  const Padding(
-                                    padding: EdgeInsets.all(8.0),
-                                    child: Icon(
-                                      Icons.exit_to_app_outlined,
-                                      size: 28,
+                              child: BlocConsumer<CreateGroupBloc,
+                                  CreateGroupState>(
+                            bloc: _groupBloc,
+                            listener: (context, state) {
+                              if (state is DeleteGroupSuccess) {
+                                AutoRouter.of(context)
+                                    .popAndPush(const UsersListRoute());
+                              }
+                              if (state is RemoveUserFromGroupSuccess) {
+                                AutoRouter.of(context)
+                                    .popAndPush(const UsersListRoute());
+                              }
+                            },
+                            builder: (context, state) {
+                              return InkWell(
+                                onTap: () {
+                                  if (widget.groupModel.creator ==
+                                      UserPreferences.userModel!.uid) {
+                                    _groupBloc.add(DeleteGroup(
+                                        groupId: widget.groupModel.uid));
+                                  } else {
+                                    _groupBloc.add(RemoveUserFromGroup(
+                                        userId: UserPreferences.userModel!.uid,
+                                        groupId: widget.groupModel.uid));
+                                  }
+                                },
+                                child: Row(
+                                  children: [
+                                    const Padding(
+                                      padding: EdgeInsets.all(8.0),
+                                      child: Icon(
+                                        Icons.exit_to_app_outlined,
+                                        size: 28,
+                                      ),
                                     ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Text(
-                                      S.of(context).exitGroup,
-                                      style: const TextStyle(fontSize: 16),
-                                    ),
-                                  )
-                                ],
-                              )),
+                                    Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Text(
+                                        widget.groupModel.creator ==
+                                                UserPreferences.userModel!.uid
+                                            ? S.of(context).deleteTheGroup
+                                            : S.of(context).exitGroup,
+                                        style: const TextStyle(fontSize: 16),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              );
+                            },
+                          )),
                         ]),
               ],
               centerTitle: true,

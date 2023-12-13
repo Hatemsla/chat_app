@@ -14,6 +14,15 @@ class CreateGroup extends CreateGroupEvent {
   List<Object?> get props => [groupName, avatar, memebers];
 }
 
+class DeleteGroup extends CreateGroupEvent {
+  final String groupId;
+
+  DeleteGroup({required this.groupId});
+
+  @override
+  List<Object?> get props => [groupId];
+}
+
 class CreateChannel extends CreateGroupEvent {
   final String channelName;
   final String about;
@@ -38,4 +47,14 @@ class AddMemebersToExistGroup extends CreateGroupEvent {
 
   @override
   List<Object?> get props => [groupId, newMemebers];
+}
+
+class RemoveUserFromGroup extends CreateGroupEvent {
+  final String userId;
+  final String groupId;
+
+  RemoveUserFromGroup({required this.userId, required this.groupId});
+
+  @override
+  List<Object?> get props => [userId];
 }

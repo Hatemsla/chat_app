@@ -232,4 +232,26 @@ class GroupRepository extends AbstractGroupRepository {
       throw Exception(st);
     }
   }
+
+  @override
+  Future<void> deleteGroup(String groupId) async {
+    try {
+      await _db.collection('groups').doc(groupId).delete();
+    } catch (e, st) {
+      GetIt.I<Talker>().handle(e, st);
+      throw Exception(st);
+    }
+  }
+
+  @override
+  Future<void> removeUserFromGroup(String groupId, String userId) async {
+    try {
+      await _db.collection('groups').doc(groupId).update({
+        'members': FieldValue.arrayRemove([userId])
+      });
+    } catch (e, st) {
+      GetIt.I<Talker>().handle(e, st);
+      throw Exception(st);
+    }
+  }
 }

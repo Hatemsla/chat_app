@@ -54,9 +54,13 @@ abstract class _$AppRouter extends RootStackRouter {
       );
     },
     ChannelChatInfoRoute.name: (routeData) {
+      final args = routeData.argsAs<ChannelChatInfoRouteArgs>();
       return AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const ChannelChatInfoScreen(),
+        child: ChannelChatInfoScreen(
+          key: args.key,
+          channelModel: args.channelModel,
+        ),
       );
     },
     ChannelChatRoute.name: (routeData) {
@@ -65,7 +69,7 @@ abstract class _$AppRouter extends RootStackRouter {
         routeData: routeData,
         child: ChannelChatScreen(
           key: args.key,
-          channelModel: args.channelListModel,
+          channelModel: args.channelModel,
         ),
       );
     },
@@ -331,16 +335,40 @@ class AnotherUserInfoRouteArgs {
 
 /// generated route for
 /// [ChannelChatInfoScreen]
-class ChannelChatInfoRoute extends PageRouteInfo<void> {
-  const ChannelChatInfoRoute({List<PageRouteInfo>? children})
-      : super(
+class ChannelChatInfoRoute extends PageRouteInfo<ChannelChatInfoRouteArgs> {
+  ChannelChatInfoRoute({
+    Key? key,
+    required GroupListModel channelModel,
+    List<PageRouteInfo>? children,
+  }) : super(
           ChannelChatInfoRoute.name,
+          args: ChannelChatInfoRouteArgs(
+            key: key,
+            channelModel: channelModel,
+          ),
           initialChildren: children,
         );
 
   static const String name = 'ChannelChatInfoRoute';
 
-  static const PageInfo<void> page = PageInfo<void>(name);
+  static const PageInfo<ChannelChatInfoRouteArgs> page =
+      PageInfo<ChannelChatInfoRouteArgs>(name);
+}
+
+class ChannelChatInfoRouteArgs {
+  const ChannelChatInfoRouteArgs({
+    this.key,
+    required this.channelModel,
+  });
+
+  final Key? key;
+
+  final GroupListModel channelModel;
+
+  @override
+  String toString() {
+    return 'ChannelChatInfoRouteArgs{key: $key, channelModel: $channelModel}';
+  }
 }
 
 /// generated route for
@@ -354,7 +382,7 @@ class ChannelChatRoute extends PageRouteInfo<ChannelChatRouteArgs> {
           ChannelChatRoute.name,
           args: ChannelChatRouteArgs(
             key: key,
-            channelListModel: channelModel,
+            channelModel: channelModel,
           ),
           initialChildren: children,
         );
@@ -368,16 +396,16 @@ class ChannelChatRoute extends PageRouteInfo<ChannelChatRouteArgs> {
 class ChannelChatRouteArgs {
   const ChannelChatRouteArgs({
     this.key,
-    required this.channelListModel,
+    required this.channelModel,
   });
 
   final Key? key;
 
-  final GroupListModel channelListModel;
+  final GroupListModel channelModel;
 
   @override
   String toString() {
-    return 'ChannelChatRouteArgs{key: $key, channelListModel: $channelListModel}';
+    return 'ChannelChatRouteArgs{key: $key, channelModel: $channelModel}';
   }
 }
 

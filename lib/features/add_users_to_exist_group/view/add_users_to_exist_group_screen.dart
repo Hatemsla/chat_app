@@ -28,6 +28,7 @@ class _AddUsersToExistGroupScreenState
   final _usersListBloc = UsersListBloc(GetIt.I<AbstractChatsListRepository>());
   final _createGroupBloc = CreateGroupBloc(GetIt.I<AbstractGroupRepository>());
   late List<Map<UserListModel, bool>> _selectedUsers;
+  var selectedUsers = <UserListModel>[];
 
   @override
   void initState() {
@@ -46,8 +47,15 @@ class _AddUsersToExistGroupScreenState
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-            onPressed: () => AutoRouter.of(context)
-                .popAndPush(GroupChatInfoRoute(groupModel: widget.groupModel)),
+            onPressed: () {
+              if (widget.groupModel.isGroup) {
+                AutoRouter.of(context).popAndPush(
+                    GroupChatInfoRoute(groupModel: widget.groupModel));
+              } else {
+                AutoRouter.of(context).popAndPush(
+                    ChannelChatInfoRoute(channelModel: widget.groupModel));
+              }
+            },
             icon: const Icon(Icons.arrow_back)),
         title: Text(
           S.of(context).addParticipants,
@@ -60,8 +68,14 @@ class _AddUsersToExistGroupScreenState
         bloc: _createGroupBloc,
         listener: (context, state) {
           if (state is AddMemebersToExistGroupSuccess) {
-            AutoRouter.of(context)
-                .popAndPush(GroupChatInfoRoute(groupModel: widget.groupModel));
+            if (widget.groupModel.isGroup) {
+              AutoRouter.of(context).popAndPush(
+                  GroupChatInfoRoute(groupModel: widget.groupModel));
+            } else {
+              widget.groupModel.members.addAll(selectedUsers.map((e) => e.uid));
+              AutoRouter.of(context).popAndPush(
+                  ChannelChatInfoRoute(channelModel: widget.groupModel));
+            }
           } else if (state is CreateGroupFailure) {
             showDialog(
                 context: context,
@@ -91,7 +105,7 @@ class _AddUsersToExistGroupScreenState
               color: Colors.white,
             ),
             onPressed: () {
-              List<UserListModel> selectedUsers = _selectedUsers
+              selectedUsers = _selectedUsers
                   .where((userMap) => userMap.values.first == true)
                   .map((userMap) => userMap.keys.first)
                   .toList();
