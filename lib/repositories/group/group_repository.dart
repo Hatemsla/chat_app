@@ -11,9 +11,17 @@ import 'package:talker_flutter/talker_flutter.dart';
 import 'package:uuid/uuid.dart';
 
 class GroupRepository extends AbstractGroupRepository {
-  final FirebaseFirestore _db = FirebaseFirestore.instance;
-  final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
-  final FirebaseStorage _storage = FirebaseStorage.instance;
+  final FirebaseFirestore _db;
+  final FirebaseAuth _firebaseAuth;
+  final FirebaseStorage _storage;
+
+  GroupRepository(
+      {required FirebaseFirestore db,
+      required FirebaseAuth firebaseAuth,
+      required FirebaseStorage storage})
+      : _db = db,
+        _firebaseAuth = firebaseAuth,
+        _storage = storage;
 
   @override
   Future<GroupModel> createGroup(

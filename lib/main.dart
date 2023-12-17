@@ -1,7 +1,10 @@
 import 'dart:async';
 
 import 'package:chat_app/repositories/group/group.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
@@ -36,14 +39,18 @@ void main() {
         settings: const TalkerBlocLoggerSettings(
             printStateFullData: false, printEventFullData: false));
 
-    GetIt.I
-        .registerLazySingleton<AbstractAuthRepository>(() => AuthRepository());
+    final auth = FirebaseAuth.instance;
+    final db = FirebaseFirestore.instance;
+    final storage = FirebaseStorage.instance;
+
+    GetIt.I.registerLazySingleton<AbstractAuthRepository>(
+        () => AuthRepository(firebaseAuth: auth, db: db));
     GetIt.I.registerLazySingleton<AbstractChatsListRepository>(
         () => ChatsListRepository());
-    GetIt.I
-        .registerLazySingleton<AbstractChatRepository>(() => ChatRepository());
+    GetIt.I.registerLazySingleton<AbstractChatRepository>(
+        () => ChatRepository(firebaseAuth: auth, db: db, storage: storage));
     GetIt.I.registerLazySingleton<AbstractGroupRepository>(
-        () => GroupRepository());
+        () => GroupRepository(firebaseAuth: auth, db: db, storage: storage));
 
     FlutterError.onError =
         (details) => GetIt.I<Talker>().handle(details.exception, details.stack);

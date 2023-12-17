@@ -10,9 +10,17 @@ import 'package:chat_app/repositories/chat/abstract_chat_repository.dart';
 import 'package:chat_app/repositories/chat/models/message_model.dart';
 
 class ChatRepository extends AbstractChatRepository {
-  final FirebaseFirestore _db = FirebaseFirestore.instance;
-  final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
-  final FirebaseStorage _storage = FirebaseStorage.instance;
+  final FirebaseFirestore _db;
+  final FirebaseAuth _firebaseAuth;
+  final FirebaseStorage _storage;
+
+  ChatRepository(
+      {required FirebaseFirestore db,
+      required FirebaseAuth firebaseAuth,
+      required FirebaseStorage storage})
+      : _db = db,
+        _firebaseAuth = firebaseAuth,
+        _storage = storage;
 
   @override
   Future<List<Message>> getMessages(String userId, String otherUserId) async {

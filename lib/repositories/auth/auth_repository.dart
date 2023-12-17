@@ -6,8 +6,13 @@ import 'package:talker_flutter/talker_flutter.dart';
 import 'abstract_auth_repository.dart';
 
 class AuthRepository extends AbstractAuthRepository {
-  final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
-  final FirebaseFirestore _db = FirebaseFirestore.instance;
+  final FirebaseAuth _firebaseAuth;
+  final FirebaseFirestore _db;
+
+  AuthRepository(
+      {required FirebaseAuth firebaseAuth, required FirebaseFirestore db})
+      : _firebaseAuth = firebaseAuth,
+        _db = db;
 
   @override
   Future<UserModel?> signInWithEmailAndPassword(

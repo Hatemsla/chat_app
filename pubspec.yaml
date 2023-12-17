@@ -42,6 +42,10 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  mockito: ^5.4.3
+  firebase_auth_mocks: ^0.13.0
+  fake_cloud_firestore: ^2.4.4
+  firebase_storage_mocks: ^0.6.1
   flutter_lints: ^3.0.1
   auto_route_generator: ^7.3.2
   build_runner: ^2.4.7
